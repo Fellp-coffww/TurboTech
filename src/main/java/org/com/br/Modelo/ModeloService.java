@@ -20,7 +20,7 @@ public class ModeloService implements ModeloRepository{
                     +     "values(?,?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, modelo.getDescricao());
-            preparedStatement.setString(1, modelo.getIdMarca());
+            preparedStatement.setLong(2, modelo.getIdMarca());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             //Erro do comando SQL - chave, coluna, nome da tabela, ...
@@ -37,11 +37,11 @@ public class ModeloService implements ModeloRepository{
         ResultSet rs = statement.executeQuery(sql);
         rs.next();
         Modelo modelo = new Modelo(rs.getLong("idModelo"), rs.getString("descricao"));
-        return marca;
+        return modelo;
     }
 
     @Override
-    public List<Modelo> getMModelo() throws Exception {
+    public List<Modelo> getModelo() throws Exception {
 
         String sql = "select * from Modelo";
         Statement statement = connection.createStatement();
@@ -49,8 +49,8 @@ public class ModeloService implements ModeloRepository{
         List<Modelo> modelos = new ArrayList<Modelo>();
 
         while(rs.next()){
-            Modelo modelo = new Modelo(rs.getLong("idMarca"), rs.getString("descricao"));
-            marcas.add(modelo);
+            Modelo modelo = new Modelo(rs.getLong("idModelo"), rs.getString("descricao"));
+            modelos.add(modelo);
         }
 
         return modelos;
@@ -62,8 +62,8 @@ public class ModeloService implements ModeloRepository{
         String sql = "update Modelo  Set descricao = ?,idMarca = ? where idModelo = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, modelo.getDescricao());
-        preparedStatement.setString(2, modelo.getIdMarca());
-        preparedStatement.setLong(3, modelo.getIdMarca());
+        preparedStatement.setLong(2, modelo.getIdMarca());
+        preparedStatement.setLong(3, modelo.getIdModelo());
         preparedStatement.executeUpdate();
 
         } catch (SQLException erro) {
@@ -75,10 +75,10 @@ public class ModeloService implements ModeloRepository{
 }
 
     @Override
-    public void deleteMarca(Long id) throws Exception {
+    public void deleteModelo(Long id) throws Exception {
 
         try {
-            String sql = "delete from Marca where idMarca = " + id;
+            String sql = "delete from Modelo where idModelo = " + id;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
@@ -88,5 +88,22 @@ public class ModeloService implements ModeloRepository{
             throw new Exception("Incluir Persistencia: " + erro);
         }
 
+    }
+
+    @Override
+    public List<Modelo> getModeloByModeloId(long id) throws Exception {
+
+        String sql = "select * from Modelo where column idMarca = " + id;
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+        List<Modelo> modelos = new ArrayList<Modelo>();
+
+        while(rs.next()){
+            Modelo modelo = new Modelo(rs.getLong("idModelo"), rs.getString("descricao"));
+            modelos.add(modelo);
+        }
+
+        return modelos;
     }
 }

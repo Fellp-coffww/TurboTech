@@ -8,11 +8,11 @@ public interface ModeloRepository {
 
     public Modelo getModeloById(Long id) throws Exception;
 
-    public List<Marca> getModelo() throws Exception;
+    public List<Modelo> getModelo() throws Exception;
 
-    public void updateModelo(Marca marca) throws Exception;
+    public void updateModelo(Modelo modelo) throws Exception;
 
     public void deleteModelo(Long id) throws Exception;
 
-
+    public List<Modelo> getModelosByModeloId(Long id) throws Exception;
 }

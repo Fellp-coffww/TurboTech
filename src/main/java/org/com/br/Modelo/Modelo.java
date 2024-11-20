@@ -16,6 +16,6 @@ public class Modelo{
 
     private String descricao;
 
-    private int idMarca;
+    private long idMarca;
 
 }

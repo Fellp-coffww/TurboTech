@@ -14,5 +14,7 @@ public interface PecaRepository {
 
     public void deletePeca(Long id) throws Exception;
 
+    public List<Peca> getPecaBydescricao(String descricao) throws Exception;
 
+    public List<Peca> getPecaBycodigo(String codigo) throws Exception;
 }
