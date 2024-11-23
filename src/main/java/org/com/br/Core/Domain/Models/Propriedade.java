@@ -1,23 +1,30 @@
 package org.com.br.Core.Domain.Models;
 
-import java.util.Date;
-
 public class Propriedade {
 
     private long idPropriedade;
 
-    private Date dataInicio;
+    private int dataInicio;
 
-    private Date dataFim;
+    private int dataFim;
 
+    private long idCliente;
 
-    public Propriedade(long idPropriedade, Date dataInicio, Date dataFim) {
-        this.idPropriedade = idPropriedade;
-        this.dataInicio = dataInicio;
+    private String placa;
+
+    public Propriedade(long idPropriedade, int dataFim, int dataInicio, long idCliente,  String placa) {
         this.dataFim = dataFim;
+        this.dataInicio = dataInicio;
+        this.idCliente = idCliente;
+        this.idPropriedade = idPropriedade;
+        this.placa = placa;
     }
 
-    public Propriedade() {
+    public Propriedade(int dataInicio, int dataFim, long idCliente, String placa) {
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.idCliente = idCliente;
+        this.placa = placa;
     }
 
     public long getIdPropriedade() {
@@ -28,19 +35,35 @@ public class Propriedade {
         this.idPropriedade = idPropriedade;
     }
 
-    public Date getDataInicio() {
+    public int getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
+    public void setDataInicio(int dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public Date getDataFim() {
+    public int getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(Date dataFim) {
+    public void setDataFim(int dataFim) {
         this.dataFim = dataFim;
+    }
+
+    public long getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(long idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 }

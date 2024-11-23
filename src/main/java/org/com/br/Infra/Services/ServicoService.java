@@ -19,12 +19,11 @@ public class ServicoService implements ServicoRepository {
     @Override
     public void createServico(Servico servico) throws Exception {
         try {
-            String sql =  "insert into Servico(idServico, descricao, valorUnitario)"
-                    +     "values(? , ? , ?);";
+            String sql =  "insert into Servico(descricao, valorUnitario)"
+                    +     "values(? , ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, servico.getIdServico());
-            preparedStatement.setString(2, servico.getDescricao());
-            preparedStatement.setDouble(3, servico.getValorUnitario());
+            preparedStatement.setString(1, servico.getDescricao());
+            preparedStatement.setDouble(2, servico.getValorUnitario());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             //Erro do comando SQL - chave, coluna, nome da tabela, ...
@@ -66,8 +65,8 @@ public class ServicoService implements ServicoRepository {
         String sql = "update Servico  Set descricao = ?, valorUnitario = ? where idServico = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, servico.getDescricao());
-        preparedStatement.setLong(3, servico.getIdServico());
         preparedStatement.setDouble(2, servico.getValorUnitario());
+        preparedStatement.setLong(3, servico.getIdServico());
         preparedStatement.executeUpdate();
 
         } catch (SQLException erro) {

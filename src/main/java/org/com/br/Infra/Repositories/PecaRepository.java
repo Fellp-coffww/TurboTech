@@ -1,8 +1,8 @@
 package org.com.br.Infra.Repositories;
 
-import org.com.br.Core.Domain.Models.Peca;
-
 import java.util.List;
+
+import org.com.br.Core.Domain.Models.Peca;
 
 public interface PecaRepository {
 
@@ -16,5 +16,7 @@ public interface PecaRepository {
 
     public void deletePeca(Long id) throws Exception;
 
+    public Peca getPecaBydescricao(String descricao) throws Exception;
 
+    public Peca getPecaBycodigo(String codigo) throws Exception;
 }

@@ -1,8 +1,8 @@
 package org.com.br.Infra.Repositories;
 
-import org.com.br.Core.Domain.Models.Modelo;
-
 import java.util.List;
+
+import org.com.br.Core.Domain.Models.Modelo;
 
 public interface ModeloRepository {
 
@@ -16,5 +16,5 @@ public interface ModeloRepository {
 
     public void deleteModelo(Long id) throws Exception;
 
-
+    public List<Modelo> getModelosByMarcaId(Long id) throws Exception;
 }

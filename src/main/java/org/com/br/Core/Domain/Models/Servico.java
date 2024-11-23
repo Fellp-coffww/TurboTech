@@ -1,15 +1,5 @@
 package org.com.br.Core.Domain.Models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-
 public class Servico {
 
     private Long IdServico;
@@ -18,4 +8,40 @@ public class Servico {
 
     private Double valorUnitario;
 
+    public Servico(String descricao, Double valorUnitario) {
+        this.descricao = descricao;
+        this.valorUnitario = valorUnitario;
+    }
+
+    public Servico(Long IdServico, String descricao, Double valorUnitario) {
+        this.IdServico = IdServico;
+        this.descricao = descricao;
+        this.valorUnitario = valorUnitario;
+    }
+
+    public Long getIdServico() {
+        return IdServico;
+    }
+
+    public void setIdServico(Long idServico) {
+        IdServico = idServico;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(Double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
 }
+

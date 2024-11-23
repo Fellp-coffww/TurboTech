@@ -1,13 +1,12 @@
 package org.com.br.Infra.Repositories;
 
-import org.com.br.Core.Domain.Models.Marca;
-import org.com.br.Core.Domain.Models.Oficina;
-
 import java.util.List;
+
+import org.com.br.Core.Domain.Models.Oficina;
 
 public interface OficinaRepository {
 
-    public void createOficina(Marca marca) throws Exception;
+    public void createOficina(Oficina oficina) throws Exception;
 
     public Oficina getOficinaById(Long id) throws Exception;
 

@@ -1,19 +1,34 @@
 package org.com.br.Core.Domain.Models;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Marca {
 
     private Long idMarca;
 
     private String descricao;
+
+    public Marca(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Marca(Long idMarca, String descricao) {
+        this.descricao = descricao;
+        this.idMarca = idMarca;
+    }
+
+    public Long getIdMarca() {
+        return idMarca;
+    }
+
+    public void setIdMarca(Long idMarca) {
+        this.idMarca = idMarca;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
 }

@@ -8,25 +8,23 @@ public class Veiculo {
 
     private String Kilometragem;
 
-    private Modelo modelo;
+    private long idModelo;
 
-    private Propriedade Propriedade;
+    private Long idPropriedade;
 
     private int ano;
 
     private int nPropriedade;
 
-    public Veiculo(String placa, String chassi, String kilometragem, Modelo modelo, Propriedade propriedade, int ano, int nPropriedade) {
+
+    public Veiculo(String placa, String chassi, String kilometragem, Long idModelo, Long idPropriedade, int ano, int nPropriedade) {
         this.placa = placa;
         this.chassi = chassi;
-        Kilometragem = kilometragem;
-        this.modelo = modelo;
-        Propriedade = propriedade;
+        this.Kilometragem = kilometragem;
+        this.idModelo = idModelo;
+        this.idPropriedade = idPropriedade;
         this.ano = ano;
         this.nPropriedade = nPropriedade;
-    }
-
-    public Veiculo() {
     }
 
     public String getPlaca() {
@@ -49,24 +47,24 @@ public class Veiculo {
         return Kilometragem;
     }
 
-    public void setKilometragem(String kilometragem) {
-        Kilometragem = kilometragem;
+    public void setKilometragem(String Kilometragem) {
+        this.Kilometragem = Kilometragem;
     }
 
-    public Modelo getModelo() {
-        return modelo;
+    public long getIdModelo() {
+        return idModelo;
     }
 
-    public void setModelo(Modelo modelo) {
-        this.modelo = modelo;
+    public void setIdModelo(long idModelo) {
+        this.idModelo = idModelo;
     }
 
-    public Propriedade getPropriedade() {
-        return Propriedade;
+    public Long getIdPropriedade() {
+        return idPropriedade;
     }
 
-    public void setPropriedade(Propriedade propriedade) {
-        Propriedade = propriedade;
+    public void setIdPropriedade(Long idPropriedade) {
+        this.idPropriedade = idPropriedade;
     }
 
     public int getAno() {
@@ -84,4 +82,7 @@ public class Veiculo {
     public void setnPropriedade(int nPropriedade) {
         this.nPropriedade = nPropriedade;
     }
+
+    
+    
 }

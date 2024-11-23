@@ -37,7 +37,7 @@ public class MarcaService implements MarcaRepository {
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         rs.next();
-        Marca marca = new Marca(rs.getLong("idMarca"), rs.getString("descricao"));
+        Marca marca = new Marca(rs.getLong("idMarca"),rs.getString("descrição"));
         return marca;
     }
 
