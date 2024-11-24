@@ -2,25 +2,29 @@ package org.com.br.Core.Domain.Models;
 
 public class PessoaJuridica {
 
-    private long idCliente;
+    private String cnpj;
 
     private String nome;
 
-    private String cnpj;
-
     private String email;
 
-    private String complemento;
+    private String ddi1;
+
+    private String ddd1;
+
+    private String telefone1;
+
+    private String ddi2;
+
+    private String ddd2;
+
+    private String telefone2;
 
     private String logradouro;
 
-    private String numero;
+    private String complemento;
 
-    private int ddi;
-
-    private int ddd;
-
-    private int telefone;
+    private String numeroEnd;
 
     private String inscricaoEstadual;
 
@@ -28,43 +32,23 @@ public class PessoaJuridica {
 
     private String razaoSocial;
 
-    public PessoaJuridica(String cnpj, String complemento, String contato, int ddd, int ddi, String email, String inscricaoEstadual, String logradouro, String nome, String numero, String razaoSocial, int telefone) {
+    public PessoaJuridica(String cnpj, String nome, String email, String ddi1, String ddd1, String telefone1, String ddi2, String ddd2, String telefone2, String logradouro,
+                          String complemento, String numeroEnd, String inscricaoEstadual, String contato, String razaoSocial) {
         this.cnpj = cnpj;
-        this.complemento = complemento;
-        this.contato = contato;
-        this.ddd = ddd;
-        this.ddi = ddi;
-        this.email = email;
-        this.inscricaoEstadual = inscricaoEstadual;
-        this.logradouro = logradouro;
         this.nome = nome;
-        this.numero = numero;
-        this.razaoSocial = razaoSocial;
-        this.telefone = telefone;
-    }
-
-    public PessoaJuridica(Long idCliente, String nome, String cpf, String email, String complemento, String logradouro, String numero, int ddi, int ddd, int telefone, String inscricaoEstadual, String contato, String razaoSocial) {
-        this.cnpj = cnpj;
-        this.complemento = complemento;
-        this.contato = contato;
-        this.ddd = ddd;
-        this.ddi = ddi;
         this.email = email;
-        this.idCliente = idCliente;
-        this.inscricaoEstadual = inscricaoEstadual;
+        this.ddi1 = ddi1;
+        this.ddd1 = ddd1;
+        this.telefone1 = telefone1;
+        this.ddi2 = ddi2;
+        this.ddd2 = ddd2;
+        this.telefone2 = telefone2;
         this.logradouro = logradouro;
-        this.nome = nome;
-        this.numero = numero;
+        this.complemento = complemento;
+        this.numeroEnd = numeroEnd;
+        this.inscricaoEstadual = inscricaoEstadual;
+        this.contato = contato;
         this.razaoSocial = razaoSocial;
-        this.telefone = telefone;
-    }
-
-    public long getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(long idCliente) {
-        this.idCliente = idCliente;
     }
 
     public String getNome() {
@@ -107,38 +91,6 @@ public class PessoaJuridica {
         this.logradouro = logradouro;
     }
 
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public int getDdi() {
-        return ddi;
-    }
-
-    public void setDdi(int ddi) {
-        this.ddi = ddi;
-    }
-
-    public int getDdd() {
-        return ddd;
-    }
-
-    public void setDdd(int ddd) {
-        this.ddd = ddd;
-    }
-
-    public int getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(int telefone) {
-        this.telefone = telefone;
-    }
-
     public String getInscricaoEstadual() {
         return inscricaoEstadual;
     }
@@ -163,5 +115,59 @@ public class PessoaJuridica {
         this.razaoSocial = razaoSocial;
     }
 
+    public String getDdi1() {
+        return ddi1;
+    }
 
+    public void setDdi1(String ddi1) {
+        this.ddi1 = ddi1;
+    }
+
+    public String getDdd1() {
+        return ddd1;
+    }
+
+    public void setDdd1(String ddd1) {
+        this.ddd1 = ddd1;
+    }
+
+    public String getTelefone1() {
+        return telefone1;
+    }
+
+    public void setTelefone1(String telefone1) {
+        this.telefone1 = telefone1;
+    }
+
+    public String getDdi2() {
+        return ddi2;
+    }
+
+    public void setDdi2(String ddi2) {
+        this.ddi2 = ddi2;
+    }
+
+    public String getDdd2() {
+        return ddd2;
+    }
+
+    public void setDdd2(String ddd2) {
+        this.ddd2 = ddd2;
+    }
+
+    public String getTelefone2() {
+        return telefone2;
+    }
+
+    public void setTelefone2(String telefone2) {
+        this.telefone2 = telefone2;
+    }
+
+    public String getNumeroEnd() {
+        return numeroEnd;
+    }
+
+    public void setNumeroEnd(String numeroEnd) {
+        this.numeroEnd = numeroEnd;
+    }
 }

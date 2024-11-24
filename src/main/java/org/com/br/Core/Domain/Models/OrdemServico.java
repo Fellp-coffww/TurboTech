@@ -1,10 +1,12 @@
 package org.com.br.Core.Domain.Models;
 
+import java.sql.Date;
+
 public class OrdemServico {
 
-    private Long idOrdemServico;
+    private long idOrdemServico;
 
-    private String data;
+    private Date data;
 
     private String StatusOS;
 
@@ -12,21 +14,18 @@ public class OrdemServico {
 
     private double precoPago;
 
-    private String placa;
 
-    public OrdemServico(String StatusOS, String data, String placa, double precoPago, double precoTotal) {
+    public OrdemServico(String StatusOS, Date data, double precoPago, double precoTotal) {
         this.StatusOS = StatusOS;
         this.data = data;
-        this.placa = placa;
         this.precoPago = precoPago;
         this.precoTotal = precoTotal;
     }
 
-    public OrdemServico(Long idOrdemServico, String data, String StatusOS, double precoPago, double precoTotal, String placa) {
+    public OrdemServico(long idOrdemServico,String StatusOS, Date data,  double precoPago, double precoTotal) {
+        this.idOrdemServico = idOrdemServico;
         this.StatusOS = StatusOS;
         this.data = data;
-        this.idOrdemServico = idOrdemServico;
-        this.placa = placa;
         this.precoPago = precoPago;
         this.precoTotal = precoTotal;
     }
@@ -39,11 +38,11 @@ public class OrdemServico {
         this.idOrdemServico = idOrdemServico;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
@@ -71,12 +70,5 @@ public class OrdemServico {
         this.precoPago = precoPago;
     }
 
-    public String getPlaca() {
-        return placa;
-    }
-
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
 
 }

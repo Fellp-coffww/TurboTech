@@ -2,7 +2,7 @@ package org.com.br.Core.Domain.Models;
 
 public class Servico {
 
-    private Long IdServico;
+    private long IdServico;
 
     private String descricao;
 
@@ -13,7 +13,7 @@ public class Servico {
         this.valorUnitario = valorUnitario;
     }
 
-    public Servico(Long IdServico, String descricao, Double valorUnitario) {
+    public Servico(long IdServico, String descricao, Double valorUnitario) {
         this.IdServico = IdServico;
         this.descricao = descricao;
         this.valorUnitario = valorUnitario;

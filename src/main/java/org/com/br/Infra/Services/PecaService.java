@@ -1,5 +1,6 @@
 package org.com.br.Infra.Services;
 
+
 import org.com.br.Core.Domain.Models.Peca;
 import org.com.br.Infra.Configuration.DbConnection;
 import org.com.br.Infra.Repositories.PecaRepository;
@@ -18,7 +19,7 @@ public class PecaService implements PecaRepository {
     @Override
     public void createPeca(Peca peca) throws Exception {
         try {
-            String sql =  "insert into Peca(descricao,quantidade,valorUnitario,codigo)"
+            String sql =  "insert into Pecas(descricao,quantidade,valorUnitario,codigo)"
                     +     "values(?,?,?,?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, peca.getDescricao());
@@ -34,26 +35,26 @@ public class PecaService implements PecaRepository {
         }
     }
 
+
     @Override
-    public Peca getPecaById(Long id) throws Exception {
-        String sql = "select * from Peca where idPeca = " + id;
+    public Peca getPecaById(long id) throws Exception {
+        String sql = "select * from pecas where idpecas =" + id;
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         rs.next();
-        Peca peca = new Peca(rs.getLong("idPeca"),rs.getString("descrição"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("Codigo"));
+        Peca peca = new Peca(rs.getLong("idPecas"), rs.getString("descricao"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("codigo"));
         return peca;
     }
 
     @Override
     public List<Peca> getPecas() throws Exception {
-
-        String sql = "select * from Peca";
+        String sql = "select * from Pecas";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         List<Peca> pecas = new ArrayList<Peca>();
 
         while(rs.next()){
-            Peca peca = new Peca(rs.getLong("idPeca"),rs.getString("descrição"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("Codigo"));
+            Peca peca = new Peca(rs.getLong("idPecas"), rs.getString("descricao"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("codigo"));
             pecas.add(peca);
         }
 
@@ -63,13 +64,12 @@ public class PecaService implements PecaRepository {
     @Override
     public void updatePeca(Peca peca) throws Exception {
      try{
-        String sql = "update Peca  Set descricao = ?,quantidade = ?,valorUnitario = ?,codigo = ? where idPeca = ?";
+        String sql = "update Pecas  Set descricao = ?,quantidade = ?,valorUnitario = ?,codigo = ? where idPeca = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, peca.getDescricao());
         preparedStatement.setInt(2, peca.getQuantidade());
         preparedStatement.setDouble(3, peca.getValorUnitario());
         preparedStatement.setString(4, peca.getCodigo());
-        preparedStatement.setLong(5, peca.getIdPeca());
         preparedStatement.executeUpdate();
 
         } catch (SQLException erro) {
@@ -81,10 +81,10 @@ public class PecaService implements PecaRepository {
 }
 
     @Override
-    public void deletePeca(Long id) throws Exception {
+    public void deletePeca(long id) throws Exception {
 
         try {
-            String sql = "delete from Peca where idPeca = " + id;
+            String sql = "delete from Pecas where idPecas = " + id;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
@@ -96,21 +96,37 @@ public class PecaService implements PecaRepository {
 
     }
 
-    public Peca getPecaBydescricao(String descricao) throws Exception{
-        String sql = "select * from Peca where idPeca = " + descricao;
+    @Override
+    public List<Peca> getPecaBydescricao(String descricao) throws Exception {
+
+        String sql = "select * from Pecas where column descricao = " + descricao;
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
-        rs.next();
-        Peca peca = new Peca(rs.getLong("idPeca"),rs.getString("descrição"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("Codigo"));
-        return peca;
+        List<Peca> pecas = new ArrayList<Peca>();
+
+        while(rs.next()){
+            Peca peca = new Peca(rs.getLong("idPecas"), rs.getString("descricao"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("codigo"));
+            pecas.add(peca);
+        }
+
+        return pecas;
     }
 
-    public Peca getPecaBycodigo(String codigo) throws Exception{
-        String sql = "select * from Peca where idPeca = " + codigo;
+    @Override
+    public List<Peca> getPecaBycodigo(String codigo) throws Exception {
+
+        String sql = "select * from Pecas where  codigo = " + codigo;
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
-        rs.next();
-        Peca peca = new Peca(rs.getLong("idPeca"),rs.getString("descrição"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("Codigo"));
-        return peca;
+        List<Peca> pecas = new ArrayList<Peca>();
+
+        while(rs.next()){
+            Peca peca = new Peca(rs.getLong("idPecas"), rs.getString("descricao"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("codigo"));
+            pecas.add(peca);
+        }
+
+        return pecas;
     }
 }

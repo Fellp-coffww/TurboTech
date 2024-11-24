@@ -8,15 +8,15 @@ public interface PecaRepository {
 
     public void createPeca(Peca peca) throws Exception;
 
-    public Peca getPecaById(Long id) throws Exception;
+    public Peca getPecaById(long id) throws Exception;
 
     public List<Peca> getPecas() throws Exception;
 
     public void updatePeca(Peca peca) throws Exception;
 
-    public void deletePeca(Long id) throws Exception;
+    public void deletePeca(long id) throws Exception;
 
-    public Peca getPecaBydescricao(String descricao) throws Exception;
+    public List<Peca> getPecaBydescricao(String descricao) throws Exception;
 
-    public Peca getPecaBycodigo(String codigo) throws Exception;
+    public List<Peca> getPecaBycodigo(String codigo) throws Exception;
 }

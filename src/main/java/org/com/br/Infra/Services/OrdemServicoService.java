@@ -18,14 +18,13 @@ public class OrdemServicoService implements OrdemServicoRepository {
     @Override
     public void createOrdemServico(OrdemServico ordemServico) throws Exception {
         try {
-            String sql =  "insert into OrdemServico(data,statusOS,precoTotal,precoPago,placa)"
-                    +     "values(?,?,?,?,?);";
+            String sql =  "insert into OrdemServico(dataos,statusos,precoTotal,precoPago)"
+                    +     "values(?,?,?,?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, ordemServico.getData());
+            preparedStatement.setDate(1, ordemServico.getData());
             preparedStatement.setString(2, ordemServico.getStatusOS());
             preparedStatement.setDouble(3, ordemServico.getPrecoTotal());
             preparedStatement.setDouble(4, ordemServico.getPrecoPago());
-            preparedStatement.setString(5, ordemServico.getPlaca());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             //Erro do comando SQL - chave, coluna, nome da tabela, ...
@@ -36,12 +35,12 @@ public class OrdemServicoService implements OrdemServicoRepository {
     }
 
     @Override
-    public OrdemServico getOrdemServicoById(Long id) throws Exception {
-        String sql = "select * from OrdemServico where idOrdemServico = " + id;
+    public OrdemServico getOrdemServicoById(long id) throws Exception {
+        String sql = "select * from OrdemServico where idos = " + id;
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         rs.next();
-        OrdemServico ordemServico = new OrdemServico(rs.getLong("idOrdemServico"),rs.getString("data"), rs.getString("StatusOS"), rs.getDouble("precoTotal"), rs.getDouble("precoPago"), rs.getString("placa"));
+        OrdemServico ordemServico = new OrdemServico(rs.getLong("idos"), rs.getString("StatusOS"),rs.getDate("dataos"), rs.getDouble("precoTotal"), rs.getDouble("precoPago"));
         return ordemServico;
     }
 
@@ -54,7 +53,7 @@ public class OrdemServicoService implements OrdemServicoRepository {
         List<OrdemServico> ordensServicos = new ArrayList<OrdemServico>();
 
         while(rs.next()){
-            OrdemServico ordemServico = new OrdemServico(rs.getLong("idOrdemServico"),rs.getString("data"), rs.getString("StatusOS"), rs.getDouble("precoTotal"), rs.getDouble("precoPago"), rs.getString("placa"));
+            OrdemServico ordemServico = new OrdemServico(rs.getLong("idos"), rs.getString("StatusOS"),rs.getDate("dataos"),rs.getDouble("precoTotal"), rs.getDouble("precoPago"));
             ordensServicos.add(ordemServico);
         }
 
@@ -64,14 +63,13 @@ public class OrdemServicoService implements OrdemServicoRepository {
     @Override
     public void updateOrdemServico(OrdemServico ordemServico) throws Exception {
      try{
-        String sql = "update OrdemServico  Set data = ?,statusOS = ?,precoTotal = ?,precoPago = ?,placa = ? where idOrdemServico = ?";
+        String sql = "update OrdemServico  Set dataos = ?,statusos = ?,precoTotal = ?,precopago = ? where idos = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, ordemServico.getData());
+        preparedStatement.setDate(1, ordemServico.getData());
         preparedStatement.setString(2, ordemServico.getStatusOS());
         preparedStatement.setDouble(3, ordemServico.getPrecoTotal());
         preparedStatement.setDouble(4, ordemServico.getPrecoPago());
-        preparedStatement.setString(5, ordemServico.getPlaca());
-        preparedStatement.setLong(6, ordemServico.getIdOrdemServico());
+        preparedStatement.setLong(5, ordemServico.getIdOrdemServico());
         preparedStatement.executeUpdate();
 
         } catch (SQLException erro) {
@@ -83,10 +81,10 @@ public class OrdemServicoService implements OrdemServicoRepository {
 }
 
     @Override
-    public void deleteOrdemServico(Long id) throws Exception {
+    public void deleteOrdemServico(long id) throws Exception {
 
         try {
-            String sql = "delete from OrdemServico where idOrdemServico = " + id;
+            String sql = "delete from OrdemServico where idos = " + id;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {

@@ -20,7 +20,7 @@ public class ItemServicoService implements ItemServicoRepository {
     @Override
     public void createItemServico (ItemServico itemServico) throws Exception {
         try {
-            String sql =  "insert into ItemServico(idOrdemServico,idServico,cpf,quantidade,valorUnitario,valorTotal)"
+            String sql =  "insert into ItemServico(idOs,idServico,cpf,quantidade,valorUnitario,valorTotal)"
                     +     "values(?,?,?,?,?,?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, itemServico.getIdOrdemServico());
@@ -39,12 +39,12 @@ public class ItemServicoService implements ItemServicoRepository {
     }
 
     @Override
-    public ItemServico getItemServicoById(Long id) throws Exception {
+    public ItemServico getItemServicoById(long id) throws Exception {
         String sql = "select * from ItemServico where idItemServico = " + id;
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         rs.next();
-        ItemServico itemServico = new ItemServico(rs.getLong("idItemServico"),rs.getLong("IdOrdemServico"), rs.getLong("idServico"), rs.getString("cpf"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
+        ItemServico itemServico = new ItemServico(rs.getLong("idItemServico"),rs.getLong("idOs"), rs.getLong("idServico"), rs.getString("cpf"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
         return itemServico;
     }
 
@@ -57,7 +57,7 @@ public class ItemServicoService implements ItemServicoRepository {
         List<ItemServico> itemServicos = new ArrayList<ItemServico>();
 
         while(rs.next()){
-            ItemServico itemServico = new ItemServico(rs.getLong("idItemServico"),rs.getLong("IdOrdemServico"), rs.getLong("idServico"), rs.getString("cpf"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
+            ItemServico itemServico = new ItemServico(rs.getLong("idItemServico"),rs.getLong("idOs"), rs.getLong("idServico"), rs.getString("cpf"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
             itemServicos.add(itemServico);
         }
 
@@ -66,28 +66,28 @@ public class ItemServicoService implements ItemServicoRepository {
 
     @Override
     public void updateItemServico(ItemServico itemServico) throws Exception {
-     try{
-        String sql = "update ItemServico  Set idOrdemServico = ?,idServico = ?, cpf = ?,quantidade = ?,valorUnitario = ?,valorTotal = ? where idItemServico = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1, itemServico.getIdOrdemServico());
-        preparedStatement.setLong(2, itemServico.getIdServico());
-        preparedStatement.setString(3, itemServico.getCpf());
-        preparedStatement.setInt(4, itemServico.getQuantidade());
-        preparedStatement.setDouble(5, itemServico.getValorUnitario());
-        preparedStatement.setDouble(6, itemServico.getValorTotal());
-        preparedStatement.setLong(7, itemServico.getIdItemServico());
-        preparedStatement.executeUpdate();
+        try{
+            String sql = "update ItemServico  Set idOs = ?,idServico = ?, cpf = ?,quantidade = ?,valorUnitario = ?,valorTotal = ? where idItemServico = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, itemServico.getIdOrdemServico());
+            preparedStatement.setLong(2, itemServico.getIdServico());
+            preparedStatement.setString(3, itemServico.getCpf());
+            preparedStatement.setInt(4, itemServico.getQuantidade());
+            preparedStatement.setDouble(5, itemServico.getValorUnitario());
+            preparedStatement.setDouble(6, itemServico.getValorTotal());
+            preparedStatement.setLong(7, itemServico.getIdItemServico());
+            preparedStatement.executeUpdate();
 
-    } catch (SQLException erro) {
-        //Erro do comando SQL - chave, coluna, nome da tabela, ...
+        } catch (SQLException erro) {
+            //Erro do comando SQL - chave, coluna, nome da tabela, ...
             throw new Exception("SQL Erro: "+ erro.getMessage());
-       } catch(Exception erro){
+        } catch(Exception erro){
             throw new Exception("Incluir Persistencia: " + erro);
-       }
-}
+        }
+    }
 
     @Override
-    public void deleteItemServico(Long id) throws Exception {
+    public void deleteItemServico(long id) throws Exception {
 
         try {
             String sql = "delete from ItemServico where idItemServico = " + id;
@@ -102,5 +102,10 @@ public class ItemServicoService implements ItemServicoRepository {
 
     }
 
- 
+    @Override
+    public List<ItemServico> getItemServicoByOrdemServicoId(long id) throws Exception {
+        return List.of();
+    }
+
+
 }

@@ -10,21 +10,25 @@ public class Veiculo {
 
     private long idModelo;
 
-    private Long idPropriedade;
-
     private int ano;
 
-    private int nPropriedade;
+    private int nPatrimonio;
 
 
-    public Veiculo(String placa, String chassi, String kilometragem, Long idModelo, Long idPropriedade, int ano, int nPropriedade) {
+    public Veiculo(String placa, String chassi, String kilometragem, Long idModelo, int ano, int nPatrimonio) {
         this.placa = placa;
         this.chassi = chassi;
         this.Kilometragem = kilometragem;
         this.idModelo = idModelo;
-        this.idPropriedade = idPropriedade;
         this.ano = ano;
-        this.nPropriedade = nPropriedade;
+        this.nPatrimonio = nPatrimonio;
+    }
+
+    public Veiculo(String placa, String kilometragem, int ano, long idModelo) {
+        this.placa = placa;
+        Kilometragem = kilometragem;
+        this.ano = ano;
+        this.idModelo = idModelo;
     }
 
     public String getPlaca() {
@@ -59,14 +63,6 @@ public class Veiculo {
         this.idModelo = idModelo;
     }
 
-    public Long getIdPropriedade() {
-        return idPropriedade;
-    }
-
-    public void setIdPropriedade(Long idPropriedade) {
-        this.idPropriedade = idPropriedade;
-    }
-
     public int getAno() {
         return ano;
     }
@@ -76,11 +72,11 @@ public class Veiculo {
     }
 
     public int getnPropriedade() {
-        return nPropriedade;
+        return nPatrimonio;
     }
 
-    public void setnPropriedade(int nPropriedade) {
-        this.nPropriedade = nPropriedade;
+    public void setnPatrimonio(int nPropriedade) {
+        this.nPatrimonio = nPropriedade;
     }
 
     

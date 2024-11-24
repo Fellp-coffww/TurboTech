@@ -1,6 +1,7 @@
 package org.com.br.Infra.Services;
 
 import org.com.br.Core.Domain.Models.Funcionario;
+import org.com.br.Core.Domain.Rules.ValidaCPF;
 import org.com.br.Infra.Configuration.DbConnection;
 import org.com.br.Infra.Repositories.FuncionarioRepository;
 
@@ -17,6 +18,7 @@ public class FuncionarioService implements FuncionarioRepository {
     }
     @Override
     public void createFuncionario(Funcionario funcionario) throws Exception {
+        if (ValidaCPF.isCPFValid(funcionario.getCpf())) {
         try {
             String sql =  "insert into Funcionario(cpf, nome)"
                     +     "values( ?, ?);";
@@ -30,6 +32,11 @@ public class FuncionarioService implements FuncionarioRepository {
         } catch(Exception erro){
             throw new Exception("Incluir Persistencia: " + erro);
         }
+        } else{
+
+            throw new Exception("CPF inválido");
+        }
+
     }
 
     @Override
@@ -80,8 +87,9 @@ public class FuncionarioService implements FuncionarioRepository {
     public void deleteFuncionario(String cpf) throws Exception {
 
         try {
-            String sql = "delete from Funcionario where cpf = " + cpf;
+            String sql = "delete from Funcionario where cpf = ?" ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,cpf);
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             //Erro do comando SQL - chave, coluna, nome da tabela, ...
