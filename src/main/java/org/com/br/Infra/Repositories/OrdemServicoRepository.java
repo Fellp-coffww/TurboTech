@@ -8,12 +8,12 @@ public interface OrdemServicoRepository {
 
     public void createOrdemServico(OrdemServico ordemServico) throws Exception;
 
-    public OrdemServico getOrdemServicoById(Long id) throws Exception;
+    public OrdemServico getOrdemServicoById(long id) throws Exception;
 
     public List<OrdemServico> getOrdemServico() throws Exception;
 
     public void updateOrdemServico(OrdemServico ordemServico) throws Exception;
 
-    public void deleteOrdemServico(Long id) throws Exception;
+    public void deleteOrdemServico(long id) throws Exception;
 
 }

@@ -19,7 +19,7 @@ public class ItemPecaService implements ItemPecaRepository {
     @Override
     public void createItemPeca(ItemPeca itemPeca) throws Exception {
         try {
-            String sql =  "insert into Peca(idOrdemServico,idPeca,quantidade,valorUnitario,valorTotal)"
+            String sql =  "insert into itempeca(idos,idPeca,quantidade,valorUnitario,valorTotal)"
                     +     "values(?,?,?,?,?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, itemPeca.getIdOrdemServico());
@@ -37,12 +37,12 @@ public class ItemPecaService implements ItemPecaRepository {
     }
 
     @Override
-    public ItemPeca getItemPecaById(Long id) throws Exception {
+    public ItemPeca getItemPecaById(long id) throws Exception {
         String sql = "select * from ItemPeca where idItemPeca = " + id;
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         rs.next();
-        ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("IdOrdemServico"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
+        ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("idOs"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
         return itemPeca;
     }
 
@@ -55,7 +55,7 @@ public class ItemPecaService implements ItemPecaRepository {
         List<ItemPeca> itemPecas = new ArrayList<ItemPeca>();
 
         while(rs.next()){
-            ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("IdOrdemServico"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
+            ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("idOs"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
             itemPecas.add(itemPeca);
         }
 
@@ -84,7 +84,7 @@ public class ItemPecaService implements ItemPecaRepository {
 }
 
     @Override
-    public void deleteItemPeca(Long id) throws Exception {
+    public void deleteItemPeca(long id) throws Exception {
 
         try {
             String sql = "delete from ItemPeca where idItemPeca = " + id;
@@ -99,5 +99,24 @@ public class ItemPecaService implements ItemPecaRepository {
 
     }
 
- 
+    @Override
+    public List<ItemPeca> getItemPecaByOrdemServicoId(long id) throws Exception {
+
+        String sql = "select * from ItemPeca where idos = " + id;
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+        List<ItemPeca> itemPecas = new ArrayList<ItemPeca>();
+
+        while(rs.next()){
+            ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("idOs"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
+            itemPecas.add(itemPeca);
+        }
+
+        return itemPecas;
+
+
+
+    }
+
+
 }

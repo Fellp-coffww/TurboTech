@@ -78,7 +78,6 @@ public class AcessoriosService implements AcessoriosRepository {
 
     @Override
     public void deleteAcessorios(Long id) throws Exception {
-
         try {
             String sql = "delete from Acessorios where idAcessorio = " + id;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

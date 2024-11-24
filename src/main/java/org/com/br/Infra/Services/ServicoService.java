@@ -19,7 +19,7 @@ public class ServicoService implements ServicoRepository {
     @Override
     public void createServico(Servico servico) throws Exception {
         try {
-            String sql =  "insert into Servico(descricao, valorUnitario)"
+            String sql =  "insert into Serviço(descricao, valorUnitario)"
                     +     "values(? , ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, servico.getDescricao());
@@ -34,8 +34,8 @@ public class ServicoService implements ServicoRepository {
     }
 
     @Override
-    public Servico getServicoById(Long id) throws Exception {
-        String sql = "select * from Servico where idServico = " + id;
+    public Servico getServicoById(long id) throws Exception {
+        String sql = "select * from Serviço where idServico = " + id;
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         rs.next();
@@ -46,7 +46,7 @@ public class ServicoService implements ServicoRepository {
     @Override
     public List<Servico> getServicos() throws Exception {
 
-        String sql = "select * from Servico";
+        String sql = "select * from Serviço";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         List<Servico> servicos = new ArrayList<Servico>();
@@ -62,7 +62,7 @@ public class ServicoService implements ServicoRepository {
     @Override
     public void updateServico(Servico servico) throws Exception {
      try{
-        String sql = "update Servico  Set descricao = ?, valorUnitario = ? where idServico = ?";
+        String sql = "update Serviço  Set descricao = ?, valorUnitario = ? where idServico = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, servico.getDescricao());
         preparedStatement.setDouble(2, servico.getValorUnitario());
@@ -78,10 +78,10 @@ public class ServicoService implements ServicoRepository {
 }
 
     @Override
-    public void deleteServico(Long id) throws Exception {
+    public void deleteServico(long id) throws Exception {
 
         try {
-            String sql = "delete from Servico where idServico = " + id;
+            String sql = "delete from Serviço where idServico = " + id;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {

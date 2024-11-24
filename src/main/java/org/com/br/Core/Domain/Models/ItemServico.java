@@ -2,11 +2,11 @@ package org.com.br.Core.Domain.Models;
 
 public class ItemServico {
 
-    private Long idItemServico;
+    private long idItemServico;
 
-    private Long idOrdemServico;
+    private long idOrdemServico;
 
-    private Long idServico;
+    private long idServico;
 
     private String cpf;
 
@@ -16,7 +16,7 @@ public class ItemServico {
 
     private double valorTotal;
 
-    public ItemServico(String cpf, Long idOrdemServico, Long idServico, int quantidade, double valorTotal, double valorUnitario) {
+    public ItemServico(String cpf, long idOrdemServico, long idServico, int quantidade, double valorTotal, double valorUnitario) {
         this.cpf = cpf;
         this.idOrdemServico = idOrdemServico;
         this.idServico = idServico;
@@ -25,7 +25,7 @@ public class ItemServico {
         this.valorUnitario = valorUnitario;
     }
 
-    public ItemServico(Long idItemServico, Long idOrdemServico, Long idServico, String cpf, int quantidade, double valorUnitario, double valorTotal) {
+    public ItemServico(long idItemServico, long idOrdemServico, long idServico, String cpf, int quantidade, double valorUnitario, double valorTotal) {
         this.cpf = cpf;
         this.idItemServico = idItemServico;
         this.idOrdemServico = idOrdemServico;
@@ -35,7 +35,7 @@ public class ItemServico {
         this.valorUnitario = valorUnitario;
     }
 
-    public Long getIdItemServico() {
+    public long getIdItemServico() {
         return idItemServico;
     }
 
@@ -43,7 +43,7 @@ public class ItemServico {
         this.idItemServico = idItemServico;
     }
 
-    public Long getIdOrdemServico() {
+    public long getIdOrdemServico() {
         return idOrdemServico;
     }
 
@@ -51,7 +51,7 @@ public class ItemServico {
         this.idOrdemServico = idOrdemServico;
     }
 
-    public Long getIdServico() {
+    public long getIdServico() {
         return idServico;
     }
 

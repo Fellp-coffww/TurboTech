@@ -2,11 +2,11 @@ package org.com.br.Core.Domain.Models;
 
 public class ItemPeca {
 
-    private Long idItemPeca;
+    private long idItemPeca;
 
-    private Long idOrdemServico;
+    private long idOrdemServico;
 
-    private Long idPeca;
+    private long idPeca;
 
     private int quantidade;
 
@@ -14,7 +14,7 @@ public class ItemPeca {
 
     private double valorTotal;
 
-    public ItemPeca(Long idOrdemServico, Long idPeca, int quantidade, double valorTotal, double valorUnitario) {
+    public ItemPeca(long idOrdemServico, long idPeca, int quantidade, double valorTotal, double valorUnitario) {
         this.idOrdemServico = idOrdemServico;
         this.idPeca = idPeca;
         this.quantidade = quantidade;
@@ -22,7 +22,7 @@ public class ItemPeca {
         this.valorUnitario = valorUnitario;
     }
 
-    public ItemPeca(Long idItemPeca, Long idOrdemServico, Long idPeca, int quantidade, double valorTotal, double valorUnitario) {
+    public ItemPeca(long idItemPeca, long idOrdemServico, long idPeca, int quantidade, double valorTotal, double valorUnitario) {
         this.idItemPeca = idItemPeca;
         this.idOrdemServico = idOrdemServico;
         this.idPeca = idPeca;

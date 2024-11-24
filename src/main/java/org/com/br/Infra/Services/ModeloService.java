@@ -95,7 +95,7 @@ public class ModeloService implements ModeloRepository {
     @Override
     public List<Modelo> getModelosByMarcaId(Long id) throws Exception {
 
-        String sql = "select * from Modelo where column idMarca = " + id;
+        String sql = "select * from Modelo where idMarca = " + id;
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);

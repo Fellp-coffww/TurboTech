@@ -8,12 +8,12 @@ public interface ServicoRepository {
     
     public void createServico(Servico servico) throws Exception;
 
-    public Servico getServicoById(Long id) throws Exception;
+    public Servico getServicoById(long id) throws Exception;
 
     public List<Servico> getServicos() throws Exception;
 
     public void updateServico(Servico servico) throws Exception;
 
-    public void deleteServico(Long id) throws Exception;
+    public void deleteServico(long id) throws Exception;
 
 }
