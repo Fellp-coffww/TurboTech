@@ -32,6 +32,9 @@ public class PessoaJuridica {
 
     private String razaoSocial;
 
+    public PessoaJuridica() {
+    }
+
     public PessoaJuridica(String cnpj, String nome, String email, String ddi1, String ddd1, String telefone1, String ddi2, String ddd2, String telefone2, String logradouro,
                           String complemento, String numeroEnd, String inscricaoEstadual, String contato, String razaoSocial) {
         this.cnpj = cnpj;
