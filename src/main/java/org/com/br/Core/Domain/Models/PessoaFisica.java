@@ -43,6 +43,9 @@ public class PessoaFisica {
         this.numeroEnd = numeroEnd;
     }
 
+    public PessoaFisica() {
+    }
+
     public String getDdi1() {
         return ddi1;
     }

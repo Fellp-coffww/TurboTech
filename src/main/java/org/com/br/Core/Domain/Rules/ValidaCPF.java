@@ -3,7 +3,9 @@ package org.com.br.Core.Domain.Rules;
 public class ValidaCPF {
 
     public static boolean isCPFValid(String cpf) {
+
         // Remove caracteres não numéricos
+        cpf = cpf.replaceAll("\\D", "");
 
         // Verifica se o CPF tem 11 dígitos
         if (cpf.length() != 11) {
