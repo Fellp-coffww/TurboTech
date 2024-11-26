@@ -1,71 +1,51 @@
 package org.com.br.Application.Desktop.Controller;
 
+import org.com.br.Application.Desktop.Services.ClienteService;
+import org.com.br.Core.Domain.Exceptions.InvalidCPFException;
+import org.com.br.Core.Domain.Exceptions.InvalidCPNJException;
+import org.com.br.Core.Domain.Exceptions.InvalidTelefoneException;
 import org.com.br.Core.Domain.Models.PessoaFisica;
 import org.com.br.Core.Domain.Models.PessoaJuridica;
-import org.com.br.Infra.Services.PessoaFisicaService;
-import org.com.br.Infra.Services.PessoaJuridicaService;
+import org.com.br.Infra.Repository.PessoaFisicaRepository;
+import org.com.br.Infra.Repository.PessoaJuridicaRepository;
 
 import javax.swing.*;
 
 public class ClienteController {
 
-    public ClienteController() throws Exception {
+    private ClienteService clienteService = new ClienteService(new PessoaFisicaRepository(), new PessoaJuridicaRepository());
+
+    private  JFrame frame;
+
+    public ClienteController(JFrame frame) throws Exception {
+
+        this.frame = frame;
+
     }
 
-    private PessoaJuridicaService pessoaJuridicaService = new PessoaJuridicaService();
-
-    private PessoaFisicaService pessoaFisicaService = new PessoaFisicaService();
-
     public void criarPessoa(String tipo,
-                            String nome,
-                            String email,
-                            String telefone,
-                            String endereco,
-                            String complemento,
-                            String numero,
-                            String cpfCnpj,
-                            String inscricaoEstadual,
-                            String contato,
-                            String razaoSocial) throws Exception {
-        if (tipo.equals("CPF")) {
-            PessoaFisica pessoaFisica = new PessoaFisica();
-            pessoaFisica.setCpf(cpfCnpj.trim().replaceAll("\\D", ""));
-            pessoaFisica.setNome(nome.trim());
-            pessoaFisica.setEmail(email.trim());
+                              String nome,
+                              String email,
+                              String telefone,
+                              String endereco,
+                              String complemento,
+                              String numero,
+                              String cpfCnpj,
+                              String inscricaoEstadual,
+                              String contato,
+                              String razaoSocial){
 
-            // Extrai DDI e DDD do telefone
-            pessoaFisica.setDdi1(telefone.substring(1, 3));  // DDI: "+55"
-            pessoaFisica.setDdd1(telefone.substring(5, 7)); // DDD: "(XX)"
-            pessoaFisica.setTelefone1(telefone.substring(9).replace("-", ""));
+        try{
+            clienteService.criarPessoa(tipo, nome, email, telefone, endereco, complemento, numero, cpfCnpj, inscricaoEstadual, contato, razaoSocial);
+            JOptionPane.showMessageDialog(frame, "Dados salvos com sucesso!");
 
-            pessoaFisica.setLogradouro(endereco.trim());
-            pessoaFisica.setComplemento(complemento.trim());
-            pessoaFisica.setNumeroEnd(numero.trim());
-
-            pessoaFisicaService.createPessoaFisica(pessoaFisica);
-
-        } else if (tipo.equals("CNPJ")) {
-            PessoaJuridica pessoaJuridica = new PessoaJuridica();
-            pessoaJuridica.setCnpj(cpfCnpj.trim());
-            pessoaJuridica.setNome(nome.trim());
-            pessoaJuridica.setEmail(email.trim());
-
-            // Extrai DDI e DDD do telefone
-            pessoaJuridica.setDdi1(telefone.substring(0, 3));  // DDI: "+55"
-            pessoaJuridica.setDdd1(telefone.substring(5, 7)); // DDD: "(XX)"
-            pessoaJuridica.setTelefone1(telefone.substring(9).replace("-", ""));
-
-            pessoaJuridica.setLogradouro(endereco.trim());
-            pessoaJuridica.setComplemento(complemento.trim());
-            pessoaJuridica.setNumeroEnd(numero.trim());
-
-            pessoaJuridica.setInscricaoEstadual(inscricaoEstadual != null ? inscricaoEstadual.trim() : "");
-            pessoaJuridica.setContato(contato != null ? contato.trim() : "");
-            pessoaJuridica.setRazaoSocial(razaoSocial != null ? razaoSocial.trim() : "");
-
-            pessoaJuridicaService.createPessoaJuridica(pessoaJuridica);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
 
 }
+
+
