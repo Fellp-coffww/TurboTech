@@ -68,16 +68,12 @@ public class MarcaView {
         JLabel lblMarca = new JLabel("Marca do Carro:");
         lblMarca.setForeground(Color.white);
         lblMarca.setOpaque(true);
-        lblMarca.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         JTextField txtMarca = new JTextField(20);
         txtMarca.setForeground(Color.BLACK);
         txtMarca.setToolTipText("Digite a marca do carro");
-
-        JTextField txtObservacao = new JTextField(20);
-        txtObservacao.setForeground(Color.BLACK);
-        txtObservacao.setToolTipText("Digite uma observação (se necessário)");
 
         // Adicionar os campos aos seus respectivos painéis com fundo preto transparente
         campoMarcaPanel.add(txtMarca, BorderLayout.CENTER);
@@ -92,7 +88,6 @@ public class MarcaView {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(novaTela, "Salvo com sucesso!");
                 txtMarca.setText("");  // Limpar campos após salvar
-                txtObservacao.setText("");
             }
         });
 

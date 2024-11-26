@@ -1,24 +1,30 @@
 package org.com.br.Application.Desktop.View;
 
 
-import org.com.br.Application.Desktop.Controller.OrdemServicoController;
-import org.com.br.Core.Domain.Models.OrdemServico;
-
-import javax.swing.*;
-import java.awt.*;
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.text.ParseException;
 import java.util.List;
-
-
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import org.com.br.Application.Desktop.Controller.OrdemServicoController;
+import org.com.br.Core.Domain.Models.OrdemServico;
 
 public class HomeView {
 
@@ -75,7 +81,7 @@ public class HomeView {
                     abrirTelaCadastroPeca();
                     break;
                 case "Cadastro de Serviço":
-                    abrirTela("Cadastro de Serviço");
+                    abrirTelaCadastroServico();
                     break;
             }
         });
@@ -189,6 +195,10 @@ public class HomeView {
 
     private static void abrirTelaCadastroPeca() {
         PecaView.show();
+    }
+
+    private static void abrirTelaCadastroServico() {
+        ServicoView.show();
     }
 
     private static void abrirTela(String titulo) {
