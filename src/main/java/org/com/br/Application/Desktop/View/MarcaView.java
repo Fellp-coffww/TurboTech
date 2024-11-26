@@ -1,77 +1,138 @@
 package org.com.br.Application.Desktop.View;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class MarcaView {
 
-    public static void show(){
-
+    public static void show() {
         JFrame novaTela = new JFrame("Cadastro de Marca");
-        novaTela.setSize(400, 300); // Tamanho menor para essa tela
-        novaTela.setLocationRelativeTo(null);
+        novaTela.setSize(700, 700); // Tamanho da tela
+        novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
-        // Carregar a imagem de fundo das telas das comboboxes
-        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/background_combobox.jpg")); // Caminho da imagem das comboboxes
+        // Carregar a imagem de fundo
+        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/background_combobox.jpg"));
         Image imageCombobox = imageIconCombobox.getImage();
         Image resizedImageCombobox = imageCombobox.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
-        // Criar o JLabel para exibir a imagem de fundo das telas das comboboxes
+        // Criar o JLabel para exibir a imagem de fundo
         JLabel backgroundLabelCombobox = new JLabel(new ImageIcon(resizedImageCombobox));
-        backgroundLabelCombobox.setLayout(new BorderLayout()); // Definir o layout para o fundo
+        backgroundLabelCombobox.setLayout(new BorderLayout());
+        backgroundLabelCombobox.setOpaque(true); // Tornar o fundo opaco para a visibilidade dos campos
+
+        // Criar painel para o título com fundo preto transparente
+        JPanel tituloPanel = new JPanel();
+        tituloPanel.setLayout(new BorderLayout());
+        tituloPanel.setBackground(new Color(0, 0, 0, 150)); // Cor preta com transparência (alpha 150)
+
+        JLabel titulo = new JLabel("Cadastro de Marca", JLabel.CENTER);
+        titulo.setFont(new Font("SansSerif", Font.BOLD, 28)); // Fonte do título
+        titulo.setForeground(Color.WHITE); // Cor do título
+
+        tituloPanel.add(titulo, BorderLayout.CENTER);
+        tituloPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Espaçamento interno
 
         // Painel de entrada de dados
         JPanel panelEntrada = new JPanel();
         panelEntrada.setLayout(new GridBagLayout());
-        panelEntrada.setOpaque(false); // Tornar o painel transparente
+        panelEntrada.setOpaque(false);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
+        // Criar o fundo preto transparente para o título "Marca" e o campo de texto "Marca"
+        JPanel campoMarcaPanel = new JPanel();
+        campoMarcaPanel.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente
+        campoMarcaPanel.setLayout(new BorderLayout());
+
         // Campos de entrada
         JLabel lblMarca = new JLabel("Marca do Carro:");
-        lblMarca.setForeground(Color.black); // Alterar a cor do texto para branco
+        lblMarca.setForeground(Color.white);
+        lblMarca.setOpaque(true);
+        lblMarca.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         JTextField txtMarca = new JTextField(20);
-        txtMarca.setForeground(Color.BLACK); // Alterar a cor do texto para preto
-
-        JLabel lblObservacao = new JLabel("Observação (Opcional):");
-        lblObservacao.setForeground(Color.black); // Alterar a cor do texto para branco
+        txtMarca.setForeground(Color.BLACK);
+        txtMarca.setToolTipText("Digite a marca do carro");
 
         JTextField txtObservacao = new JTextField(20);
-        txtObservacao.setForeground(Color.BLACK); // Alterar a cor do texto para preto
+        txtObservacao.setForeground(Color.BLACK);
+        txtObservacao.setToolTipText("Digite uma observação (se necessário)");
 
+        // Adicionar os campos aos seus respectivos painéis com fundo preto transparente
+        campoMarcaPanel.add(txtMarca, BorderLayout.CENTER);
+       
+
+        // Botões
         JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.addActionListener(e -> JOptionPane.showMessageDialog(novaTela, "Salvo com sucesso!")); // Exibir mensagem ao salvar
+        btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
+        btnSalvar.setForeground(Color.white);
+        btnSalvar.setFocusPainted(false);
+        btnSalvar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(novaTela, "Salvo com sucesso!");
+                txtMarca.setText("");  // Limpar campos após salvar
+                txtObservacao.setText("");
+            }
+        });
 
-        // Adicionar componentes ao painel
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
+        btnCancelar.setForeground(Color.white);
+        btnCancelar.setFocusPainted(false);
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                novaTela.dispose(); // Fechar a tela
+            }
+        });
+
+        // Adicionar os componentes ao painel
         gbc.gridx = 0;
         gbc.gridy = 0;
         panelEntrada.add(lblMarca, gbc);
 
         gbc.gridx = 1;
-        panelEntrada.add(txtMarca, gbc);
+        panelEntrada.add(campoMarcaPanel, gbc); // Adicionar painel com fundo preto transparente para o campo "Marca"
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panelEntrada.add(lblObservacao, gbc);
 
-        gbc.gridx = 1;
-        panelEntrada.add(txtObservacao, gbc);
+        // Botões "Salvar" e "Cancelar"
+        JPanel panelButtons = new JPanel();
+        panelButtons.setOpaque(false); // Tornar o painel de botões transparente
+        panelButtons.add(btnSalvar);
+        panelButtons.add(btnCancelar);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        panelEntrada.add(btnSalvar, gbc);
+        panelEntrada.add(panelButtons, gbc);
 
         // Adicionar o painel de entrada ao fundo
         backgroundLabelCombobox.add(panelEntrada, BorderLayout.CENTER);
 
-        novaTela.setContentPane(backgroundLabelCombobox); // Definir o painel de fundo como o conteúdo
+        // Adicionar o painel do título no topo
+        backgroundLabelCombobox.add(tituloPanel, BorderLayout.NORTH);
+
+        // Definir o conteúdo da janela
+        novaTela.setContentPane(backgroundLabelCombobox);
         novaTela.setVisible(true);
-
     }
-
 }
