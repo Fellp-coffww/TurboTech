@@ -40,7 +40,7 @@ public class OrdemServicoService implements OrdemServicoRepository {
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         rs.next();
-        OrdemServico ordemServico = new OrdemServico(rs.getLong("idos"), rs.getString("StatusOS"),rs.getDate("dataos"), rs.getDouble("precoTotal"), rs.getDouble("precoPago"));
+        OrdemServico ordemServico = new OrdemServico(rs.getLong("idos"), rs.getString("StatusOS"),rs.getDate("dataos"), rs.getDouble("precoTotal"), rs.getDouble("precoPago"), rs.getString("placa"));
         return ordemServico;
     }
 
@@ -53,7 +53,7 @@ public class OrdemServicoService implements OrdemServicoRepository {
         List<OrdemServico> ordensServicos = new ArrayList<OrdemServico>();
 
         while(rs.next()){
-            OrdemServico ordemServico = new OrdemServico(rs.getLong("idos"), rs.getString("StatusOS"),rs.getDate("dataos"),rs.getDouble("precoTotal"), rs.getDouble("precoPago"));
+            OrdemServico ordemServico = new OrdemServico(rs.getLong("idos"), rs.getString("StatusOS"),rs.getDate("dataos"), rs.getDouble("precoTotal"), rs.getDouble("precoPago"), rs.getString("placa"));
             ordensServicos.add(ordemServico);
         }
 

@@ -1,10 +1,18 @@
 package org.com.br.Application.Desktop.View;
 
+import org.com.br.Application.Desktop.Controller.OrdemServicoController;
+import org.com.br.Core.Domain.Models.OrdemServico;
+
 import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
+import java.util.List;
+
+
 
 public class HomeView {
+
+    static OrdemServicoController ordemServicoController = new OrdemServicoController();
 
     public static void init() {
         JFrame frame = new JFrame("Sistema de Gerenciamento de Oficina");
@@ -106,17 +114,27 @@ public class HomeView {
         JComboBox<String> comboBoxOrdemServico = new JComboBox<>(opcoesOrdemServico);
         comboBoxOrdemServico.setPreferredSize(new Dimension(200, 40));
         comboBoxOrdemServico.setBorder(BorderFactory.createTitledBorder("Ordem de Serviço"));
+        // Modifique o trecho onde você chama a OSView
         comboBoxOrdemServico.addActionListener(e -> {
             String opcaoSelecionada = (String) comboBoxOrdemServico.getSelectedItem();
             switch (opcaoSelecionada) {
-                case "Cadastro de OS":
+                case "Cadastro de O.S":
                     abrirTela("Cadastro de Ordem de Serviço");
                     break;
-                case "Visualização de OS":
-                    abrirTela("Visualização de Ordem de Serviços");
+                case "Visualização de O.S":
+                    try {
+                        // Supondo que você tenha um método em OrdemServicoController que retorna a lista de OS
+                        List<OrdemServico> listaOrdensServico = ordemServicoController.getListOrdemServico();
+                        OSView osView = new OSView(listaOrdensServico); // Passa a lista de OS para a tela
+                        osView.showScreen(); // Exibe a tela da OS
+                    } catch (Exception ex) {
+                        ex.printStackTrace(); // Para depuração
+                        JOptionPane.showMessageDialog(null, "Erro ao carregar a visualização de Ordens de Serviço: " + ex.getMessage());
+                    }
                     break;
             }
         });
+
 
         // Adicionar comboboxes ao painel
         panelOpcoes.add(comboBoxCadastroGeral);

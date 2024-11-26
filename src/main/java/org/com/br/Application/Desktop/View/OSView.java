@@ -1,0 +1,105 @@
+package org.com.br.Application.Desktop.View;
+
+import org.com.br.Core.Domain.Models.OrdemServico;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+public class OSView extends JFrame {
+
+    private List<OrdemServico> listaOS;
+
+    public OSView(List<OrdemServico> listaOS) {
+        this.listaOS = listaOS;
+
+        // Configurações básicas da janela
+        setTitle("Visualização de Ordens de Serviço");
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Configuração do layout
+        setLayout(new BorderLayout());
+
+        // Carregar a imagem de fundo
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/background_principal.jpg"));
+        Image image = imageIcon.getImage();
+        Image resizedImage = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+        JLabel backgroundLabel = new JLabel(new ImageIcon(resizedImage));
+        backgroundLabel.setLayout(new BorderLayout());
+
+        // Painel de título
+        JPanel tituloPanel = new JPanel();
+        tituloPanel.setLayout(new BorderLayout());
+        tituloPanel.setBackground(new Color(0, 0, 0, 150)); // Fundo preto semi-transparente
+        JLabel titulo = new JLabel("Ordens de serviço em aberto", JLabel.CENTER);
+        titulo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        titulo.setForeground(Color.WHITE);
+        tituloPanel.add(titulo, BorderLayout.CENTER);
+        tituloPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Adicionar o painel de título ao topo
+        backgroundLabel.add(tituloPanel, BorderLayout.NORTH);
+
+        // Painel para os cartões
+        JPanel contentPanel = new JPanel();
+        contentPanel.setOpaque(false); // Permitir que o fundo seja visível
+        contentPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20)); // Layout que organiza os cartões lado a lado
+
+        // Criar cartões para exibir as informações das ordens de serviço
+        for (OrdemServico os : listaOS) {
+            JPanel osCard = new JPanel();
+            osCard.setLayout(new BorderLayout());
+            osCard.setPreferredSize(new Dimension(200, 150)); // Tamanho fixo do cartão
+            osCard.setBackground(Color.BLACK); // Fundo preto
+            osCard.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2)); // Borda branca
+
+            // Adicionar informações da OS
+            JLabel osInfo = new JLabel("<html><div style='text-align: center;'>"
+                    + "Placa: " + os.getPlaca() + "<br>"
+                    + "ID OS: " + os.getIdOrdemServico() + "<br>"
+                    + "Status: " + os.getStatusOS()
+                    + "</div></html>");
+            osInfo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+            osInfo.setForeground(Color.WHITE); // Texto branco
+            osInfo.setHorizontalAlignment(SwingConstants.CENTER);
+            osCard.add(osInfo, BorderLayout.CENTER);
+
+            // Botão de detalhes
+            JButton btnDetalhes = new JButton("Detalhes");
+            btnDetalhes.setBackground(Color.GRAY);
+            btnDetalhes.setForeground(Color.WHITE); // Texto branco
+            btnDetalhes.setFocusPainted(false);
+            btnDetalhes.setFont(new Font("SansSerif", Font.BOLD, 15));
+            btnDetalhes.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Ação para abrir detalhes da OS
+                    JOptionPane.showMessageDialog(OSView.this,
+                            "Detalhes da OS:\nPlaca: " + os.getPlaca() +
+                                    "\nID: " + os.getIdOrdemServico() +
+                                    "\nStatus: " + os.getStatusOS(),
+                            "Detalhes da OS", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+            osCard.add(btnDetalhes, BorderLayout.SOUTH);
+
+            // Adicionar o cartão ao painel de conteúdo
+            contentPanel.add(osCard);
+        }
+
+        // Adicionar o painel de conteúdo ao centro
+        backgroundLabel.add(contentPanel, BorderLayout.CENTER);
+
+        // Adicionar o background à janela
+        add(backgroundLabel, BorderLayout.CENTER);
+    }
+
+    // Método show() para exibir a tela
+    public void showScreen() {
+        setVisible(true);
+    }
+}

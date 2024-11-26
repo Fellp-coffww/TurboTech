@@ -14,20 +14,35 @@ public class OrdemServico {
 
     private double precoPago;
 
+    private String placa;
 
-    public OrdemServico(String StatusOS, Date data, double precoPago, double precoTotal) {
-        this.StatusOS = StatusOS;
+    public OrdemServico(Date data, String statusOS, double precoTotal, double precoPago, String placa) {
         this.data = data;
-        this.precoPago = precoPago;
+        StatusOS = statusOS;
         this.precoTotal = precoTotal;
+        this.precoPago = precoPago;
+        this.placa = placa;
     }
 
-    public OrdemServico(long idOrdemServico,String StatusOS, Date data,  double precoPago, double precoTotal) {
+    public OrdemServico(long idOrdemServico, String statusOS , Date data, double precoTotal, double precoPago, String placa) {
         this.idOrdemServico = idOrdemServico;
-        this.StatusOS = StatusOS;
         this.data = data;
-        this.precoPago = precoPago;
+        StatusOS = statusOS;
         this.precoTotal = precoTotal;
+        this.precoPago = precoPago;
+        this.placa = placa;
+    }
+
+    public void setIdOrdemServico(long idOrdemServico) {
+        this.idOrdemServico = idOrdemServico;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
     public Long getIdOrdemServico() {
