@@ -1,6 +1,7 @@
 package org.com.br.Application.Desktop.View;
 
 import org.com.br.Application.Desktop.Controller.ClienteController;
+import org.com.br.Application.Desktop.Services.ClienteService;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
@@ -11,13 +12,6 @@ public class PessoaView {
 
     ClienteController clienteController;
 
-    {
-        try {
-            clienteController = new ClienteController();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public  void show() throws ParseException {
 
@@ -165,15 +159,18 @@ public class PessoaView {
         btnSalvar.addActionListener(e -> {
 
             try {
+                clienteController = new ClienteController(cadastroFrame);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
+            try {
                 clienteController.criarPessoa(cbCpfCnpj.getSelectedItem().toString(), txtNome.getText().trim(), txtEmail1.getText(), txtTelefone.getText(),
                         txtEndereco.getText(), txtComplemento.getText(), txtNumero.getText(), txtCpfCnpj.getText(), txtInscricaoEstadual.getText(),
                         txtContato.getText(), txtRazaoSocial.getText());
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-
-
-            JOptionPane.showMessageDialog(cadastroFrame, "Dados salvos com sucesso!");
         });
 
         // Ação do botão Limpar

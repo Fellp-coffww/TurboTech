@@ -1,17 +1,17 @@
 package org.com.br.Application.Desktop.Controller;
 
 import org.com.br.Core.Domain.Models.OrdemServico;
-import org.com.br.Infra.Services.OrdemServicoService;
+import org.com.br.Infra.Repository.OrdemServicoRepository;
 
 import java.util.List;
 
 public class OrdemServicoController {
 
-    static OrdemServicoService ordemServicoService;
+    static OrdemServicoRepository ordemServicoService;
 
     {
         try {
-            ordemServicoService = new OrdemServicoService();
+            ordemServicoService = new OrdemServicoRepository();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
