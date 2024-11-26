@@ -8,7 +8,6 @@ import java.text.ParseException;
 
 public class NaoApagarView {
 
-    ClienteController clienteController = new ClienteController();
 
 
     public NaoApagarView() throws Exception {
@@ -205,9 +204,10 @@ public class NaoApagarView {
         btnSalvar.addActionListener(e -> {
 
             try {
-                clienteController.criarPessoa(cbCpfCnpj.getSelectedItem().toString(),txtNome.getText().trim(), txtEmail1.getText(),txtTelefone.getText(),
+                /*clienteController.criarPessoa(cbCpfCnpj.getSelectedItem().toString(),txtNome.getText().trim(), txtEmail1.getText(),txtTelefone.getText(),
                         txtEndereco.getText(),txtComplemento.getText(),txtNumero.getText(), txtCpfCnpj.getText(), txtInscricaoEstadual.getText(),
                         txtContato.getText(), txtRazaoSocial.getText());
+            */
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
