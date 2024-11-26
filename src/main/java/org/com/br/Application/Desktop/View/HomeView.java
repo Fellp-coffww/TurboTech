@@ -1,8 +1,24 @@
 package org.com.br.Application.Desktop.View;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.text.ParseException;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class HomeView {
 
@@ -51,7 +67,7 @@ public class HomeView {
                     abrirTelaCadastroMarca();
                     break;
                 case "Cadastro de Modelo":
-                    abrirTela("Cadastro de Modelo");
+                    abrirTelaCadastroModelo();
                     break;
                 case "Cadastro de Peça":
                     abrirTela("Cadastro de Peça");
@@ -153,6 +169,10 @@ public class HomeView {
 
     private static void abrirTelaCadastroMarca() {
         MarcaView.show();
+    }
+
+    private static void abrirTelaCadastroModelo() {
+        ModeloView.show();
     }
 
     private static void abrirTela(String titulo) {
