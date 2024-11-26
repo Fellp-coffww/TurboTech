@@ -70,7 +70,7 @@ public class HomeView {
                     abrirTelaCadastroModelo();
                     break;
                 case "Cadastro de Peça":
-                    abrirTela("Cadastro de Peça");
+                    abrirTelaCadastroPeca();
                     break;
                 case "Cadastro de Serviço":
                     abrirTela("Cadastro de Serviço");
@@ -173,6 +173,10 @@ public class HomeView {
 
     private static void abrirTelaCadastroModelo() {
         ModeloView.show();
+    }
+
+    private static void abrirTelaCadastroPeca() {
+        PecaView.show();
     }
 
     private static void abrirTela(String titulo) {
