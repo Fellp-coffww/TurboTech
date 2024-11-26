@@ -61,6 +61,9 @@ public class PecaView {
         // Campo: Código da Peça
         JLabel lblCodigo = new JLabel("Código da Peça:");
         lblCodigo.setForeground(Color.WHITE);
+        lblCodigo.setOpaque(true);
+        lblCodigo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblCodigo.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtCodigo = new JTextField(20);
         txtCodigo.setForeground(Color.BLACK);
@@ -69,6 +72,9 @@ public class PecaView {
         // Campo: Nome da Peça
         JLabel lblNome = new JLabel("Nome da Peça:");
         lblNome.setForeground(Color.WHITE);
+        lblNome.setOpaque(true);
+        lblNome.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblNome.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtNome = new JTextField(20);
         txtNome.setForeground(Color.BLACK);
@@ -77,6 +83,9 @@ public class PecaView {
         // Campo: Quantidade
         JLabel lblQuantidade = new JLabel("Quantidade:");
         lblQuantidade.setForeground(Color.WHITE);
+        lblQuantidade.setOpaque(true);
+        lblQuantidade.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblQuantidade.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtQuantidade = new JTextField(20);
         txtQuantidade.setForeground(Color.BLACK);
@@ -85,6 +94,9 @@ public class PecaView {
         // Campo: Valor por Unidade
         JLabel lblValor = new JLabel("Valor por Unidade:");
         lblValor.setForeground(Color.WHITE);
+        lblValor.setOpaque(true);
+        lblValor.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblValor.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtValor = new JTextField(20);
         txtValor.setForeground(Color.BLACK);
