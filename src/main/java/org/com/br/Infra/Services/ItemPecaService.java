@@ -1,7 +1,6 @@
 package org.com.br.Infra.Services;
 
 import org.com.br.Core.Domain.Models.ItemPeca;
-import org.com.br.Core.Domain.Models.Peca;
 import org.com.br.Infra.Configuration.DbConnection;
 import org.com.br.Infra.Repositories.ItemPecaRepository;
 

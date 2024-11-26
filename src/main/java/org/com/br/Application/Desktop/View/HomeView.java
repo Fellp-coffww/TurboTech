@@ -1,14 +1,24 @@
 package org.com.br.Application.Desktop.View;
 
+
 import org.com.br.Application.Desktop.Controller.OrdemServicoController;
 import org.com.br.Core.Domain.Models.OrdemServico;
 
 import javax.swing.*;
 import java.awt.*;
+
 import java.text.ParseException;
 import java.util.List;
 
 
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class HomeView {
 
@@ -59,10 +69,10 @@ public class HomeView {
                     abrirTelaCadastroMarca();
                     break;
                 case "Cadastro de Modelo":
-                    abrirTela("Cadastro de Modelo");
+                    abrirTelaCadastroModelo();
                     break;
                 case "Cadastro de Peça":
-                    abrirTela("Cadastro de Peça");
+                    abrirTelaCadastroPeca();
                     break;
                 case "Cadastro de Serviço":
                     abrirTela("Cadastro de Serviço");
@@ -171,6 +181,14 @@ public class HomeView {
 
     private static void abrirTelaCadastroMarca() {
         MarcaView.show();
+    }
+
+    private static void abrirTelaCadastroModelo() {
+        ModeloView.show();
+    }
+
+    private static void abrirTelaCadastroPeca() {
+        PecaView.show();
     }
 
     private static void abrirTela(String titulo) {

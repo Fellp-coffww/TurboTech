@@ -9,20 +9,23 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;  
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MarcaView {
+public class ModeloView {
 
     public static void show() {
-        JFrame novaTela = new JFrame("Cadastro de Marca");
+        JFrame novaTela = new JFrame("Cadastro de Modelo");
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -43,7 +46,7 @@ public class MarcaView {
         tituloPanel.setLayout(new BorderLayout());
         tituloPanel.setBackground(new Color(0, 0, 0, 150)); // Cor preta com transparência (alpha 150)
 
-        JLabel titulo = new JLabel("Cadastro de Marca", JLabel.CENTER);
+        JLabel titulo = new JLabel("Cadastro de Modelo", JLabel.CENTER);
         titulo.setFont(new Font("SansSerif", Font.BOLD, 28)); // Fonte do título
         titulo.setForeground(Color.WHITE); // Cor do título
 
@@ -59,7 +62,7 @@ public class MarcaView {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
-        // Criar o fundo preto transparente para o título "Marca" e o campo de texto "Marca"
+        // Criar o fundo preto transparente para o título "Marca" e o campo de combo box "Marca"
         JPanel campoMarcaPanel = new JPanel();
         campoMarcaPanel.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente
         campoMarcaPanel.setLayout(new BorderLayout());
@@ -68,20 +71,37 @@ public class MarcaView {
         JLabel lblMarca = new JLabel("Marca do Carro:");
         lblMarca.setForeground(Color.white);
         lblMarca.setOpaque(true);
-        lblMarca.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
-        JTextField txtMarca = new JTextField(20);
-        txtMarca.setForeground(Color.BLACK);
-        txtMarca.setToolTipText("Digite a marca do carro");
+        // Alteração para JComboBox com lista
+        List<String> listaMarcas = new ArrayList<>();
+        listaMarcas.add("Toyota");
+        listaMarcas.add("Honda");
+        listaMarcas.add("Ford");
+        listaMarcas.add("Chevrolet");
+        listaMarcas.add("Nissan");
+
+        JComboBox<String> cmbMarca = new JComboBox<>(listaMarcas.toArray(new String[0]));
+        cmbMarca.setForeground(Color.BLACK);
+        cmbMarca.setToolTipText("Selecione a marca do carro");
+
+        // Criar o fundo preto transparente para o campo de "Observação"
+        JPanel campoObservacaoPanel = new JPanel();
+        campoObservacaoPanel.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente
+        campoObservacaoPanel.setLayout(new BorderLayout());
+
+        JLabel lblModelo = new JLabel("Modelo do Carro:");
+        lblModelo.setForeground(Color.white);
+        lblModelo.setOpaque(true);
+        lblModelo.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         JTextField txtObservacao = new JTextField(20);
         txtObservacao.setForeground(Color.BLACK);
         txtObservacao.setToolTipText("Digite uma observação (se necessário)");
 
-        // Adicionar os campos aos seus respectivos painéis com fundo preto transparente
-        campoMarcaPanel.add(txtMarca, BorderLayout.CENTER);
-       
+        // Adicionar os componentes aos seus respectivos painéis com fundo preto transparente
+        campoMarcaPanel.add(cmbMarca, BorderLayout.CENTER);
+        campoObservacaoPanel.add(txtObservacao, BorderLayout.CENTER);
 
         // Botões
         JButton btnSalvar = new JButton("Salvar");
@@ -91,7 +111,7 @@ public class MarcaView {
         btnSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(novaTela, "Salvo com sucesso!");
-                txtMarca.setText("");  // Limpar campos após salvar
+                cmbMarca.setSelectedIndex(0);  // Resetar a seleção da combo box
                 txtObservacao.setText("");
             }
         });
@@ -114,6 +134,12 @@ public class MarcaView {
         gbc.gridx = 1;
         panelEntrada.add(campoMarcaPanel, gbc); // Adicionar painel com fundo preto transparente para o campo "Marca"
 
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panelEntrada.add(lblModelo, gbc);
+
+        gbc.gridx = 1;
+        panelEntrada.add(campoObservacaoPanel, gbc); // Adicionar painel com fundo preto transparente para o campo "Observação"
 
         // Botões "Salvar" e "Cancelar"
         JPanel panelButtons = new JPanel();
