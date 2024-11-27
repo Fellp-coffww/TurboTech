@@ -21,10 +21,10 @@ public class MarcaService {
     
         // Validar o campo antes de salvar
         if (descricao == null || descricao.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "O campo descrição é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new Exception("O campo descrição é obrigatório!");
+            //JOptionPane.showMessageDialog(null, "O campo descrição é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
             marcaRepository.createMarca(marca); // Salvar no repositório
-            JOptionPane.showMessageDialog(null, "Marca salva com sucesso!");
         }
     }
 

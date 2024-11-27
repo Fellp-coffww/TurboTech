@@ -19,7 +19,7 @@ public class ClienteService {
 
     private IPessoaJuridica pessoaJuridicaRepository;
 
-    public ClienteService(PessoaFisicaRepository pessoaFisicaRepository, PessoaJuridicaRepository pessoaJuridicaRepository){
+    public ClienteService(IPessoaFisica pessoaFisicaRepository, IPessoaJuridica pessoaJuridicaRepository){
         this.pessoaFisicaRepository = pessoaFisicaRepository;
         this.pessoaJuridicaRepository = pessoaJuridicaRepository;
     }

@@ -1,9 +1,6 @@
 package org.com.br.Application.Desktop.View;
 
-import org.com.br.Core.Domain.Models.ItemPeca;
-import org.com.br.Core.Domain.Models.ItemServico;
-import org.com.br.Core.Domain.Models.OrdemServico;
-import org.com.br.Core.Domain.Models.Veiculo;
+import org.com.br.Core.Domain.Models.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,88 +9,98 @@ import java.util.List;
 
 public class DetalhesOSView {
 
-    public void show(OrdemServico ordemServico, Veiculo veiculo, List<ItemPeca> pecas, List<ItemServico> servicos) {
+    public void show(OrdemServico ordemServico, Veiculo veiculo, List<ItemPeca> pecas, List<ItemServico> servicos, List<Peca> listaPecas, List<Servico> listaServicos) {
         JFrame frame = new JFrame("Detalhes da Ordem de Serviço");
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.jpg")));
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(900, 750);
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeView.class.getResource("/icon.jpg")));
+        frame.setSize(900, 900);
         frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
 
-        // Plano de fundo
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/background_principal.jpg"));
-        Image image = imageIcon.getImage();
-        Image resizedImage = image.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
-        JLabel backgroundLabel = new JLabel(new ImageIcon(resizedImage));
+        // Fundo com imagem
+        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/background_principal.jpg"));
+        Image backgroundImg = backgroundIcon.getImage().getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
+        JLabel backgroundLabel = new JLabel(new ImageIcon(backgroundImg));
         backgroundLabel.setLayout(new BorderLayout());
         frame.setContentPane(backgroundLabel);
 
         // Painel principal
         JPanel panelMain = new JPanel(new BorderLayout());
         panelMain.setOpaque(false);
-        panelMain.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Informações da OS
-        JPanel panelOSInfo = new JPanel(new GridLayout(6, 2, 10, 10));
-        panelOSInfo.setOpaque(false);
+        // Informações OS e veículo
+        JPanel panelInfo = new JPanel(new GridLayout(1, 2, 20, 20));
+        panelInfo.setOpaque(false);
+        panelInfo.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        panelOSInfo.add(new JLabel("ID OS:"));
-        panelOSInfo.add(new JLabel(String.valueOf(ordemServico.getIdOrdemServico())));
-
-        panelOSInfo.add(new JLabel("Data:"));
-        panelOSInfo.add(new JLabel(String.valueOf(ordemServico.getData())));
-
-        panelOSInfo.add(new JLabel("Status:"));
-        panelOSInfo.add(new JLabel(ordemServico.getStatusOS()));
-
-        panelOSInfo.add(new JLabel("Preço Total:"));
-        panelOSInfo.add(new JLabel(String.format("R$ %.2f", ordemServico.getPrecoTotal())));
-
-        panelOSInfo.add(new JLabel("Preço Pago:"));
-        panelOSInfo.add(new JLabel(String.format("R$ %.2f", ordemServico.getPrecoPago())));
-
-        panelOSInfo.add(new JLabel("Placa do Veículo:"));
-        panelOSInfo.add(new JLabel(ordemServico.getPlaca()));
-
-        // Informações do veículo
-        JPanel panelVeiculoInfo = new JPanel(new GridLayout(5, 2, 10, 10));
-        panelVeiculoInfo.setOpaque(false);
-
-        panelVeiculoInfo.add(new JLabel("Placa:"));
-        panelVeiculoInfo.add(new JLabel(veiculo.getPlaca()));
-
-        panelVeiculoInfo.add(new JLabel("Chassi:"));
-        panelVeiculoInfo.add(new JLabel(veiculo.getChassi()));
-
-        panelVeiculoInfo.add(new JLabel("Kilometragem:"));
-        panelVeiculoInfo.add(new JLabel(veiculo.getKilometragem()));
-
-        panelVeiculoInfo.add(new JLabel("Modelo (ID):"));
-        panelVeiculoInfo.add(new JLabel(String.valueOf(veiculo.getIdModelo())));
-
-        panelVeiculoInfo.add(new JLabel("Ano:"));
-        panelVeiculoInfo.add(new JLabel(String.valueOf(veiculo.getAno())));
+        panelInfo.add(createInfoPanel("Informações OS", ordemServico));
+        panelInfo.add(createInfoPanel("Informações Veículo", veiculo));
 
         // Tabelas
         JTable tableServicos = criarTabelaServicos(servicos);
         JTable tablePecas = criarTabelaPecas(pecas);
 
-        // Scroll para as tabelas
         JScrollPane scrollServicos = new JScrollPane(tableServicos);
         JScrollPane scrollPecas = new JScrollPane(tablePecas);
 
-        // Abas
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Serviços", scrollServicos);
         tabbedPane.addTab("Peças", scrollPecas);
 
-        // Layout geral
-        panelMain.add(panelOSInfo, BorderLayout.NORTH);
-        panelMain.add(panelVeiculoInfo, BorderLayout.CENTER);
-        panelMain.add(tabbedPane, BorderLayout.SOUTH);
+        // Botões
+        JPanel panelButtons = new JPanel();
+        panelButtons.setOpaque(false);
+        panelButtons.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        JButton btnAddServico = new JButton("Adicionar Serviço");
+        btnAddServico.addActionListener(e -> showAddServicoFrame(listaServicos));
+
+        JButton btnAddPeca = new JButton("Adicionar Peça");
+        btnAddPeca.addActionListener(e -> showAddPecaFrame(listaPecas));
+
+        panelButtons.add(btnAddServico);
+        panelButtons.add(btnAddPeca);
+
+        // Adicionar tudo ao painel principal
+        panelMain.add(panelInfo, BorderLayout.NORTH);
+        panelMain.add(tabbedPane, BorderLayout.CENTER);
+        panelMain.add(panelButtons, BorderLayout.SOUTH);
 
         backgroundLabel.add(panelMain, BorderLayout.CENTER);
-
         frame.setVisible(true);
+    }
+
+    private JPanel createInfoPanel(String title, Object data) {
+        JPanel panel = new JPanel(new GridLayout(5, 2, 10, 10));
+        panel.setOpaque(false);
+
+        if (data instanceof OrdemServico) {
+            OrdemServico os = (OrdemServico) data;
+            panel.add(new JLabel("ID OS:"));
+            panel.add(new JLabel(String.valueOf(os.getIdOrdemServico())));
+            panel.add(new JLabel("Data:"));
+            panel.add(new JLabel(String.valueOf(os.getData())));
+            panel.add(new JLabel("Status:"));
+            panel.add(new JLabel(os.getStatusOS()));
+            panel.add(new JLabel("Preço Total:"));
+            panel.add(new JLabel(String.format("R$ %.2f", os.getPrecoTotal())));
+            panel.add(new JLabel("Preço Pago:"));
+            panel.add(new JLabel(String.format("R$ %.2f", os.getPrecoPago())));
+        } else if (data instanceof Veiculo) {
+            Veiculo veiculo = (Veiculo) data;
+            panel.add(new JLabel("Placa:"));
+            panel.add(new JLabel(veiculo.getPlaca()));
+            panel.add(new JLabel("Chassi:"));
+            panel.add(new JLabel(veiculo.getChassi()));
+            panel.add(new JLabel("Kilometragem:"));
+            panel.add(new JLabel(veiculo.getKilometragem()));
+            panel.add(new JLabel("Modelo (ID):"));
+            panel.add(new JLabel(String.valueOf(veiculo.getIdModelo())));
+            panel.add(new JLabel("Ano:"));
+            panel.add(new JLabel(String.valueOf(veiculo.getAno())));
+        }
+
+        return panel;
     }
 
     private JTable criarTabelaServicos(List<ItemServico> servicos) {
@@ -142,5 +149,62 @@ public class DetalhesOSView {
         table.setRowHeight(25);
         table.getTableHeader().setReorderingAllowed(false);
     }
-}
 
+    private void showAddServicoFrame(List<Servico> servicos) {
+        JFrame frame = new JFrame("Adicionar Serviço");
+        frame.setSize(400, 300);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new GridLayout(4, 1, 10, 10));
+
+        JComboBox<String> comboBox = new JComboBox<>();
+        for (Servico servico : servicos) {
+            comboBox.addItem(servico.getIdServico() + " - " + servico.getDescricao() + " (R$ " + String.format("%.2f", servico.getValorUnitario()) + ")");
+        }
+
+        JTextField txtQuantidade = new JTextField();
+
+        JButton btnSalvar = new JButton("Salvar");
+        btnSalvar.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Serviço adicionado com sucesso!"));
+
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(e -> frame.dispose());
+
+        frame.add(new JLabel("Selecione Serviço:"));
+        frame.add(comboBox);
+        frame.add(new JLabel("Quantidade:"));
+        frame.add(txtQuantidade);
+        frame.add(btnSalvar);
+        frame.add(btnCancelar);
+
+        frame.setVisible(true);
+    }
+
+    private void showAddPecaFrame(List<Peca> pecas) {
+        JFrame frame = new JFrame("Adicionar Peça");
+        frame.setSize(400, 300);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new GridLayout(4, 1, 10, 10));
+
+        JComboBox<String> comboBox = new JComboBox<>();
+        for (Peca peca : pecas) {
+            comboBox.addItem(peca.getIdPeca() + " - " + peca.getDescricao() + " (R$ " + String.format("%.2f", peca.getValorUnitario()) + ")");
+        }
+
+        JTextField txtQuantidade = new JTextField();
+
+        JButton btnSalvar = new JButton("Salvar");
+        btnSalvar.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Peça adicionada com sucesso!"));
+
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(e -> frame.dispose());
+
+        frame.add(new JLabel("Selecione Peça:"));
+        frame.add(comboBox);
+        frame.add(new JLabel("Quantidade:"));
+        frame.add(txtQuantidade);
+        frame.add(btnSalvar);
+        frame.add(btnCancelar);
+
+        frame.setVisible(true);
+    }
+}
