@@ -15,6 +15,7 @@ public class OSView extends JFrame {
 
     public OSView(List<OrdemServico> listaOS) {
         this.listaOS = listaOS;
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeView.class.getResource("/icon.jpg")));
 
         // Configurações básicas da janela
         setTitle("Visualização de Ordens de Serviço");
@@ -88,7 +89,8 @@ public class OSView extends JFrame {
                     try {
                         ordemServicoDetalheController.ordemServiceContrucut(os.getIdOrdemServico());
                         detalhesOSView.show(ordemServicoDetalheController.getOrdemServico(), ordemServicoDetalheController.getVeiculo(),
-                                ordemServicoDetalheController.getItemPecaList(), ordemServicoDetalheController.getItemServicoList());
+                                ordemServicoDetalheController.getItemPecaList(), ordemServicoDetalheController.getItemServicoList(),
+                                ordemServicoDetalheController.getPecaList(), ordemServicoDetalheController.getServicoList());
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }

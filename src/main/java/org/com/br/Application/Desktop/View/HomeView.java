@@ -72,7 +72,11 @@ public class HomeView {
             String opcaoSelecionada = (String) comboBoxCadastroGeral.getSelectedItem();
             switch (opcaoSelecionada) {
                 case "Cadastro de Marca":
-                    abrirTelaCadastroMarca();
+                    try {
+                        abrirTelaCadastroMarca();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
                     break;
                 case "Cadastro de Modelo":
                     abrirTelaCadastroModelo();
@@ -95,8 +99,7 @@ public class HomeView {
             String opcaoSelecionada = (String) comboBoxCadastroPessoas.getSelectedItem();
             switch (opcaoSelecionada) {
                 case "Cadastrar Cliente":
-                    PessoaView pessoaView = new PessoaView();
-                    pessoaView.show();
+                    abrirTelaCadastroCliente();
                     break;
                 case "Cadastrar Funcionário":
                     abrirTela("Cadastrar Funcionário");
@@ -181,7 +184,7 @@ public class HomeView {
         return comboBox;
     }
 
-    private static void abrirTelaCadastroMarca() {
+    private static void abrirTelaCadastroMarca() throws Exception {
         MarcaView.show();
     }
 
@@ -195,6 +198,9 @@ public class HomeView {
 
     private static void abrirTelaCadastroServico() {
         ServicoView.show();
+    }
+
+    private static void abrirTelaCadastroCliente() {PessoaView.show();
     }
 
     private static void abrirTela(String titulo) {

@@ -1,9 +1,6 @@
 package org.com.br.Application.Desktop.Services;
 
-import org.com.br.Core.Domain.Models.ItemPeca;
-import org.com.br.Core.Domain.Models.ItemServico;
-import org.com.br.Core.Domain.Models.OrdemServico;
-import org.com.br.Core.Domain.Models.Veiculo;
+import org.com.br.Core.Domain.Models.*;
 import org.com.br.Infra.Interfaces.*;
 import org.com.br.Infra.Repository.ItemPecaRepository;
 import org.com.br.Infra.Repository.ItemServicoRepository;
@@ -23,15 +20,22 @@ public class OrdemServicoService {
 
     private IItemPeca iItemPecaRepository;
 
+    private IPeca pecaRepository;
+
+    private IServico servicoRepository;
+
     private OrdemServico ordemServico;
 
 
     public OrdemServicoService(VeiculoRepository veiculoRepository, OrdemServicoRepository ordemServicoRepository,
-                               ItemServicoRepository itemServicoRepository, ItemPecaRepository iItemPecaRepository) {
+                               ItemServicoRepository itemServicoRepository, ItemPecaRepository iItemPecaRepository, IPeca ipecaRepository, IServico servicoRepository) {
         this.veiculoRepository = veiculoRepository;
         this.ordemServicoRepository = ordemServicoRepository;
         this.itemServicoRepository = itemServicoRepository;
         this.iItemPecaRepository = iItemPecaRepository;
+        this.pecaRepository = ipecaRepository;
+        this.servicoRepository = servicoRepository;
+
     }
 
     public OrdemServico getOrdemServicoById(long id) throws Exception {
@@ -49,6 +53,15 @@ public class OrdemServicoService {
 
     public List<ItemServico> getItemServicoFromOS() throws Exception {
         return itemServicoRepository.getItemServicoByOrdemServicoId(ordemServico.getIdOrdemServico());
+    }
+
+    public List<Peca> getListPeca() throws Exception {
+        return pecaRepository.getPecas();
+    }
+
+    public List<Servico> getListServico() throws Exception {
+        return servicoRepository.getServicos();
+
     }
 
 }

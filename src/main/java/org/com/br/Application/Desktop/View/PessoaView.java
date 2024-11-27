@@ -9,17 +9,17 @@ import java.text.ParseException;
 
 public class PessoaView {
 
-    private ClienteController clienteController;
+    private static ClienteController clienteController;
 
-    public void show() {
-        JFrame frame = new JFrame("Sistema de Gerenciamento de Oficina");
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.jpg")));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public static void show() {
+        JFrame frame = new JFrame("Cadastro de clientes");
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(900, 750);
         frame.setLocationRelativeTo(null);
 
         // Carregar a imagem de fundo
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/background_principal.jpg"));
+        ImageIcon imageIcon = new ImageIcon(PessoaView.class.getResource("/background_principal.jpg"));
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
         JLabel backgroundLabel = new JLabel(new ImageIcon(resizedImage));
