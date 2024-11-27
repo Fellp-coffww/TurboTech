@@ -171,6 +171,11 @@ public class HomeView {
         frame.setVisible(true);
     }
 
+    private static void abrirTelaCadastroCliente() {
+        PessoaView.show();
+    }
+
+
     private static JComboBox<String> criarComboBox(String[] opcoes, java.awt.event.ActionListener listener) {
         JComboBox<String> comboBox = new JComboBox<>(opcoes);
         comboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -203,9 +208,8 @@ public class HomeView {
     private static void abrirTelaCadastroVeiculo() {
         VeiculoView.show();
 
-    private static void abrirTelaCadastroCliente() {PessoaView.show();
-
     }
+
 
     private static void abrirTela(String titulo) {
         JFrame novaTela = new JFrame(titulo);
@@ -231,7 +235,7 @@ public class HomeView {
     }
 
     // Classe para criar painéis com bordas arredondadas
-    static class RoundedPanel extends JPanel {
+        private static class RoundedPanel extends JPanel {
         private final int cornerRadius;
         private final Color backgroundColor;
 
