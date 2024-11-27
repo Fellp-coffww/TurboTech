@@ -116,7 +116,7 @@ public class HomeView {
             String opcaoSelecionada = (String) comboBoxCadastroVeiculoOficina.getSelectedItem();
             switch (opcaoSelecionada) {
                 case "Cadastrar Veículo":
-                    abrirTela("Cadastrar Veículo");
+                abrirTelaCadastroVeiculo();
                     break;
                 case "Cadastrar Oficina":
                     abrirTela("Cadastrar Oficina");
@@ -200,7 +200,11 @@ public class HomeView {
         ServicoView.show();
     }
 
+    private static void abrirTelaCadastroVeiculo() {
+        VeiculoView.show();
+
     private static void abrirTelaCadastroCliente() {PessoaView.show();
+
     }
 
     private static void abrirTela(String titulo) {
