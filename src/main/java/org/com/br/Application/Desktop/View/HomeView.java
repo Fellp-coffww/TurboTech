@@ -103,7 +103,7 @@ public class HomeView {
                     }
                     break;
                 case "Cadastrar Funcionário":
-                    abrirTela("Cadastrar Funcionário");
+                    abrirTelaCadastroFuncionario();
                     break;
             }
         });
@@ -199,6 +199,10 @@ public class HomeView {
 
     private static void abrirTelaCadastroServico() {
         ServicoView.show();
+    }
+
+    private static void abrirTelaCadastroFuncionario() {
+        FuncionarioView.show();
     }
 
     private static void abrirTela(String titulo) {

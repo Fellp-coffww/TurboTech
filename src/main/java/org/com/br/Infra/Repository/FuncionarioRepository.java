@@ -20,11 +20,11 @@ public class FuncionarioRepository implements IFuncionario {
     public void createFuncionario(Funcionario funcionario) throws Exception {
         if (ValidaCPF.isCPFValid(funcionario.getCpf())) {
         try {
-            String sql =  "insert into Funcionario(cpf, nome)"
+            String sql =  "insert into Funcionario(nome, cpf)"
                     +     "values( ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, funcionario.getCpf());
-            preparedStatement.setString(2, funcionario.getNome());
+            preparedStatement.setString(1, funcionario.getNome());
+            preparedStatement.setString(2, funcionario.getCpf());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             //Erro do comando SQL - chave, coluna, nome da tabela, ...
@@ -46,7 +46,7 @@ public class FuncionarioRepository implements IFuncionario {
         statement.setString(1, cpf);
         ResultSet rs = statement.executeQuery();
         rs.next();
-        Funcionario funcionario = new Funcionario(rs.getString("cpf"), rs.getString("nome"));
+        Funcionario funcionario = new Funcionario(rs.getString("nome"), rs.getString("cpf"));
         return funcionario;
     }
 
@@ -59,7 +59,7 @@ public class FuncionarioRepository implements IFuncionario {
         List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 
         while(rs.next()){
-            Funcionario funcionario = new Funcionario(rs.getString("cpf"), rs.getString("nome"));
+            Funcionario funcionario = new Funcionario(rs.getString("nome"), rs.getString("cpf"));
             funcionarios.add(funcionario);
         }
 
