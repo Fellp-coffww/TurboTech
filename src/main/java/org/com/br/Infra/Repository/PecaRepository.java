@@ -12,7 +12,8 @@ import java.util.List;
 public class PecaRepository implements IPeca {
 
     private Connection connection = null;
-    public PecaRepository()throws Exception{
+    
+    public PecaRepository() throws Exception{
         connection = DbConnection.getConnection();
         if(connection == null) throw new Exception("ERRO DE CONEXAO");
     }

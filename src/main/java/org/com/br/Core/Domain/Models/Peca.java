@@ -12,7 +12,7 @@ public class Peca {
 
     private String codigo;
 
-    public Peca(String codigo, String descricao, int quantidade, double valorUnitario) {
+    public Peca(String descricao, int quantidade, double valorUnitario, String codigo) {
         this.codigo = codigo;
         this.descricao = descricao;
         this.quantidade = quantidade;
