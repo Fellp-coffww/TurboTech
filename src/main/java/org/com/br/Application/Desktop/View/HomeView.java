@@ -96,11 +96,7 @@ public class HomeView {
             switch (opcaoSelecionada) {
                 case "Cadastrar Cliente":
                     PessoaView pessoaView = new PessoaView();
-                    try {
-                        pessoaView.show();
-                    } catch (ParseException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    pessoaView.show();
                     break;
                 case "Cadastrar Funcionário":
                     abrirTela("Cadastrar Funcionário");
