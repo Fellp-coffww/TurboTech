@@ -96,4 +96,23 @@ public class VeiculoRepository implements IVeiculo {
         }
     }
 
+    @Override
+    public Veiculo getVeiculoByPlaca(String placa) throws Exception {
+        try {
+            String sql = "select * from Veiculo where trim(placa) = ? ";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, placa);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            Veiculo veiculo = new Veiculo(rs.getString("placa"),rs.getString("chassi"), rs.getString("Kilometragem"), rs.getLong("idModelo"), rs.getInt("ano"), rs.getInt("numPatrimonio"));
+            return veiculo;
+        } catch (SQLException erro) {
+            //Erro do comando SQL - chave, coluna, nome da tabela, ...
+            throw new Exception("SQL Erro: "+ erro.getMessage());
+        } catch(Exception erro){
+            throw new Exception("Incluir Persistencia: " + erro);
+        }
+    }
+
+
 }
