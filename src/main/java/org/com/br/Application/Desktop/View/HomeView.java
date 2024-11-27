@@ -235,7 +235,7 @@ public class HomeView {
     }
 
     // Classe para criar painéis com bordas arredondadas
-        private static class RoundedPanel extends JPanel {
+        static class RoundedPanel extends JPanel {
         private final int cornerRadius;
         private final Color backgroundColor;
 
