@@ -1,5 +1,7 @@
 package org.com.br.Application.Desktop.View;
 
+import org.com.br.Application.Desktop.Controller.MarcaController;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -21,7 +23,8 @@ import javax.swing.JTextField;
 
 public class MarcaView {
 
-    public static void show() {
+    public static void show() throws Exception {
+
         JFrame novaTela = new JFrame("Cadastro de Marca");
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
@@ -77,16 +80,21 @@ public class MarcaView {
 
         // Adicionar os campos aos seus respectivos painéis com fundo preto transparente
         campoMarcaPanel.add(txtMarca, BorderLayout.CENTER);
-       
+        MarcaController controller = new MarcaController(novaTela);
 
         // Botões
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
         btnSalvar.setForeground(Color.white);
         btnSalvar.setFocusPainted(false);
+        MarcaController marcaController = new MarcaController(novaTela);
         btnSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(novaTela, "Salvo com sucesso!");
+                try {
+                    marcaController.criarMarca(txtMarca.getText());
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 txtMarca.setText("");  // Limpar campos após salvar
             }
         });

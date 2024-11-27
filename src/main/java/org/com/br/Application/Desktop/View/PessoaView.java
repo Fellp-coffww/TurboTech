@@ -1,7 +1,6 @@
 package org.com.br.Application.Desktop.View;
 
 import org.com.br.Application.Desktop.Controller.ClienteController;
-import org.com.br.Application.Desktop.Services.ClienteService;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
@@ -10,117 +9,181 @@ import java.text.ParseException;
 
 public class PessoaView {
 
-    ClienteController clienteController;
+    private static ClienteController clienteController;
 
+    public static void show() {
+        JFrame frame = new JFrame("Cadastro de clientes");
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(900, 750);
+        frame.setLocationRelativeTo(null);
 
-    public  void show() throws ParseException {
+        // Carregar a imagem de fundo
+        ImageIcon imageIcon = new ImageIcon(PessoaView.class.getResource("/background_principal.jpg"));
+        Image image = imageIcon.getImage();
+        Image resizedImage = image.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
+        JLabel backgroundLabel = new JLabel(new ImageIcon(resizedImage));
+        backgroundLabel.setLayout(new BorderLayout());
+        frame.setContentPane(backgroundLabel);
 
-        JFrame cadastroFrame = new JFrame("Cadastro de Cliente");
-        cadastroFrame.setSize(900, 700);
-        cadastroFrame.setLocationRelativeTo(null);
-        cadastroFrame.setLayout(new GridBagLayout());
-        cadastroFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeView.class.getResource("/icon.jpg")));
+        JPanel tituloPanel = new HomeView.RoundedPanel(20, new Color(0, 0, 0, 150));
+        tituloPanel.setLayout(new BorderLayout());
+        JLabel titulo = new JLabel("Cadastro de clientes", JLabel.CENTER);
+        titulo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        titulo.setForeground(Color.WHITE);
+        tituloPanel.add(titulo, BorderLayout.CENTER);
+        tituloPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        backgroundLabel.add(tituloPanel, BorderLayout.NORTH);
 
+        // Painel principal para os campos
+        JPanel panelForm = new JPanel(new GridBagLayout());
+        panelForm.setOpaque(false); // Torna o painel transparente
+        panelForm.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Padding interno
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(10, 10, 10, 10); // Espaçamento entre componentes
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Preencher horizontalmente
 
-        // Campos do cadastro
+        // Campos do formulário
         JLabel lblNome = new JLabel("Nome Completo:");
+        lblNome.setForeground(Color.white);
+        lblNome.setOpaque(true);
+        lblNome.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblNome.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtNome = new JTextField(20);
 
         JLabel lblCpfCnpj = new JLabel("Escolha CPF ou CNPJ:");
+        lblCpfCnpj.setForeground(Color.white);
+        lblCpfCnpj.setOpaque(true);
+        lblCpfCnpj.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblCpfCnpj.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
+
+
         String[] opcoesCpfCnpj = {"CNPJ", "CPF"};
         JComboBox<String> cbCpfCnpj = new JComboBox<>(opcoesCpfCnpj);
 
         final String CPF_MASK = "###.###.###-##";
         final String CNPJ_MASK = "##.###.###/####-##";
-        MaskFormatter cpfCnpjFormatter;
-
-        cpfCnpjFormatter = new MaskFormatter(CNPJ_MASK);
-        cpfCnpjFormatter.setPlaceholderCharacter('_');
-        cpfCnpjFormatter.setAllowsInvalid(false);
-        cpfCnpjFormatter.setOverwriteMode(true);
+        MaskFormatter cpfCnpjFormatter = criarMaskFormatter(CNPJ_MASK);
 
         JLabel lblCpfCnpjInput = new JLabel("Digite o CNPJ:");
+        lblCpfCnpjInput.setForeground(Color.white);
+        lblCpfCnpjInput.setOpaque(true);
+        lblCpfCnpjInput.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblCpfCnpjInput.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JFormattedTextField txtCpfCnpj = new JFormattedTextField(cpfCnpjFormatter);
         txtCpfCnpj.setColumns(14);
 
-
         JLabel lblEndereco = new JLabel("Endereço:");
         JTextField txtEndereco = new JTextField(20);
-
-        JLabel lblLogradouro = new JLabel("Logradouro:");
-        JTextField txtLogradouro = new JTextField(20);
-
-        JLabel lblNumero = new JLabel("Número:");
-        JTextField txtNumero = new JTextField(20);
-
+        lblEndereco.setForeground(Color.white);
+        lblEndereco.setOpaque(true);
+        lblEndereco.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblEndereco.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         JLabel lblComplemento = new JLabel("Complemento:");
         JTextField txtComplemento = new JTextField(20);
+        lblComplemento.setForeground(Color.white);
+        lblComplemento.setOpaque(true);
+        lblComplemento.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblComplemento.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
-        MaskFormatter telefoneFormatter = new MaskFormatter("+## (##) #####-####");
-        telefoneFormatter.setPlaceholderCharacter('*');
-        telefoneFormatter.setAllowsInvalid(false);
-        telefoneFormatter.setOverwriteMode(true);
+        MaskFormatter telefoneFormatter = criarMaskFormatter("+## (##) #####-####");
+        JLabel lblTelefone = new JLabel("Telefone:");
+        lblTelefone.setForeground(Color.white);
+        lblTelefone.setOpaque(true);
+        lblTelefone.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblTelefone.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
-        JLabel lblTelefone = new JLabel("Telefone (DDI-DDD):");
         JFormattedTextField txtTelefone = new JFormattedTextField(telefoneFormatter);
-        txtTelefone.setColumns(13);
+        txtTelefone.setColumns(15);
 
         JLabel lblEmail1 = new JLabel("Email 1:");
+        lblEmail1.setForeground(Color.white);
+        lblEmail1.setOpaque(true);
+        lblEmail1.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblEmail1.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtEmail1 = new JTextField(20);
 
-        JLabel lblEmail2 = new JLabel("Email 2:");
-        JTextField txtEmail2 = new JTextField(20);
-
         JLabel lblRazaoSocial = new JLabel("Razão Social:");
+        lblRazaoSocial.setForeground(Color.white);
+        lblRazaoSocial.setOpaque(true);
+        lblRazaoSocial.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblRazaoSocial.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtRazaoSocial = new JTextField(20);
 
         JLabel lblInscricaoEstadual = new JLabel("Inscrição Estadual:");
+        lblInscricaoEstadual.setForeground(Color.white);
+        lblInscricaoEstadual.setOpaque(true);
+        lblInscricaoEstadual.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblInscricaoEstadual.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtInscricaoEstadual = new JTextField(20);
 
         JLabel lblContato = new JLabel("Contato:");
+        lblContato.setForeground(Color.white);
+        lblContato.setOpaque(true);
+        lblContato.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        lblContato.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtContato = new JTextField(20);
 
         JButton btnSalvar = new JButton("Salvar");
         JButton btnLimpar = new JButton("Limpar");
 
-        // Adicionar os campos ao layout
+        // Adicionando os campos ao painel com GridBagLayout
         int row = 0;
 
-        cadastroFrame.add(lblNome, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtNome, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblNome, ajustarGbc(gbc, row, 0));
+        panelForm.add(txtNome, ajustarGbc(gbc, row++, 1));
 
-        cadastroFrame.add(lblCpfCnpj, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(cbCpfCnpj, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblCpfCnpj, ajustarGbc(gbc, row, 0));
+        panelForm.add(cbCpfCnpj, ajustarGbc(gbc, row++, 1));
 
-        cadastroFrame.add(lblCpfCnpjInput, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtCpfCnpj, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblCpfCnpjInput, ajustarGbc(gbc, row, 0));
+        panelForm.add(txtCpfCnpj, ajustarGbc(gbc, row++, 1));
 
-        cadastroFrame.add(lblEndereco, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtEndereco, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblEndereco, ajustarGbc(gbc, row, 0));
+        panelForm.add(txtEndereco, ajustarGbc(gbc, row++, 1));
 
-        cadastroFrame.add(lblLogradouro, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtLogradouro, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblComplemento, ajustarGbc(gbc, row, 0));
+        panelForm.add(txtComplemento, ajustarGbc(gbc, row++, 1));
 
-        cadastroFrame.add(lblNumero, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtNumero, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblTelefone, ajustarGbc(gbc, row, 0));
+        panelForm.add(txtTelefone, ajustarGbc(gbc, row++, 1));
 
-        cadastroFrame.add(lblComplemento, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtComplemento, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblEmail1, ajustarGbc(gbc, row, 0));
+        panelForm.add(txtEmail1, ajustarGbc(gbc, row++, 1));
 
-        cadastroFrame.add(lblTelefone, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtTelefone, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblRazaoSocial, ajustarGbc(gbc, row, 0));
+        panelForm.add(txtRazaoSocial, ajustarGbc(gbc, row++, 1));
 
-        cadastroFrame.add(lblEmail1, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtEmail1, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblInscricaoEstadual, ajustarGbc(gbc, row, 0));
+        panelForm.add(txtInscricaoEstadual, ajustarGbc(gbc, row++, 1));
 
-        cadastroFrame.add(lblEmail2, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtEmail2, ajustarGbc(gbc, row++, 1));
+        panelForm.add(lblContato, ajustarGbc(gbc, row, 0));
+        panelForm.add(txtContato, ajustarGbc(gbc, row++, 1));
 
-        // Campos extras para CNPJ
+        // Painel para os botões
+        JPanel panelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        panelBotoes.setOpaque(false); // Torna o painel transparente
+        panelBotoes.add(btnSalvar);
+        panelBotoes.add(btnLimpar);
+
+        // Adicionar os painéis ao fundo
+        backgroundLabel.add(panelForm, BorderLayout.CENTER);
+        backgroundLabel.add(panelBotoes, BorderLayout.SOUTH);
+
+        // Ação do botão Salvar
+        btnSalvar.addActionListener(e -> {
+            try {
+                clienteController = new ClienteController(frame);
+                clienteController.criarPessoa(cbCpfCnpj.getSelectedItem().toString(), txtNome.getText().trim(), txtEmail1.getText(), txtTelefone.getText(),
+                        txtEndereco.getText(), txtComplemento.getText(), "", txtCpfCnpj.getText(), txtInscricaoEstadual.getText(),
+                        txtContato.getText(), txtRazaoSocial.getText());
+                JOptionPane.showMessageDialog(frame, "Dados salvos com sucesso!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, "Erro ao salvar os dados: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
         cbCpfCnpj.addActionListener(e -> {
             boolean isCnpj = cbCpfCnpj.getSelectedItem().toString().equals("CNPJ");
             lblCpfCnpjInput.setText(isCnpj ? "Digite o CNPJ:" : "Digite o CPF:");
@@ -138,45 +201,10 @@ public class PessoaView {
             txtContato.setVisible(isCnpj);
         });
 
-        cadastroFrame.add(lblRazaoSocial, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtRazaoSocial, ajustarGbc(gbc, row++, 1));
-
-        cadastroFrame.add(lblInscricaoEstadual, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtInscricaoEstadual, ajustarGbc(gbc, row++, 1));
-
-        cadastroFrame.add(lblContato, ajustarGbc(gbc, row, 0));
-        cadastroFrame.add(txtContato, ajustarGbc(gbc, row++, 1));
-
-        // Painel para botões
-        JPanel panelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        panelBotoes.add(btnSalvar);
-        panelBotoes.add(btnLimpar);
-
-        gbc.gridwidth = 2;
-        cadastroFrame.add(panelBotoes, ajustarGbc(gbc, row++, 0));
-
-        // Ação do botão Salvar
-        btnSalvar.addActionListener(e -> {
-
-            try {
-                clienteController = new ClienteController(cadastroFrame);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-
-            try {
-                clienteController.criarPessoa(cbCpfCnpj.getSelectedItem().toString(), txtNome.getText().trim(), txtEmail1.getText(), txtTelefone.getText(),
-                        txtEndereco.getText(), txtComplemento.getText(), txtNumero.getText(), txtCpfCnpj.getText(), txtInscricaoEstadual.getText(),
-                        txtContato.getText(), txtRazaoSocial.getText());
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-
         // Ação do botão Limpar
         btnLimpar.addActionListener(e -> {
             int confirmacao = JOptionPane.showConfirmDialog(
-                    cadastroFrame,
+                    frame,
                     "Você tem certeza que deseja limpar todos os dados?",
                     "Confirmação",
                     JOptionPane.YES_NO_OPTION
@@ -185,20 +213,26 @@ public class PessoaView {
                 txtNome.setText("");
                 txtCpfCnpj.setText("");
                 txtEndereco.setText("");
-                txtLogradouro.setText("");
-                txtNumero.setText("");
                 txtComplemento.setText("");
                 txtTelefone.setText("");
                 txtEmail1.setText("");
-                txtEmail2.setText("");
                 txtRazaoSocial.setText("");
                 txtInscricaoEstadual.setText("");
                 txtContato.setText("");
-                cbCpfCnpj.setSelectedIndex(0);
             }
         });
 
-        cadastroFrame.setVisible(true);
+        frame.setVisible(true);
+    }
+
+    private static MaskFormatter criarMaskFormatter(String mask) {
+        try {
+            MaskFormatter formatter = new MaskFormatter(mask);
+            formatter.setPlaceholderCharacter('_');
+            return formatter;
+        } catch (ParseException e) {
+            throw new RuntimeException("Erro ao criar máscara: " + e.getMessage());
+        }
     }
 
     private static GridBagConstraints ajustarGbc(GridBagConstraints gbc, int row, int col) {

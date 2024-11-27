@@ -6,8 +6,9 @@ public class ValidaTelefone {
         // Expressão regular para o formato "+XX (XX) XXXX-XXXX"
         String regex = "\\+\\d{2} \\(\\d{2}\\) \\d{4}-\\d{4}";
 
-        // Valida se o telefone corresponde ao padrão
-        return telefone != null && telefone.matches(regex);
-    }
+        // Valida se o telefone corresponde ao padrão e não contém '*'
+        return telefone != null && telefone.matches(regex) && !telefone.contains("*");
+
+}
 
 }
