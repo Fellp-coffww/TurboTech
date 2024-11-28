@@ -12,7 +12,7 @@ public class FuncionarioController {
     
     public FuncionarioController(){
         try {
-            FuncionarioService funcionarioService = new FuncionarioService(new FuncionarioRepository());        
+            this.funcionarioService = new FuncionarioService(new FuncionarioRepository());        
         } catch (Exception e) {
         }
     }
@@ -23,6 +23,10 @@ public class FuncionarioController {
 
     public FuncionarioController(JFrame frame) {
         this.frame = frame;
+        try {
+            this.funcionarioService = new FuncionarioService(new FuncionarioRepository());        
+        } catch (Exception e) {
+        }
     }
 
     public void criarFuncionario(String nome, String cpf)throws Exception{

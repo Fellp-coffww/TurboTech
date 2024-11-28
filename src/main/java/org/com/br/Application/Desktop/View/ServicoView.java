@@ -15,9 +15,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.com.br.Application.Desktop.Controller.ServicoController;
 
 public class ServicoView {
     public static void show() {
@@ -87,15 +88,15 @@ public class ServicoView {
         btnSalvar.setFocusPainted(false);
         btnSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String nome = txtNome.getText();
-                String valor = txtValor.getText();
+                try {
+                    String nome = txtNome.getText();
+                    double valor = Double.valueOf(txtValor.getText().trim());
 
-                // Validar os campos antes de salvar
-                if (nome.isEmpty() || valor.isEmpty()) {
-                    JOptionPane.showMessageDialog(novaTela, "Todos os campos são obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(novaTela, "Peça salva com sucesso!");
-                    
+                    ServicoController servicoController = new ServicoController(novaTela);
+                    servicoController.criarServico(nome, valor);
+                } catch (Exception ex) {
+
+                } finally {
                     txtNome.setText("");
                     txtValor.setText("");
                 }

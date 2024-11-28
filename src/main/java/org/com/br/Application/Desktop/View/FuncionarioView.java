@@ -21,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
+import org.com.br.Application.Desktop.Controller.FuncionarioController;
+
 public class FuncionarioView {
 
     public static void show() {
@@ -78,23 +80,39 @@ public class FuncionarioView {
         lblCPF.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblCPF.setBackground(new Color(0, 0, 0, 150));
 
-        JFormattedTextField txtCPF = null;
+        JFormattedTextField txtCPF = new JFormattedTextField(); // Inicialização padrão
         try {
             MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
-            maskCPF.setPlaceholderCharacter('_');
-            txtCPF = new JFormattedTextField(maskCPF);
-            txtCPF.setColumns(20);
-            txtCPF.setToolTipText("Digite o CPF no formato ***.***.***-**");
+            maskCPF.setPlaceholderCharacter('_'); // Define o caractere de preenchimento
+            maskCPF.install(txtCPF); // Aplica a máscara no campo
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(novaTela, "Erro ao aplicar máscara no campo CPF.");
+            JOptionPane.showMessageDialog(novaTela, "Erro ao configurar a máscara do CPF.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+        txtCPF.setColumns(20);
+        txtCPF.setToolTipText("Digite o CPF no formato ***.***.***-**");
 
         // Botões
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
         btnSalvar.setForeground(Color.white);
         btnSalvar.setFocusPainted(false);
+        btnSalvar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String nome = txtNome.getText().trim();
+                    String CPF = txtCPF.getText().trim();
 
+                    FuncionarioController funcionarioController = new FuncionarioController(novaTela);
+                    funcionarioController.criarFuncionario(nome, CPF.replaceAll("\\D", ""));
+                    
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(novaTela, "Erro ao salvar o funcionário: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    txtNome.setText("");
+                    txtCPF.setText("");
+                }
+            }
+        });
 
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
@@ -142,4 +160,3 @@ public class FuncionarioView {
         novaTela.setVisible(true);
     }
 }
-
