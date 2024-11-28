@@ -22,9 +22,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.com.br.Application.Desktop.Controller.ModeloController;
+import org.com.br.Application.Desktop.Services.MarcaService;
+import org.com.br.Core.Domain.Models.Marca;
+import org.com.br.Infra.Repository.MarcaRepository;
+
 public class ModeloView {
 
-    public static void show() {
+    public static void show() throws Exception {
         JFrame novaTela = new JFrame("Cadastro de Modelo");
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
@@ -32,7 +37,7 @@ public class ModeloView {
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/background_combobox.jpg"));
+        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
         Image imageCombobox = imageIconCombobox.getImage();
         Image resizedImageCombobox = imageCombobox.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
@@ -74,15 +79,20 @@ public class ModeloView {
         lblMarca.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
-        // Alteração para JComboBox com lista
-        List<String> listaMarcas = new ArrayList<>();
-        listaMarcas.add("Toyota");
-        listaMarcas.add("Honda");
-        listaMarcas.add("Ford");
-        listaMarcas.add("Chevrolet");
-        listaMarcas.add("Nissan");
 
-        JComboBox<String> cmbMarca = new JComboBox<>(listaMarcas.toArray(new String[0]));
+            MarcaService marcaService = new MarcaService(new MarcaRepository());
+        
+        // Alteração para JComboBox com lista
+        List<Marca> listaMarcas = marcaService.getMarcas();
+
+        List<String> listaMarcaString = new ArrayList();
+
+        for(Marca marca : listaMarcas){
+
+            listaMarcaString.add(marca.getDescricao());
+        }
+
+        JComboBox<String> cmbMarca = new JComboBox<>(listaMarcaString.toArray(new String[0]));
         cmbMarca.setForeground(Color.BLACK);
         cmbMarca.setToolTipText("Selecione a marca do carro");
 
@@ -112,7 +122,24 @@ public class ModeloView {
         btnSalvar.setFocusPainted(false);
         btnSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(novaTela, "Salvo com sucesso!");
+                ModeloController modeloController;
+                
+                try {
+                    modeloController = new ModeloController(novaTela);
+                    long idMarca = 0;
+                    for (Marca marca : listaMarcas){
+                    
+                    if(marca.getDescricao().equals(cmbMarca.getSelectedItem().toString())){
+                        idMarca = marca.getIdMarca(); 
+                    }
+                }
+                     modeloController.createModelo(txtObservacao.getText(), idMarca);
+
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
                 cmbMarca.setSelectedIndex(0);  // Resetar a seleção da combo box
                 txtObservacao.setText("");
             }

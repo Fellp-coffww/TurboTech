@@ -18,7 +18,7 @@ public class DetalhesOSView {
         frame.setLayout(new BorderLayout());
 
         // Fundo com imagem
-        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/background_principal.jpg"));
+        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/JELF DYNAMICS.jpg"));
         Image backgroundImg = backgroundIcon.getImage().getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
         JLabel backgroundLabel = new JLabel(new ImageIcon(backgroundImg));
         backgroundLabel.setLayout(new BorderLayout());
