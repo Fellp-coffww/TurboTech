@@ -41,7 +41,7 @@ public class ItemPecaRepository implements IItemPeca {
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         rs.next();
-        ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("idOs"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
+        ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("idOs"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("valorTotal"), rs.getDouble("ValorUnitario"));
         return itemPeca;
     }
 
@@ -54,7 +54,7 @@ public class ItemPecaRepository implements IItemPeca {
         List<ItemPeca> itemPecas = new ArrayList<ItemPeca>();
 
         while(rs.next()){
-            ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("idOs"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
+            ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("idOs"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("valorTotal"), rs.getDouble("ValorUnitario"));
             itemPecas.add(itemPeca);
         }
 
@@ -107,7 +107,7 @@ public class ItemPecaRepository implements IItemPeca {
         List<ItemPeca> itemPecas = new ArrayList<ItemPeca>();
 
         while(rs.next()){
-            ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("idOs"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
+            ItemPeca itemPeca = new ItemPeca(rs.getLong("idItemPeca"),rs.getLong("idOs"), rs.getLong("IdPeca"), rs.getInt("quantidade"), rs.getDouble("valorTotal"), rs.getDouble("ValorUnitario"));
             itemPecas.add(itemPeca);
         }
 

@@ -1,13 +1,28 @@
 package org.com.br.Application.Desktop.View;
 
+import org.com.br.Application.Desktop.Controller.OrdemServicoController;
+import org.com.br.Application.Desktop.Controller.OrdemServicoDetalheController;
+import org.com.br.Application.Desktop.Services.OrdemServicoService;
 import org.com.br.Core.Domain.Models.*;
+import org.com.br.Infra.Interfaces.IPeca;
+import org.com.br.Infra.Interfaces.IServico;
+import org.com.br.Infra.Repository.PecaRepository;
+import org.com.br.Infra.Repository.ServicoRepository;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class DetalhesOSView {
+
+    private OrdemServico ordemServico;
+
+    private JTable tablePecas;
+
+    private JTable tableServicos;
 
     public void show(OrdemServico ordemServico, Veiculo veiculo, List<ItemPeca> pecas, List<ItemServico> servicos, List<Peca> listaPecas, List<Servico> listaServicos) {
         JFrame frame = new JFrame("Detalhes da Ordem de Serviço");
@@ -16,6 +31,8 @@ public class DetalhesOSView {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+
+        this.ordemServico = ordemServico;
 
         // Fundo com imagem
         ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/background_principal.jpg"));
@@ -37,8 +54,8 @@ public class DetalhesOSView {
         panelInfo.add(createInfoPanel("Informações Veículo", veiculo));
 
         // Tabelas
-        JTable tableServicos = criarTabelaServicos(servicos);
-        JTable tablePecas = criarTabelaPecas(pecas);
+        this.tableServicos = criarTabelaServicos(servicos);
+        this.tablePecas = criarTabelaPecas(pecas);
 
         JScrollPane scrollServicos = new JScrollPane(tableServicos);
         JScrollPane scrollPecas = new JScrollPane(tablePecas);
@@ -104,45 +121,54 @@ public class DetalhesOSView {
     }
 
     private JTable criarTabelaServicos(List<ItemServico> servicos) {
-        String[] colunas = {"ID", "ID OS", "Serviço (ID)", "CPF", "Quantidade", "Valor Unitário", "Valor Total"};
-        DefaultTableModel model = new DefaultTableModel(colunas, 0);
+        try {
+            String[] colunas = {"ID", "Serviço (ID)", "Nome", "Reponsável", "Quantidade", "Valor Unitário", "Valor Total"};
+            DefaultTableModel model = new DefaultTableModel(colunas, 0);
+            IServico servicoRepository = new ServicoRepository();
+            int i = 1;
+            for (ItemServico servico : servicos) {
+                model.addRow(new Object[]{
+                        i++,
+                        servico.getIdServico(),
+                        servicoRepository.getServicoById(servico.getIdServico()).getDescricao(),
+                        servico.getCpf(),
+                        servico.getQuantidade(),
+                        String.format("R$ %.2f", servico.getValorUnitario()),
+                        String.format("R$ %.2f", servico.getValorTotal())
+                });
+            }
 
-        for (ItemServico servico : servicos) {
-            model.addRow(new Object[]{
-                    servico.getIdItemServico(),
-                    servico.getIdOrdemServico(),
-                    servico.getIdServico(),
-                    servico.getCpf(),
-                    servico.getQuantidade(),
-                    String.format("R$ %.2f", servico.getValorUnitario()),
-                    String.format("R$ %.2f", servico.getValorTotal())
-            });
+            JTable table = new JTable(model);
+            ajustarEstiloTabela(table);
+            return table;
+        } catch (Exception e) {
+            return null;
         }
-
-        JTable table = new JTable(model);
-        ajustarEstiloTabela(table);
-        return table;
     }
 
-    private JTable criarTabelaPecas(List<ItemPeca> pecas) {
-        String[] colunas = {"ID", "ID OS", "Peça (ID)", "Quantidade", "Valor Unitário", "Valor Total"};
-        DefaultTableModel model = new DefaultTableModel(colunas, 0);
+    private JTable criarTabelaPecas(List<ItemPeca> pecas)  {
+        try {
+            IPeca pecaRepository = new PecaRepository();
+            String[] colunas = {"ID", "Nome Peça", "Quantidade", "Valor Unitário", "Valor Total"};
+            DefaultTableModel model = new DefaultTableModel(colunas, 0);
+            int i = 1;
+            for (ItemPeca peca : pecas) {
+                model.addRow(new Object[]{
+                        i++,
+                        pecaRepository.getPecaById(peca.getIdPeca()).getDescricao(),
+                        peca.getQuantidade(),
+                        String.format("R$ %.2f", peca.getValorUnitario()),
+                        String.format("R$ %.2f", peca.getValorTotal())
+                });
+            }
 
-        for (ItemPeca peca : pecas) {
-            model.addRow(new Object[]{
-                    peca.getIdItemPeca(),
-                    peca.getIdOrdemServico(),
-                    peca.getIdPeca(),
-                    peca.getQuantidade(),
-                    String.format("R$ %.2f", peca.getValorUnitario()),
-                    String.format("R$ %.2f", peca.getValorTotal())
-            });
+            JTable table = new JTable(model);
+            ajustarEstiloTabela(table);
+            return table;
+        }catch (Exception e) {
+            return null;
         }
-
-        JTable table = new JTable(model);
-        ajustarEstiloTabela(table);
-        return table;
-    }
+        }
 
     private void ajustarEstiloTabela(JTable table) {
         table.setFillsViewportHeight(true);
@@ -158,13 +184,19 @@ public class DetalhesOSView {
 
         JComboBox<String> comboBox = new JComboBox<>();
         for (Servico servico : servicos) {
-            comboBox.addItem(servico.getIdServico() + " - " + servico.getDescricao() + " (R$ " + String.format("%.2f", servico.getValorUnitario()) + ")");
+            comboBox.addItem( servico.getDescricao());
         }
 
         JTextField txtQuantidade = new JTextField();
-
+        OrdemServicoDetalheController ordemServicoDetalheController = new OrdemServicoDetalheController(frame);
+        ordemServicoDetalheController.setOrdemServico(this.ordemServico);
         JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Serviço adicionado com sucesso!"));
+        btnSalvar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ordemServicoDetalheController.addItemServico(comboBox.getSelectedItem().toString(), Integer.valueOf(txtQuantidade.getText()));
+
+            }}
+        );
 
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.addActionListener(e -> frame.dispose());
@@ -179,7 +211,7 @@ public class DetalhesOSView {
         frame.setVisible(true);
     }
 
-    private void showAddPecaFrame(List<Peca> pecas) {
+    private void showAddPecaFrame(List<Peca> pecas ) {
         JFrame frame = new JFrame("Adicionar Peça");
         frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
@@ -187,13 +219,19 @@ public class DetalhesOSView {
 
         JComboBox<String> comboBox = new JComboBox<>();
         for (Peca peca : pecas) {
-            comboBox.addItem(peca.getIdPeca() + " - " + peca.getDescricao() + " (R$ " + String.format("%.2f", peca.getValorUnitario()) + ")");
+            comboBox.addItem(peca.getDescricao());
         }
 
         JTextField txtQuantidade = new JTextField();
 
         JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Peça adicionada com sucesso!"));
+        OrdemServicoDetalheController ordemServicoDetalheController = new OrdemServicoDetalheController(frame);
+        ordemServicoDetalheController.setOrdemServico(this.ordemServico);
+        btnSalvar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ordemServicoDetalheController.addItemPeca(comboBox.getSelectedItem().toString(), Integer.valueOf(txtQuantidade.getText()));
+                tablePecas = criarTabelaPecas(ordemServicoDetalheController.getItemPecaList());
+            }});
 
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.addActionListener(e -> frame.dispose());
@@ -207,4 +245,5 @@ public class DetalhesOSView {
 
         frame.setVisible(true);
     }
+
 }

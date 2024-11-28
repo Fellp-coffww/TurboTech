@@ -27,8 +27,8 @@ public class OrdemServicoService {
     private OrdemServico ordemServico;
 
 
-    public OrdemServicoService(VeiculoRepository veiculoRepository, OrdemServicoRepository ordemServicoRepository,
-                               ItemServicoRepository itemServicoRepository, ItemPecaRepository iItemPecaRepository, IPeca ipecaRepository, IServico servicoRepository) {
+    public OrdemServicoService(IVeiculo veiculoRepository, IOrdemServico ordemServicoRepository,
+                               IItemServico itemServicoRepository, IItemPeca iItemPecaRepository, IPeca ipecaRepository, IServico servicoRepository) {
         this.veiculoRepository = veiculoRepository;
         this.ordemServicoRepository = ordemServicoRepository;
         this.itemServicoRepository = itemServicoRepository;
@@ -36,6 +36,10 @@ public class OrdemServicoService {
         this.pecaRepository = ipecaRepository;
         this.servicoRepository = servicoRepository;
 
+    }
+
+    public OrdemServicoService(IPeca pecaRepository) {
+        this.pecaRepository = pecaRepository;
     }
 
     public OrdemServico getOrdemServicoById(long id) throws Exception {
@@ -61,7 +65,36 @@ public class OrdemServicoService {
 
     public List<Servico> getListServico() throws Exception {
         return servicoRepository.getServicos();
-
     }
 
+    public Peca getPecaByDescricao(String descricao) throws Exception {
+        return pecaRepository.getPecaBydescricao(descricao);
+    }
+    public Servico getServicoByDescricao(String descricao) throws Exception {
+        return servicoRepository.getServicoByDescricao(descricao);
+    }
+
+    public void addItemPeca(Peca peca, int quantidade, OrdemServico ordemServico) throws Exception {
+        if(peca == null){
+            throw new Exception("Peça inválida! Checar seleção.");
+        } else if (quantidade <= 0) {
+            throw new Exception("Quantidade deve ser maior que zero!");
+        }else if(!ordemServico.getStatusOS().equals("Orçamento")){
+            throw new Exception("Não é possível adicionar produtos em ordem de serviço fora do status de orçamento!");
+        } else {
+            iItemPecaRepository.createItemPeca(new ItemPeca(ordemServico.getIdOrdemServico(), peca.getIdPeca(), quantidade, peca.getValorUnitario() * quantidade, peca.getValorUnitario()));
+        }
+        }
+
+    public void addItemServico(Servico servico, int quantidade, OrdemServico ordemServico) throws Exception {
+        if(servico == null){
+            throw new Exception("Peça inválida! Checar seleção.");
+        } else if (quantidade <= 0) {
+            throw new Exception("Quantidade deve ser maior que zero!");
+        }else if(!ordemServico.getStatusOS().equals("Orçamento")){
+            throw new Exception("Não é possível adicionar produtos em ordem de serviço fora do status de orçamento!");
+        } else {
+            iItemPecaRepository.createItemPeca(new ItemPeca(ordemServico.getIdOrdemServico(), servico.getIdServico(), quantidade, servico.getValorUnitario() * quantidade, servico.getValorUnitario()));
+        }
+    }
 }
