@@ -57,6 +57,29 @@ public class MarcaRepository implements IMarca {
         return marcas;
     }
 
+    
+        @Override
+        public int getMarcaId(Marca marca) throws Exception {
+        int id = -1;  // Valor padrão para caso não encontre a marca
+        try {
+            String sql = "SELECT idMarca FROM Marca WHERE descricao = ?";  // Usei idMarca no SELECT
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, marca.getDescricao());  // Parâmetro de entrada para o nome da marca
+            
+            ResultSet resultSet = preparedStatement.executeQuery();  // Execute a consulta SQL
+        
+            if (resultSet.next()) {  // Verifica se há algum resultado na consulta
+                id = resultSet.getInt("idMarca");  // Obtém o id da marca
+            }
+        } catch (SQLException erro) {
+            throw new Exception("SQL Erro: " + erro.getMessage());
+        } catch (Exception erro) {
+            throw new Exception("Erro ao obter ID da Marca: " + erro);
+        }
+        return id;  // Retorna o ID encontrado ou -1 caso não encontre
+    }
+    
+
     @Override
     public void updateMarca(Marca marca) throws Exception {
      try{

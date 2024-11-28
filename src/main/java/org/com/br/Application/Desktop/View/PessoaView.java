@@ -1,12 +1,17 @@
 package org.com.br.Application.Desktop.View;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.text.ParseException;
 
-
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -31,7 +36,7 @@ public class PessoaView {
         frame.setLocationRelativeTo(null);
 
         // Carregar a imagem de fundo
-        ImageIcon imageIcon = new ImageIcon(PessoaView.class.getResource("/JELF DYNAMICS.jpg"));
+        ImageIcon imageIcon = new ImageIcon(PessoaView.class.getResource("JELF DYNAMICS.jpg"));
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
         JLabel backgroundLabel = new JLabel(new ImageIcon(resizedImage));

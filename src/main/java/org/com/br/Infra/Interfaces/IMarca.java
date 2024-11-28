@@ -1,8 +1,8 @@
 package org.com.br.Infra.Interfaces;
 
-import org.com.br.Core.Domain.Models.Marca;
-
 import java.util.List;
+
+import org.com.br.Core.Domain.Models.Marca;
 
 public interface IMarca {
 
@@ -11,6 +11,8 @@ public interface IMarca {
     public Marca getMarcaById(Long id) throws Exception;
 
     public List<Marca> getMarcas() throws Exception;
+
+    public int getMarcaId(Marca marca) throws Exception;
 
     public void updateMarca(Marca marca) throws Exception;
 

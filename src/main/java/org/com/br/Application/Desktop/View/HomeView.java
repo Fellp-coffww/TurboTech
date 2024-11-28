@@ -12,7 +12,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -220,7 +219,11 @@ comboBoxCadastroVeiculoOficina.addActionListener(e -> {
     String opcaoSelecionada = (String) comboBoxCadastroVeiculoOficina.getSelectedItem();
     switch (opcaoSelecionada) {
         case "Cadastrar Veículo":
+        try {
             abrirTelaCadastroVeiculo();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
             break;
         case "Cadastrar Oficina":
             abrirTela("Cadastrar Oficina");
@@ -345,7 +348,7 @@ comboBoxOrdemServico.addActionListener(e -> {
         FuncionarioView.show();
     }
 
-    private static void abrirTelaCadastroVeiculo() {
+    private static void abrirTelaCadastroVeiculo()throws Exception {
         VeiculoView.show();
 
     }
