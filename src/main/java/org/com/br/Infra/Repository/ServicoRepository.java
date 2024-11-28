@@ -92,4 +92,15 @@ public class ServicoRepository implements IServico {
         }
 
     }
+
+    @Override
+    public Servico getServicoByDescricao(String decricao) throws Exception {
+        String sql = "select * from Serviço where descricao = ?" ;
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, decricao);
+        ResultSet rs = preparedStatement.executeQuery();
+        rs.next();
+        Servico servico = new Servico(rs.getLong("idServico"), rs.getString("descricao"), rs.getDouble("valorUnitario"));
+        return servico;
+    }
 }

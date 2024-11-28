@@ -98,20 +98,16 @@ public class PecaRepository implements IPeca {
     }
 
     @Override
-    public List<Peca> getPecaBydescricao(String descricao) throws Exception {
+    public Peca getPecaBydescricao(String descricao) throws Exception {
 
-        String sql = "select * from Pecas where column descricao = " + descricao;
+        String sql = "select * from Pecas where descricao = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery(sql);
-        List<Peca> pecas = new ArrayList<Peca>();
+        preparedStatement.setString(1, descricao);
+        ResultSet rs = preparedStatement.executeQuery();
+        rs.next();
+        Peca peca = new Peca(rs.getLong("idPecas"), rs.getString("descricao"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("codigo"));
+        return peca;
 
-        while(rs.next()){
-            Peca peca = new Peca(rs.getLong("idPecas"), rs.getString("descricao"), rs.getInt("quantidade"), rs.getDouble("valorUnitario"), rs.getString("codigo"));
-            pecas.add(peca);
-        }
-
-        return pecas;
     }
 
     @Override

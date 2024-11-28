@@ -16,7 +16,7 @@ public interface IPeca {
 
     public void deletePeca(long id) throws Exception;
 
-    public List<Peca> getPecaBydescricao(String descricao) throws Exception;
+    public Peca getPecaBydescricao(String descricao) throws Exception;
 
     public List<Peca> getPecaBycodigo(String codigo) throws Exception;
 }

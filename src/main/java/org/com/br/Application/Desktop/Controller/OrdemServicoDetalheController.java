@@ -10,6 +10,8 @@ import java.util.List;
 
 public class OrdemServicoDetalheController {
 
+
+
     private OrdemServicoService ordemServicoService;
 
     private JFrame frame;
@@ -25,6 +27,10 @@ public class OrdemServicoDetalheController {
     private List<Peca> pecaList;
 
     private List<Servico> servicoList;
+
+    private Peca peca;
+
+    private Servico servico;
 
     public OrdemServicoDetalheController(JFrame frame){
 
@@ -48,6 +54,9 @@ public class OrdemServicoDetalheController {
 
     }
 
+    public void setOrdemServico(OrdemServico ordemServico) {
+        this.ordemServico = ordemServico;
+    }
 
     public OrdemServico getOrdemServico() {
         return ordemServico;
@@ -71,5 +80,27 @@ public class OrdemServicoDetalheController {
 
     public List<Servico> getServicoList() {
         return servicoList;
+    }
+
+    public void addItemPeca(String peca, int quantidade){
+        try {
+            this.peca = ordemServicoService.getPecaByDescricao(peca);
+            ordemServicoService.addItemPeca(this.peca, quantidade, this.ordemServico);
+            JOptionPane.showMessageDialog(frame, "Dados salvos com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addItemServico(String servico, int quantidade){
+        try {
+            this.servico = ordemServicoService.getServicoByDescricao(servico);
+            ordemServicoService.addItemServico(this.servico, quantidade, this.ordemServico);
+            JOptionPane.showMessageDialog(frame, "Dados salvos com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException(e);
+        }
     }
 }
