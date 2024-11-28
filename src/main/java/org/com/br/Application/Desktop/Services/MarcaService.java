@@ -1,9 +1,12 @@
 package org.com.br.Application.Desktop.Services;
 
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import org.com.br.Core.Domain.Models.Marca;
+import org.com.br.Core.Domain.Models.Modelo;
 import org.com.br.Infra.Interfaces.IMarca;
 import org.com.br.Infra.Repository.MarcaRepository;
 
@@ -26,6 +29,10 @@ public class MarcaService {
         } else {
             marcaRepository.createMarca(marca); // Salvar no repositório
         }
+    }
+
+     public List<Marca> getMarcas() throws Exception {
+        return marcaRepository.getMarcas();
     }
 
 

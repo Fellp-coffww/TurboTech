@@ -28,7 +28,7 @@ public class ServicoView {
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/background_combobox.jpg"));
+        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
         Image imageCombobox = imageIconCombobox.getImage();
         Image resizedImageCombobox = imageCombobox.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
