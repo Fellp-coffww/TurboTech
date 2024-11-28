@@ -132,8 +132,9 @@ comboBoxCadastroGeral.addActionListener(e -> {
 });
 
         // Combobox Cadastro de Pessoas
+ 
         String[] opcoesCadastroPessoas = {"Cadastrar Cliente", "Cadastrar Funcionário"};
-JComboBox<String> comboBoxCadastroPessoas = new JComboBox<>(opcoesCadastroPessoas);
+        JComboBox<String> comboBoxCadastroPessoas = new JComboBox<>(opcoesCadastroPessoas);
 
 // Estilização do JComboBox
 comboBoxCadastroPessoas.setPreferredSize(new Dimension(220, 50));
@@ -178,7 +179,6 @@ comboBoxCadastroPessoas.addActionListener(e -> {
             break;
     }
 });
-
 
         // Combobox Cadastro de Veículo e Oficina
         String[] opcoesCadastroVeiculoOficina = {"Cadastrar Veículo", "Cadastrar Oficina"};
@@ -339,6 +339,10 @@ comboBoxOrdemServico.addActionListener(e -> {
 
     private static void abrirTelaCadastroServico() {
         ServicoView.show();
+    }
+
+    private static void abrirTelaCadastroFuncionario() {
+        FuncionarioView.show();
     }
 
     private static void abrirTelaCadastroVeiculo() {

@@ -6,7 +6,7 @@ public class Funcionario {
 
     private String nome;
 
-    public Funcionario(String cpf, String nome) {
+    public Funcionario(String nome,String cpf) {
         this.cpf = cpf;
         this.nome = nome;
     }

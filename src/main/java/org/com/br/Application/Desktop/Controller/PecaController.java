@@ -7,11 +7,10 @@ import org.com.br.Application.Desktop.Services.PecaService;
 import org.com.br.Infra.Repository.PecaRepository;
 
 public class PecaController  {
-    
 
     public PecaController(){
         try {
-            PecaService pecaService = new PecaService(new PecaRepository());        
+            this.pecaService = new PecaService(new PecaRepository());        
         } catch (Exception e) {
         }
     }
@@ -22,6 +21,10 @@ public class PecaController  {
 
     public PecaController(JFrame frame) {
         this.frame = frame;
+        try {
+             this.pecaService = new PecaService(new PecaRepository());        
+        } catch (Exception e) {
+        }
     }
 
     public void criarPeca(String descricao, int quantidade, double valorUnitario, String codigo)throws Exception{

@@ -15,9 +15,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.com.br.Application.Desktop.Controller.PecaController;
 
 public class PecaView {
     public static void show() {
@@ -108,24 +109,26 @@ public class PecaView {
         btnSalvar.setForeground(Color.WHITE);
         btnSalvar.setFocusPainted(false);
         btnSalvar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String codigo = txtCodigo.getText();
-                String nome = txtNome.getText();
-                String quantidade = txtQuantidade.getText();
-                String valor = txtValor.getText();
+        public void actionPerformed(ActionEvent e) {
+        try {
+            String nome = txtNome.getText().trim();
+            Integer quantidade = Integer.valueOf(txtQuantidade.getText().trim());
+            double valor = Double.valueOf(txtValor.getText().trim());
+            String codigo = txtCodigo.getText().trim();
 
-                // Validar os campos antes de salvar
-                if (codigo.isEmpty() || nome.isEmpty() || quantidade.isEmpty() || valor.isEmpty()) {
-                    JOptionPane.showMessageDialog(novaTela, "Todos os campos são obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(novaTela, "Peça salva com sucesso!");
-                    txtCodigo.setText("");
-                    txtNome.setText("");
-                    txtQuantidade.setText("");
-                    txtValor.setText("");
-                }
-            }
-        });
+            PecaController pecaController = new PecaController(novaTela);
+            pecaController.criarPeca(nome, quantidade, valor, codigo);
+
+
+        } catch (Exception ex) {
+        }finally{
+            txtCodigo.setText("");
+            txtNome.setText("");
+            txtQuantidade.setText("");
+            txtValor.setText("");
+        }
+    }
+});
 
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
