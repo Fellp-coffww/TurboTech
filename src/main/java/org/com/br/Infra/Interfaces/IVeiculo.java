@@ -16,4 +16,6 @@ public interface IVeiculo {
 
     public void deleteVeiculo(String placa) throws Exception;
 
+    public Veiculo getVeiculoByPlaca(String placa) throws Exception;
+
 }

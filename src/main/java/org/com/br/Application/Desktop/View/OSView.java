@@ -1,5 +1,6 @@
 package org.com.br.Application.Desktop.View;
 
+import org.com.br.Application.Desktop.Controller.OrdemServicoDetalheController;
 import org.com.br.Core.Domain.Models.OrdemServico;
 
 import javax.swing.*;
@@ -14,12 +15,14 @@ public class OSView extends JFrame {
 
     public OSView(List<OrdemServico> listaOS) {
         this.listaOS = listaOS;
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeView.class.getResource("/icon.jpg")));
 
         // Configurações básicas da janela
         setTitle("Visualização de Ordens de Serviço");
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 
         // Configuração do layout
         setLayout(new BorderLayout());
@@ -40,6 +43,8 @@ public class OSView extends JFrame {
         titulo.setForeground(Color.WHITE);
         tituloPanel.add(titulo, BorderLayout.CENTER);
         tituloPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        super.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.jpg")));
+
 
         // Adicionar o painel de título ao topo
         backgroundLabel.add(tituloPanel, BorderLayout.NORTH);
@@ -74,15 +79,21 @@ public class OSView extends JFrame {
             btnDetalhes.setForeground(Color.WHITE); // Texto branco
             btnDetalhes.setFocusPainted(false);
             btnDetalhes.setFont(new Font("SansSerif", Font.BOLD, 15));
+            DetalhesOSView detalhesOSView = new DetalhesOSView();
+            OrdemServicoDetalheController ordemServicoDetalheController = new OrdemServicoDetalheController(OSView.this);
             btnDetalhes.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Ação para abrir detalhes da OS
-                    JOptionPane.showMessageDialog(OSView.this,
-                            "Detalhes da OS:\nPlaca: " + os.getPlaca() +
-                                    "\nID: " + os.getIdOrdemServico() +
-                                    "\nStatus: " + os.getStatusOS(),
-                            "Detalhes da OS", JOptionPane.INFORMATION_MESSAGE);
+
+                    try {
+                        ordemServicoDetalheController.ordemServiceContrucut(os.getIdOrdemServico());
+                        detalhesOSView.show(ordemServicoDetalheController.getOrdemServico(), ordemServicoDetalheController.getVeiculo(),
+                                ordemServicoDetalheController.getItemPecaList(), ordemServicoDetalheController.getItemServicoList(),
+                                ordemServicoDetalheController.getPecaList(), ordemServicoDetalheController.getServicoList());
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             });
             osCard.add(btnDetalhes, BorderLayout.SOUTH);

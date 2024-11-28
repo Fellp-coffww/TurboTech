@@ -72,7 +72,11 @@ public class HomeView {
             String opcaoSelecionada = (String) comboBoxCadastroGeral.getSelectedItem();
             switch (opcaoSelecionada) {
                 case "Cadastro de Marca":
-                    abrirTelaCadastroMarca();
+                    try {
+                        abrirTelaCadastroMarca();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
                     break;
                 case "Cadastro de Modelo":
                     abrirTelaCadastroModelo();
@@ -95,12 +99,7 @@ public class HomeView {
             String opcaoSelecionada = (String) comboBoxCadastroPessoas.getSelectedItem();
             switch (opcaoSelecionada) {
                 case "Cadastrar Cliente":
-                    PessoaView pessoaView = new PessoaView();
-                    try {
-                        pessoaView.show();
-                    } catch (ParseException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    abrirTelaCadastroCliente();
                     break;
                 case "Cadastrar Funcionário":
                     abrirTelaCadastroFuncionario();
@@ -117,7 +116,7 @@ public class HomeView {
             String opcaoSelecionada = (String) comboBoxCadastroVeiculoOficina.getSelectedItem();
             switch (opcaoSelecionada) {
                 case "Cadastrar Veículo":
-                    abrirTela("Cadastrar Veículo");
+                abrirTelaCadastroVeiculo();
                     break;
                 case "Cadastrar Oficina":
                     abrirTela("Cadastrar Oficina");
@@ -172,6 +171,11 @@ public class HomeView {
         frame.setVisible(true);
     }
 
+    private static void abrirTelaCadastroCliente() {
+        PessoaView.show();
+    }
+
+
     private static JComboBox<String> criarComboBox(String[] opcoes, java.awt.event.ActionListener listener) {
         JComboBox<String> comboBox = new JComboBox<>(opcoes);
         comboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -185,7 +189,7 @@ public class HomeView {
         return comboBox;
     }
 
-    private static void abrirTelaCadastroMarca() {
+    private static void abrirTelaCadastroMarca() throws Exception {
         MarcaView.show();
     }
 
@@ -204,6 +208,12 @@ public class HomeView {
     private static void abrirTelaCadastroFuncionario() {
         FuncionarioView.show();
     }
+
+    private static void abrirTelaCadastroVeiculo() {
+        VeiculoView.show();
+
+    }
+
 
     private static void abrirTela(String titulo) {
         JFrame novaTela = new JFrame(titulo);
@@ -229,7 +239,7 @@ public class HomeView {
     }
 
     // Classe para criar painéis com bordas arredondadas
-    static class RoundedPanel extends JPanel {
+        static class RoundedPanel extends JPanel {
         private final int cornerRadius;
         private final Color backgroundColor;
 
