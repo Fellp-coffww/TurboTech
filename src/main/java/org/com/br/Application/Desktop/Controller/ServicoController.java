@@ -6,14 +6,11 @@ import javax.swing.JOptionPane;
 import org.com.br.Application.Desktop.Services.ServicoService;
 import org.com.br.Infra.Repository.ServicoRepository;
 
-public class ServicoController {
-    
-        
-            
+public class ServicoController { 
 
     public ServicoController(){
         try {
-            ServicoService servicoService = new ServicoService(new ServicoRepository());        
+            this.servicoService = new ServicoService(new ServicoRepository());        
         } catch (Exception e) {
         }
     }
@@ -24,6 +21,10 @@ public class ServicoController {
 
     public ServicoController(JFrame frame) {
         this.frame = frame;
+        try {
+            this.servicoService = new ServicoService(new ServicoRepository());        
+        } catch (Exception e) {
+        }
     }
 
     public void criarServico(String descricao, double valorUnitario)throws Exception{

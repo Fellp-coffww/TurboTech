@@ -4,15 +4,18 @@ import javax.swing.JOptionPane;
 
 import org.com.br.Core.Domain.Models.Servico;
 import org.com.br.Infra.Interfaces.IServico;
-import org.com.br.Infra.Repository.ServicoRepository;
 
 public class ServicoService {
     
     private IServico servicoRepository;
 
-    public ServicoService(ServicoRepository servicoRepository) {
+    public ServicoService(IServico servicoRepository) {
         this.servicoRepository = servicoRepository;
     }
+
+    public ServicoService() {
+    }
+    
 
     public void criarServico(String descricao, double valorUnitario) throws Exception {
         // Criar uma nova peça
@@ -20,9 +23,9 @@ public class ServicoService {
     
         // Validar os campos antes de salvar
         if (descricao == null || descricao.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "O campo descrição é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new Exception("O campo descrição é obrigatório!");
         } else  if (valorUnitario <= 0) {
-            JOptionPane.showMessageDialog(null, "O valor unitário deve ser maior que zero!", "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new Exception("O valor unitário deve ser maior que zero!");
         } else 
             // Se todas as validações forem aprovadas, salvar a peça
             servicoRepository.createServico(servico); // Salvar no repositório

@@ -13,16 +13,20 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
-import org.com.br.Application.Desktop.Controller.PecaController;
+import org.com.br.Application.Desktop.Controller.FuncionarioController;
 
-public class PecaView {
+public class FuncionarioView {
+
     public static void show() {
-        JFrame novaTela = new JFrame("Cadastro de Peças");
+        JFrame novaTela = new JFrame("Cadastro de Funcionário");
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -43,7 +47,7 @@ public class PecaView {
         tituloPanel.setLayout(new BorderLayout());
         tituloPanel.setBackground(new Color(0, 0, 0, 150)); // Cor preta com transparência (alpha 150)
 
-        JLabel titulo = new JLabel("Cadastro de Peças", JLabel.CENTER);
+        JLabel titulo = new JLabel("Cadastro de Funcionário", JLabel.CENTER);
         titulo.setFont(new Font("SansSerif", Font.BOLD, 28)); // Fonte do título
         titulo.setForeground(Color.WHITE); // Cor do título
 
@@ -59,80 +63,60 @@ public class PecaView {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
-        // Campo: Código da Peça
-        JLabel lblCodigo = new JLabel("Código da Peça:");
-        lblCodigo.setForeground(Color.WHITE);
-        lblCodigo.setOpaque(true);
-        lblCodigo.setFont(new Font("SansSerif", Font.BOLD, 28));
-        lblCodigo.setBackground(new Color(0, 0, 0, 150));
-
-        JTextField txtCodigo = new JTextField(20);
-        txtCodigo.setForeground(Color.BLACK);
-        txtCodigo.setToolTipText("Insira o código da peça");
-
-        // Campo: Nome da Peça
-        JLabel lblNome = new JLabel("Nome da Peça:");
-        lblNome.setForeground(Color.WHITE);
+        // Campo Nome
+        JLabel lblNome = new JLabel("Nome do Funcionário:");
+        lblNome.setForeground(Color.white);
         lblNome.setOpaque(true);
         lblNome.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblNome.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtNome = new JTextField(20);
-        txtNome.setForeground(Color.BLACK);
-        txtNome.setToolTipText("Insira o nome da peça");
+        txtNome.setToolTipText("Digite o nome do funcionário");
 
-        // Campo: Quantidade
-        JLabel lblQuantidade = new JLabel("Quantidade:");
-        lblQuantidade.setForeground(Color.WHITE);
-        lblQuantidade.setOpaque(true);
-        lblQuantidade.setFont(new Font("SansSerif", Font.BOLD, 28));
-        lblQuantidade.setBackground(new Color(0, 0, 0, 150));
+        // Campo CPF com máscara
+        JLabel lblCPF = new JLabel("CPF:");
+        lblCPF.setForeground(Color.white);
+        lblCPF.setOpaque(true);
+        lblCPF.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblCPF.setBackground(new Color(0, 0, 0, 150));
 
-        JTextField txtQuantidade = new JTextField(20);
-        txtQuantidade.setForeground(Color.BLACK);
-        txtQuantidade.setToolTipText("Insira a quantidade");
-
-        // Campo: Valor por Unidade
-        JLabel lblValor = new JLabel("Valor por Unidade:");
-        lblValor.setForeground(Color.WHITE);
-        lblValor.setOpaque(true);
-        lblValor.setFont(new Font("SansSerif", Font.BOLD, 28));
-        lblValor.setBackground(new Color(0, 0, 0, 150));
-
-        JTextField txtValor = new JTextField(20);
-        txtValor.setForeground(Color.BLACK);
-        txtValor.setToolTipText("Insira o valor por unidade");
+        JFormattedTextField txtCPF = new JFormattedTextField(); // Inicialização padrão
+        try {
+            MaskFormatter maskCPF = new MaskFormatter("###.###.###-##");
+            maskCPF.setPlaceholderCharacter('_'); // Define o caractere de preenchimento
+            maskCPF.install(txtCPF); // Aplica a máscara no campo
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(novaTela, "Erro ao configurar a máscara do CPF.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        txtCPF.setColumns(20);
+        txtCPF.setToolTipText("Digite o CPF no formato ***.***.***-**");
 
         // Botões
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
-        btnSalvar.setForeground(Color.WHITE);
+        btnSalvar.setForeground(Color.white);
         btnSalvar.setFocusPainted(false);
         btnSalvar.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-        try {
-            String nome = txtNome.getText().trim();
-            Integer quantidade = Integer.valueOf(txtQuantidade.getText().trim());
-            double valor = Double.valueOf(txtValor.getText().trim());
-            String codigo = txtCodigo.getText().trim();
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String nome = txtNome.getText().trim();
+                    String CPF = txtCPF.getText().trim();
 
-            PecaController pecaController = new PecaController(novaTela);
-            pecaController.criarPeca(nome, quantidade, valor, codigo);
-
-
-        } catch (Exception ex) {
-        }finally{
-            txtCodigo.setText("");
-            txtNome.setText("");
-            txtQuantidade.setText("");
-            txtValor.setText("");
-        }
-    }
-});
+                    FuncionarioController funcionarioController = new FuncionarioController(novaTela);
+                    funcionarioController.criarFuncionario(nome, CPF.replaceAll("\\D", ""));
+                    
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(novaTela, "Erro ao salvar o funcionário: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    txtNome.setText("");
+                    txtCPF.setText("");
+                }
+            }
+        });
 
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
-        btnCancelar.setForeground(Color.WHITE);
+        btnCancelar.setForeground(Color.white);
         btnCancelar.setFocusPainted(false);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -140,42 +124,32 @@ public class PecaView {
             }
         });
 
-        // Adicionar os componentes ao painel
+        // Adicionar os componentes ao painel de entrada
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panelEntrada.add(lblCodigo, gbc);
-        gbc.gridx = 1;
-        panelEntrada.add(txtCodigo, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
         panelEntrada.add(lblNome, gbc);
+
         gbc.gridx = 1;
         panelEntrada.add(txtNome, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
-        panelEntrada.add(lblQuantidade, gbc);
-        gbc.gridx = 1;
-        panelEntrada.add(txtQuantidade, gbc);
+        gbc.gridy = 1;
+        panelEntrada.add(lblCPF, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        panelEntrada.add(lblValor, gbc);
         gbc.gridx = 1;
-        panelEntrada.add(txtValor, gbc);
+        panelEntrada.add(txtCPF, gbc);
 
-        // Adicionar os botões
+        // Painel de botões
         JPanel panelButtons = new JPanel();
         panelButtons.setOpaque(false); // Tornar o painel de botões transparente
         panelButtons.add(btnSalvar);
         panelButtons.add(btnCancelar);
 
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 2;
         panelEntrada.add(panelButtons, gbc);
 
-        // Adicionar o painel de entrada ao fundo
+        // Adicionar os painéis ao fundo
         backgroundLabelCombobox.add(panelEntrada, BorderLayout.CENTER);
 
         // Adicionar o painel do título no topo
