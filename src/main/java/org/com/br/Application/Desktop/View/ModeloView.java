@@ -2,25 +2,27 @@ package org.com.br.Application.Desktop.View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;  
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
 
 import org.com.br.Application.Desktop.Controller.ModeloController;
 import org.com.br.Application.Desktop.Services.MarcaService;
@@ -79,21 +81,50 @@ public class ModeloView {
         lblMarca.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
+        MarcaService marcaService = new MarcaService(new MarcaRepository());
 
-            MarcaService marcaService = new MarcaService(new MarcaRepository());
-        
         // Alteração para JComboBox com lista
         List<Marca> listaMarcas = marcaService.getMarcas();
 
-        List<String> listaMarcaString = new ArrayList();
+        List<String> listaMarcaString = new ArrayList<>();
 
-        for(Marca marca : listaMarcas){
-
+        for (Marca marca : listaMarcas) {
             listaMarcaString.add(marca.getDescricao());
         }
 
         JComboBox<String> cmbMarca = new JComboBox<>(listaMarcaString.toArray(new String[0]));
-        cmbMarca.setForeground(Color.BLACK);
+
+        // Estilização do JComboBox para o cmbMarca
+        cmbMarca.setPreferredSize(new Dimension(180, 50));
+        cmbMarca.setFont(new Font("SansSerif", Font.BOLD, 14));
+        cmbMarca.setBackground(new Color(230, 240, 255));
+        cmbMarca.setForeground(new Color(50, 50, 50));
+        cmbMarca.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
+                "Selecione a Marca",
+                TitledBorder.CENTER, // Centraliza o título
+                TitledBorder.TOP, // Posição do título
+                new Font("SansSerif", Font.BOLD, 12),
+                new Color(50, 50, 50)));
+
+        // Renderizador personalizado para os itens do cmbMarca
+        cmbMarca.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public java.awt.Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setFont(new Font("SansSerif", Font.BOLD, 14));
+                label.setBorder(new EmptyBorder(5, 10, 5, 10));
+                if (isSelected) {
+                    label.setBackground(new Color(100, 150, 255));
+                    label.setForeground(Color.WHITE);
+                } else {
+                    label.setBackground(Color.WHITE);
+                    label.setForeground(Color.BLACK);
+                }
+                return label;
+            }
+        });
+
         cmbMarca.setToolTipText("Selecione a marca do carro");
 
         // Criar o fundo preto transparente para o campo de "Observação"
@@ -120,40 +151,32 @@ public class ModeloView {
         btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
         btnSalvar.setForeground(Color.white);
         btnSalvar.setFocusPainted(false);
-        btnSalvar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ModeloController modeloController;
-                
-                try {
-                    modeloController = new ModeloController(novaTela);
-                    long idMarca = 0;
-                    for (Marca marca : listaMarcas){
-                    
-                    if(marca.getDescricao().equals(cmbMarca.getSelectedItem().toString())){
-                        idMarca = marca.getIdMarca(); 
+        btnSalvar.addActionListener(e -> {
+            ModeloController modeloController;
+
+            try {
+                modeloController = new ModeloController(novaTela);
+                long idMarca = 0;
+                for (Marca marca : listaMarcas) {
+                    if (marca.getDescricao().equals(cmbMarca.getSelectedItem().toString())) {
+                        idMarca = marca.getIdMarca();
                     }
                 }
-                     modeloController.createModelo(txtObservacao.getText(), idMarca);
+                modeloController.createModelo(txtObservacao.getText(), idMarca);
 
-                } catch (Exception e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-
-                cmbMarca.setSelectedIndex(0);  // Resetar a seleção da combo box
-                txtObservacao.setText("");
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
+
+            cmbMarca.setSelectedIndex(0);  // Resetar a seleção da combo box
+            txtObservacao.setText("");
         });
 
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
         btnCancelar.setForeground(Color.white);
         btnCancelar.setFocusPainted(false);
-        btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                novaTela.dispose(); // Fechar a tela
-            }
-        });
+        btnCancelar.addActionListener(e -> novaTela.dispose());
 
         // Adicionar os componentes ao painel
         gbc.gridx = 0;

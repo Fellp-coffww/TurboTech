@@ -10,8 +10,6 @@ import java.util.List;
 
 public class OrdemServicoDetalheController {
 
-
-
     private OrdemServicoService ordemServicoService;
 
     private JFrame frame;
@@ -28,6 +26,8 @@ public class OrdemServicoDetalheController {
 
     private List<Servico> servicoList;
 
+    private List<Funcionario> funcionarioList;
+
     private Peca peca;
 
     private Servico servico;
@@ -36,11 +36,26 @@ public class OrdemServicoDetalheController {
 
         try {
             ordemServicoService = new OrdemServicoService(new VeiculoRepository(), new OrdemServicoRepository(),
-                    new ItemServicoRepository(), new ItemPecaRepository(), new PecaRepository(), new ServicoRepository());
+                    new ItemServicoRepository(), new ItemPecaRepository(), new PecaRepository(), new ServicoRepository(), new FuncionarioRepository());
             this.frame = frame;
         }catch (Exception e){
             e.printStackTrace();
         }
+
+    }
+
+    public OrdemServicoDetalheController() {
+        try {
+            ordemServicoService = new OrdemServicoService(new VeiculoRepository(), new OrdemServicoRepository(),
+                    new ItemServicoRepository(), new ItemPecaRepository(), new PecaRepository(), new ServicoRepository(), new FuncionarioRepository());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateOS(OrdemServico ordemServico){
+        ordemServicoService.setOrdemServico(ordemServico);
+        ordemServicoService.updateOrdemServico();
 
     }
 
@@ -51,8 +66,11 @@ public class OrdemServicoDetalheController {
         veiculo = ordemServicoService.getVeiculoFromOS();
         pecaList = ordemServicoService.getListPeca();
         servicoList = ordemServicoService.getListServico();
+        funcionarioList = ordemServicoService.getFuncionarioList();
 
     }
+
+
 
     public void setOrdemServico(OrdemServico ordemServico) {
         this.ordemServico = ordemServico;
@@ -82,6 +100,27 @@ public class OrdemServicoDetalheController {
         return servicoList;
     }
 
+    public List<Funcionario> getFuncionarioList() {
+        return funcionarioList;
+    }
+
+    public void deleteItemPeca(ItemPeca itemPeca){
+        try {
+            ordemServicoService.deleteItemPeca(itemPeca);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteItemServico(ItemServico itemServico){
+        try {
+            ordemServicoService.deleteItemServico(itemServico);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public void addItemPeca(String peca, int quantidade){
         try {
             this.peca = ordemServicoService.getPecaByDescricao(peca);
@@ -93,10 +132,10 @@ public class OrdemServicoDetalheController {
         }
     }
 
-    public void addItemServico(String servico, int quantidade){
+    public void addItemServico(String servico, int quantidade, String cpf){
         try {
             this.servico = ordemServicoService.getServicoByDescricao(servico);
-            ordemServicoService.addItemServico(this.servico, quantidade, this.ordemServico);
+            ordemServicoService.addItemServico(this.servico, quantidade, this.ordemServico, cpf);
             JOptionPane.showMessageDialog(frame, "Dados salvos com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

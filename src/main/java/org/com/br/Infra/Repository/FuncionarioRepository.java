@@ -99,4 +99,15 @@ public class FuncionarioRepository implements IFuncionario {
         }
 
     }
+
+    @Override
+    public Funcionario getFuncionarioByNome(String nome) throws Exception {
+        String sql = "select * from funcionario where nome =  ? ";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, nome);
+        ResultSet rs = statement.executeQuery();
+        rs.next();
+        Funcionario funcionario = new Funcionario(rs.getString("nome"), rs.getString("cpf"));
+        return funcionario;
+    }
 }

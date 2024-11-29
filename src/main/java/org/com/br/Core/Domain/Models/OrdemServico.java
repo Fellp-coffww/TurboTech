@@ -33,6 +33,10 @@ public class OrdemServico {
         this.placa = placa;
     }
 
+    public OrdemServico() {
+
+    }
+
     public void setIdOrdemServico(long idOrdemServico) {
         this.idOrdemServico = idOrdemServico;
     }
