@@ -103,7 +103,17 @@ public class ItemServicoRepository implements IItemServico {
 
     @Override
     public List<ItemServico> getItemServicoByOrdemServicoId(long id) throws Exception {
-        return List.of();
+        String sql = "select * from ItemServico where idos = " + id;
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+        List<ItemServico> itemServicos = new ArrayList<ItemServico>();
+
+        while(rs.next()){
+            ItemServico itemServico = new ItemServico(rs.getLong("idItemServico"),rs.getLong("idOs"), rs.getLong("idServico"), rs.getString("cpf"), rs.getInt("quantidade"), rs.getDouble("ValorUnitario"), rs.getDouble("valorTotal"));
+            itemServicos.add(itemServico);
+        }
+
+        return itemServicos;
     }
 
 

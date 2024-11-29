@@ -79,6 +79,8 @@ public class Veiculo {
         this.nPatrimonio = nPropriedade;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return placa;
+    }
 }

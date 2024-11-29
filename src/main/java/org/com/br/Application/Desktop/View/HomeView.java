@@ -12,7 +12,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -29,7 +28,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import org.com.br.Application.Desktop.Controller.OrdemServicoController;
-import org.com.br.Application.Desktop.View.HomeView.RoundedPanel;
 import org.com.br.Core.Domain.Models.OrdemServico;
 
 public class HomeView {
@@ -71,15 +69,15 @@ public class HomeView {
 
         // Combobox Cadastro Geral
         String[] opcoesCadastroGeral = {"Cadastro de Marca", "Cadastro de Modelo", "Cadastro de Peça", "Cadastro de Serviço"};
-JComboBox<String> comboBoxCadastroGeral = new JComboBox<>(opcoesCadastroGeral);
+        JComboBox<String> comboBoxCadastroGeral = new JComboBox<>(opcoesCadastroGeral);
 
-// Estilização do JComboBox
-comboBoxCadastroGeral.setPreferredSize(new Dimension(220, 50));
-comboBoxCadastroGeral.setFont(new Font("SansSerif", Font.BOLD, 14));
-comboBoxCadastroGeral.setBackground(new Color(230, 240, 255));
-comboBoxCadastroGeral.setForeground(new Color(50, 50, 50));
-comboBoxCadastroGeral.setBorder(BorderFactory.createTitledBorder(
-        BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
+        // Estilização do JComboBox
+        comboBoxCadastroGeral.setPreferredSize(new Dimension(220, 50));
+        comboBoxCadastroGeral.setFont(new Font("SansSerif", Font.BOLD, 14));
+        comboBoxCadastroGeral.setBackground(new Color(230, 240, 255));
+        comboBoxCadastroGeral.setForeground(new Color(50, 50, 50));
+        comboBoxCadastroGeral.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
         "Cadastro Geral",
         TitledBorder.CENTER,
         TitledBorder.TOP,
@@ -87,7 +85,7 @@ comboBoxCadastroGeral.setBorder(BorderFactory.createTitledBorder(
         new Color(50, 50, 50)));
 
 // Renderizador personalizado para itens
-comboBoxCadastroGeral.setRenderer(new DefaultListCellRenderer() {
+        comboBoxCadastroGeral.setRenderer(new DefaultListCellRenderer() {
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
