@@ -6,6 +6,8 @@ import java.text.ParseException;
 
 import javax.swing.*;
 
+import javax.swing.text.MaskFormatter;
+
 import org.com.br.Application.Desktop.Controller.ClienteController;
 
 public class PessoaView {
