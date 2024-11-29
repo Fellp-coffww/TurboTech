@@ -18,13 +18,14 @@ public class OrdemServicoRepository implements IOrdemServico {
     @Override
     public void createOrdemServico(OrdemServico ordemServico) throws Exception {
         try {
-            String sql =  "insert into OrdemServico(dataos,statusos,precoTotal,precoPago)"
-                    +     "values(?,?,?,?);";
+            String sql =  "insert into OrdemServico(dataos,statusos,precoTotal,precoPago, placa)"
+                    +     "values(?,?,?,?,?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setDate(1, ordemServico.getData());
             preparedStatement.setString(2, ordemServico.getStatusOS());
             preparedStatement.setDouble(3, ordemServico.getPrecoTotal());
             preparedStatement.setDouble(4, ordemServico.getPrecoPago());
+            preparedStatement.setString(5, ordemServico.getPlaca());
             preparedStatement.executeUpdate();
         } catch (SQLException erro) {
             //Erro do comando SQL - chave, coluna, nome da tabela, ...
@@ -98,7 +99,34 @@ public class OrdemServicoRepository implements IOrdemServico {
 
     @Override
     public List<OrdemServico> getOrdemServicoByState() throws Exception {
-        return List.of();
+        // SQL com filtro para status diferente de "Paga"
+        String sql = "SELECT * FROM OrdemServico WHERE StatusOS != 'Paga'";
+
+        // Criação do statement e execução da consulta
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        // Lista para armazenar as ordens de serviço
+        List<OrdemServico> ordensServicos = new ArrayList<OrdemServico>();
+
+        // Iterando pelo resultado
+        while (rs.next()) {
+            // Criando um objeto OrdemServico para cada linha do ResultSet
+            OrdemServico ordemServico = new OrdemServico(
+                    rs.getLong("idos"), // ID da ordem de serviço
+                    rs.getString("StatusOS"), // Status da ordem de serviço
+                    rs.getDate("dataos"), // Data da ordem de serviço
+                    rs.getDouble("precoTotal"), // Preço total
+                    rs.getDouble("precoPago"), // Preço pago
+                    rs.getString("placa") // Placa do veículo
+            );
+
+            // Adicionando o objeto à lista
+            ordensServicos.add(ordemServico);
+        }
+
+        // Retornando a lista com as ordens de serviço que têm status diferente de "Paga"
+        return ordensServicos;
     }
 
 }

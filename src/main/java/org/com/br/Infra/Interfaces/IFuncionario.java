@@ -17,4 +17,6 @@ public interface IFuncionario {
 
     public void deleteFuncionario(String cpf) throws Exception;
 
+    public Funcionario getFuncionarioByNome(String nome) throws Exception;
+
 }

@@ -16,4 +16,7 @@ public interface IAcessorios {
 
     public void deleteAcessorios(Long id) throws Exception;
 
+
+
+
 }
