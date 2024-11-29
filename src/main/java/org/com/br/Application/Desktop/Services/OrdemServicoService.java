@@ -24,18 +24,42 @@ public class OrdemServicoService {
 
     private IServico servicoRepository;
 
+    private IFuncionario funcionarioRepository;
+
     private OrdemServico ordemServico;
 
 
     public OrdemServicoService(IVeiculo veiculoRepository, IOrdemServico ordemServicoRepository,
-                               IItemServico itemServicoRepository, IItemPeca iItemPecaRepository, IPeca ipecaRepository, IServico servicoRepository) {
+                               IItemServico itemServicoRepository, IItemPeca iItemPecaRepository, IPeca ipecaRepository,
+                               IServico servicoRepository, IFuncionario funcionarioRepository) {
         this.veiculoRepository = veiculoRepository;
         this.ordemServicoRepository = ordemServicoRepository;
         this.itemServicoRepository = itemServicoRepository;
         this.iItemPecaRepository = iItemPecaRepository;
         this.pecaRepository = ipecaRepository;
         this.servicoRepository = servicoRepository;
+        this.funcionarioRepository = funcionarioRepository;
 
+    }
+
+    public OrdemServicoService(IOrdemServico ordemServicoRepository, OrdemServico ordemServico) {
+        this.ordemServicoRepository = ordemServicoRepository;
+        this.ordemServico = ordemServico;
+    }
+
+    public OrdemServicoService(IVeiculo veiculoRepository) {
+
+        this.veiculoRepository = veiculoRepository;
+
+    }
+
+    public void updateOrdemServico() {
+        try{
+        this.ordemServicoRepository = new OrdemServicoRepository();
+        this.ordemServicoRepository.updateOrdemServico(this.ordemServico);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public OrdemServicoService(IPeca pecaRepository) {
@@ -51,8 +75,16 @@ public class OrdemServicoService {
         return  veiculoRepository.getVeiculoByPlaca(ordemServico.getPlaca());
     }
 
+    public List<Veiculo> getAllVeiculos() throws Exception {
+        return veiculoRepository.getVeiculo();
+    }
+
     public List<ItemPeca> getItemPecasFromOS() throws Exception {
         return iItemPecaRepository.getItemPecaByOrdemServicoId(ordemServico.getIdOrdemServico());
+    }
+
+    public List<Funcionario> getFuncionarioList() throws Exception {
+        return  funcionarioRepository.getFuncionarios();
     }
 
     public List<ItemServico> getItemServicoFromOS() throws Exception {
@@ -74,6 +106,14 @@ public class OrdemServicoService {
         return servicoRepository.getServicoByDescricao(descricao);
     }
 
+    public void deleteItemServico(ItemServico itemServico) throws Exception {
+        itemServicoRepository.deleteItemServico(itemServico.getIdItemServico());
+    }
+
+    public void deleteItemPeca(ItemPeca itemPeca) throws Exception {
+        iItemPecaRepository.deleteItemPeca(itemPeca.getIdItemPeca());
+    }
+
     public void addItemPeca(Peca peca, int quantidade, OrdemServico ordemServico) throws Exception {
         if(peca == null){
             throw new Exception("Peça inválida! Checar seleção.");
@@ -86,15 +126,25 @@ public class OrdemServicoService {
         }
         }
 
-    public void addItemServico(Servico servico, int quantidade, OrdemServico ordemServico) throws Exception {
+    public void addItemServico(Servico servico, int quantidade, OrdemServico ordemServico, String nome) throws Exception {
         if(servico == null){
             throw new Exception("Peça inválida! Checar seleção.");
         } else if (quantidade <= 0) {
             throw new Exception("Quantidade deve ser maior que zero!");
         }else if(!ordemServico.getStatusOS().equals("Orçamento")){
             throw new Exception("Não é possível adicionar produtos em ordem de serviço fora do status de orçamento!");
-        } else {
-            iItemPecaRepository.createItemPeca(new ItemPeca(ordemServico.getIdOrdemServico(), servico.getIdServico(), quantidade, servico.getValorUnitario() * quantidade, servico.getValorUnitario()));
+        } else if (nome.equals(null)){
+            throw new Exception("Adicione um funcionário para o serviço!");
+        }else {
+            itemServicoRepository.createItemServico(new ItemServico(funcionarioRepository.getFuncionarioByNome(nome).getCpf(), ordemServico.getIdOrdemServico(), servico.getIdServico(), quantidade, servico.getValorUnitario() * quantidade, servico.getValorUnitario()));
         }
+    }
+
+    public void setOrdemServico(OrdemServico ordemServico) {
+        this.ordemServico = ordemServico;
+    }
+
+    public OrdemServico getOrdemServico() {
+        return ordemServico;
     }
 }

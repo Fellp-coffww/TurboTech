@@ -54,6 +54,27 @@ public class OSView extends JFrame {
         contentPanel.setOpaque(false); // Permitir que o fundo seja visível
         contentPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20)); // Layout que organiza os cartões lado a lado
 
+        // Botão para cadastrar nova OS
+        JButton btnCadastrarOS = new JButton("Cadastrar Nova OS");
+        btnCadastrarOS.setBackground(Color.DARK_GRAY);
+        btnCadastrarOS.setForeground(Color.WHITE);
+        btnCadastrarOS.setFont(new Font("SansSerif", Font.BOLD, 16));
+        btnCadastrarOS.setFocusPainted(false);
+
+// Ação para abrir a tela de cadastro
+        btnCadastrarOS.addActionListener(e -> {
+            try {
+                CadastroOSView cadastroOSView = new CadastroOSView();
+                cadastroOSView.showScreen();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(OSView.this, "Erro ao abrir tela de cadastro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+// Adiciona o botão ao topo, abaixo do título
+        tituloPanel.add(btnCadastrarOS, BorderLayout.SOUTH);
+
+
         // Criar cartões para exibir as informações das ordens de serviço
         for (OrdemServico os : listaOS) {
             JPanel osCard = new JPanel();
@@ -90,7 +111,7 @@ public class OSView extends JFrame {
                         ordemServicoDetalheController.ordemServiceContrucut(os.getIdOrdemServico());
                         detalhesOSView.show(ordemServicoDetalheController.getOrdemServico(), ordemServicoDetalheController.getVeiculo(),
                                 ordemServicoDetalheController.getItemPecaList(), ordemServicoDetalheController.getItemServicoList(),
-                                ordemServicoDetalheController.getPecaList(), ordemServicoDetalheController.getServicoList());
+                                ordemServicoDetalheController.getPecaList(), ordemServicoDetalheController.getServicoList(), ordemServicoDetalheController.getFuncionarioList());
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
