@@ -1,12 +1,8 @@
 package org.com.br.Application.Desktop.Services;
 
-
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import org.com.br.Core.Domain.Models.Marca;
-import org.com.br.Core.Domain.Models.Modelo;
 import org.com.br.Infra.Interfaces.IMarca;
 import org.com.br.Infra.Repository.MarcaRepository;
 
@@ -14,26 +10,43 @@ public class MarcaService {
 
     private IMarca marcaRepository;
 
-    public MarcaService(MarcaRepository marcarepository) {
-        this.marcaRepository = marcarepository;
+    // Construtor que recebe o repositório de marcas
+    public MarcaService(MarcaRepository marcaRepository) {
+        this.marcaRepository = marcaRepository;
     }
 
+    // Método para criar uma nova marca
     public void criarMarca(String descricao) throws Exception {
         // Criar uma nova marca
         Marca marca = new Marca(descricao);
-    
+
         // Validar o campo antes de salvar
         if (descricao == null || descricao.trim().isEmpty()) {
             throw new Exception("O campo descrição é obrigatório!");
-            //JOptionPane.showMessageDialog(null, "O campo descrição é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
             marcaRepository.createMarca(marca); // Salvar no repositório
         }
     }
 
-     public List<Marca> getMarcas() throws Exception {
+    // Método para editar uma marca existente
+    public void editMarca(Long id, String descricao) throws Exception {
+        Marca marca = new Marca(id, descricao);
+
+        // Validar o campo antes de salvar
+        if (descricao == null || descricao.trim().isEmpty()) {
+            throw new Exception("O campo descrição é obrigatório!");
+        } else {
+            marcaRepository.updateMarca(marca); // Salvar no repositório
+        }
+    }
+
+    // Método para listar todas as marcas
+    public List<Marca> getMarcas() throws Exception {
         return marcaRepository.getMarcas();
     }
 
-
+    // Método para obter o ID da marca a partir da descrição
+    public int getMarcaId(Marca marca) throws Exception {
+        return marcaRepository.getMarcaId(marca);
+    }
 }

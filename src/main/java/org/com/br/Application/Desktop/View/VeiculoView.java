@@ -20,9 +20,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.com.br.Application.Desktop.Services.MarcaService;
+import org.com.br.Core.Domain.Models.Marca;
+import org.com.br.Infra.Repository.MarcaRepository;
+
 public class VeiculoView {
 
-    public static void show() {
+    public static void show() throws Exception{
         JFrame novaTela = new JFrame("Cadastro de Veículo");
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
@@ -71,13 +75,17 @@ public class VeiculoView {
         lblMarca.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo
 
-        // ComboBox para Marca do Veículo
+        
+        MarcaService marcaService = new MarcaService(new MarcaRepository());
+
+        List<Marca> listMarcas = marcaService.getMarcas();
+
         List<String> listaMarcas = new ArrayList<>();
-        listaMarcas.add("Toyota");
-        listaMarcas.add("Honda");
-        listaMarcas.add("Ford");
-        listaMarcas.add("Chevrolet");
-        listaMarcas.add("Nissan");
+
+        for (Marca marca : listMarcas) {
+            
+        }
+
 
         JComboBox<String> cmbMarca = new JComboBox<>(listaMarcas.toArray(new String[0]));
         cmbMarca.setForeground(Color.BLACK);
