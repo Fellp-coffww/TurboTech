@@ -1,11 +1,24 @@
 package org.com.br.Application.Desktop.View;
 
-import org.com.br.Application.Desktop.Controller.MarcaController;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import org.com.br.Application.Desktop.Controller.MarcaController;
 
 public class MarcaView {
 
@@ -75,19 +88,6 @@ public class MarcaView {
             }
         });
 
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setBackground(new Color(70, 130, 180));
-        btnEditar.setForeground(Color.WHITE);
-        btnEditar.setFocusPainted(false);
-        btnEditar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    MarcaEditView.show();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(novaTela, "Erro ao abrir a tela de edição: " + ex.getMessage());
-                }
-            }
-        });
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -100,7 +100,6 @@ public class MarcaView {
         panelButtons.setOpaque(false);
         panelButtons.add(btnSalvar);
         panelButtons.add(btnCancelar);
-        panelButtons.add(btnEditar);
 
         gbc.gridx = 1;
         gbc.gridy = 2;

@@ -32,6 +32,13 @@ public class ModeloController {
         }
     }
 
+    public void editarModelo(String descricao, long idMarca, long idModelo){
+        try {
+            modeloService.editarModelo(descricao, idMarca, idModelo);
+        } catch (Exception e) {
+        }
+    }
+
     
     
 }

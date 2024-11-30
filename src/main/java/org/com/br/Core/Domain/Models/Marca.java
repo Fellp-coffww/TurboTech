@@ -16,6 +16,11 @@ public class Marca {
         this.descricao = descricao;
     }
 
+    public Marca(String descricao, Long idMarca) {
+        this.idMarca = idMarca;
+        this.descricao = descricao;
+    }
+
     // Getters e Setters
     public Long getIdMarca() {
         return idMarca;

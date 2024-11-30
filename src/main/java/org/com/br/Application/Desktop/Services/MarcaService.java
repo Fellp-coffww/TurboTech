@@ -3,7 +3,6 @@ package org.com.br.Application.Desktop.Services;
 import java.util.List;
 
 import org.com.br.Core.Domain.Models.Marca;
-import org.com.br.Core.Domain.Models.Modelo;
 import org.com.br.Infra.Interfaces.IMarca;
 import org.com.br.Infra.Interfaces.IModelo;
 import org.com.br.Infra.Repository.MarcaRepository;
@@ -32,8 +31,8 @@ public class MarcaService {
     }
 
     // Método para editar uma marca existente
-    public void editMarca(Long id, String descricao) throws Exception {
-        Marca marca = new Marca(id, descricao);
+    public void editMarca(String descricao, long id) throws Exception {
+        Marca marca = new Marca(descricao, id);
 
         // Validar o campo antes de salvar
         if (descricao == null || descricao.trim().isEmpty()) {
@@ -46,11 +45,6 @@ public class MarcaService {
     // Método para listar todas as marcas
     public List<Marca> getMarcas() throws Exception {
         return marcaRepository.getMarcas();
-    }
-
-    // Método para obter o ID da marca a partir da descrição
-    public int getMarcaId(Marca marca) throws Exception {
-        return marcaRepository.getMarcaId(marca);
     }
 
     public void deleteMarca(Long id) throws Exception {

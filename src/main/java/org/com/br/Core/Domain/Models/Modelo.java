@@ -14,6 +14,12 @@ public class Modelo{
         this.idModelo = idModelo;
     }
 
+    public Modelo(String descricao, long idMarca, long idModelo) {
+        this.descricao = descricao;
+        this.idMarca = idMarca;
+        this.idModelo = idModelo;
+    }
+
     public Modelo(String descricao, long idMarca) {
         this.descricao = descricao;
         this.idMarca = idMarca;

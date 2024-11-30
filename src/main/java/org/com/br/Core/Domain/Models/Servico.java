@@ -13,6 +13,12 @@ public class Servico {
         this.valorUnitario = valorUnitario;
     }
 
+    public Servico(String descricao, Double valorUnitario, long IdServico) {
+        this.IdServico = IdServico;
+        this.descricao = descricao;
+        this.valorUnitario = valorUnitario;
+    }
+
     public Servico(long IdServico, String descricao, Double valorUnitario) {
         this.IdServico = IdServico;
         this.descricao = descricao;

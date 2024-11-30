@@ -42,7 +42,7 @@ public class VeiculoRepository implements IVeiculo {
         statement.setString(1, placa);
         ResultSet rs = statement.executeQuery();
         rs.next();
-        Veiculo veiculo = new Veiculo(rs.getString("placa"),rs.getString("chassi"), rs.getString("Kilometragem"), rs.getLong("idModelo"), rs.getInt("ano"), rs.getInt("numPatrimonio"));
+        Veiculo veiculo = new Veiculo(rs.getString("placa"),rs.getString("chassi"), rs.getString("Kilometragem"), rs.getInt("ano"), rs.getLong("idModelo"), rs.getInt("numPatrimonio"));
         return veiculo;
     }
 
@@ -53,7 +53,7 @@ public class VeiculoRepository implements IVeiculo {
         List<Veiculo> veiculos = new ArrayList<Veiculo>();
 
         while(rs.next()){
-            Veiculo veiculo = new Veiculo(rs.getString("placa"),rs.getString("chassi"), rs.getString("Kilometragem"), rs.getLong("idModelo"), rs.getInt("ano"), rs.getInt("numPatrimonio"));
+            Veiculo veiculo = new Veiculo(rs.getString("placa"),rs.getString("chassi"), rs.getString("Kilometragem"), rs.getInt("ano"), rs.getLong("idModelo"), rs.getInt("numPatrimonio"));
             veiculos.add(veiculo);
         }
 
@@ -104,7 +104,7 @@ public class VeiculoRepository implements IVeiculo {
             preparedStatement.setString(1, placa);
             ResultSet rs = preparedStatement.executeQuery();
             rs.next();
-            Veiculo veiculo = new Veiculo(rs.getString("placa"),rs.getString("chassi"), rs.getString("Kilometragem"), rs.getLong("idModelo"), rs.getInt("ano"), rs.getInt("numPatrimonio"));
+            Veiculo veiculo = new Veiculo(rs.getString("placa"),rs.getString("chassi"), rs.getString("Kilometragem"), rs.getInt("ano"), rs.getLong("idModelo"), rs.getInt("numPatrimonio"));
             return veiculo;
         } catch (SQLException erro) {
             //Erro do comando SQL - chave, coluna, nome da tabela, ...

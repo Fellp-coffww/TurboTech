@@ -43,5 +43,12 @@ public class PecaController  {
 
     }
 
+    public void editarPeca(String descricao, int quantidade, double valorUnitario, String codigo, long idPeca){
+        try {
+            pecaService.editarPeca(descricao, quantidade, valorUnitario, codigo, idPeca);
+        } catch (Exception e) {
+        }
+    }
+
 
 }
