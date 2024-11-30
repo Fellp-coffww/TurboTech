@@ -37,5 +37,11 @@ public class PecaController  {
         }
     }
 
+    public void deletePeca(long id){
+
+        pecaService.deletePeca(id);
+
+    }
+
 
 }

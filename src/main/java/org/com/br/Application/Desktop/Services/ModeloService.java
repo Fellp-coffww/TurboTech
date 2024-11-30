@@ -3,7 +3,10 @@ package org.com.br.Application.Desktop.Services;
 import java.util.List;
 
 import org.com.br.Core.Domain.Models.Modelo;
+import org.com.br.Core.Domain.Models.OrdemServico;
 import org.com.br.Infra.Interfaces.IModelo;
+import org.com.br.Infra.Repository.ModeloRepository;
+import org.com.br.Infra.Repository.OrdemServicoRepository;
 
 public class ModeloService {
     private IModelo iModelo;
@@ -26,6 +29,14 @@ public class ModeloService {
         } else {
             iModelo.createModelo(modelo); // Salvar no repositório
         }
+    }
+
+    public void deleteModelo(long id) throws Exception {
+
+        ModeloRepository modeloRepository = new ModeloRepository();
+        modeloRepository.deleteModelo(id);
+
+
     }
 
 }

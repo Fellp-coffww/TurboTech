@@ -46,4 +46,16 @@ public class MarcaController {
             throw new Exception("Erro ao obter ID da Marca: " + e.getMessage());
         }
     }
+
+    public void deletarMarca(long id) throws Exception {
+
+        try{
+
+            marcaService.deleteMarca(id);
+            JOptionPane.showMessageDialog(frame, "Dados salvos com sucesso!");
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }

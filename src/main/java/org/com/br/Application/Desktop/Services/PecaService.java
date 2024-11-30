@@ -34,6 +34,14 @@ public class PecaService {
             pecaRepository.createPeca(peca); // Salvar no repositório
         }
     }
-    
+
+    public void deletePeca(long id){
+        try {
+            pecaRepository.deletePeca(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }
