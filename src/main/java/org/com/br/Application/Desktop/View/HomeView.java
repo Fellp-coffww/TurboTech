@@ -29,6 +29,10 @@ import javax.swing.border.TitledBorder;
 
 import org.com.br.Application.Desktop.Controller.OrdemServicoController;
 import org.com.br.Core.Domain.Models.OrdemServico;
+import org.com.br.Infra.Repository.MarcaRepository;
+import org.com.br.Infra.Repository.ModeloRepository;
+import org.com.br.Infra.Repository.PecaRepository;
+import org.com.br.Infra.Repository.ServicoRepository;
 
 public class HomeView {
 
@@ -68,7 +72,7 @@ public class HomeView {
         // Combobox Cadastro Geral
 
         // Combobox Cadastro Geral
-        String[] opcoesCadastroGeral = {"Cadastro de Marca", "Cadastro de Modelo", "Cadastro de Peça", "Cadastro de Serviço"};
+        String[] opcoesCadastroGeral = {"Cadastro de Marca", "Cadastro de Modelo", "Cadastro de Peça", "Cadastro de Serviço", "Gerenciar entidades"};
         JComboBox<String> comboBoxCadastroGeral = new JComboBox<>(opcoesCadastroGeral);
 
         // Estilização do JComboBox
@@ -126,6 +130,13 @@ comboBoxCadastroGeral.addActionListener(e -> {
         case "Cadastro de Serviço":
             abrirTelaCadastroServico();
             break;
+        case "Gerenciar entidades":
+            try {
+                abrirTelaGerenciarEntidades();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            break;
     }
 });
 
@@ -179,8 +190,8 @@ comboBoxCadastroPessoas.addActionListener(e -> {
 });
 
         // Combobox Cadastro de Veículo e Oficina
-        String[] opcoesCadastroVeiculoOficina = {"Cadastrar Veículo", "Cadastrar Oficina"};
-JComboBox<String> comboBoxCadastroVeiculoOficina = new JComboBox<>(opcoesCadastroVeiculoOficina);
+        String[] opcoesCadastroVeiculoOficina = {"Cadastrar Veículo", "Cadastrar Oficina", "Gerenciar entidades"};
+        JComboBox<String> comboBoxCadastroVeiculoOficina = new JComboBox<>(opcoesCadastroVeiculoOficina);
 
 // Estilização do JComboBox
 comboBoxCadastroVeiculoOficina.setPreferredSize(new Dimension(220, 50));
@@ -230,17 +241,16 @@ comboBoxCadastroVeiculoOficina.addActionListener(e -> {
     }
 });
 
-
         // Combobox Ordem de Serviço
-        String[] opcoesOrdemServico = {"Cadastro de O.S", "Visualização de O.S"};
-JComboBox<String> comboBoxOrdemServico = new JComboBox<>(opcoesOrdemServico);
+        String[] opcoesOrdemServico = {"Visualização de O.S"};
+        JComboBox<String> comboBoxOrdemServico = new JComboBox<>(opcoesOrdemServico);
 
-// Estilização do JComboBox
-comboBoxOrdemServico.setPreferredSize(new Dimension(220, 50));
-comboBoxOrdemServico.setFont(new Font("SansSerif", Font.BOLD, 14));
-comboBoxOrdemServico.setBackground(new Color(230, 240, 255));
-comboBoxOrdemServico.setForeground(new Color(50, 50, 50));
-comboBoxOrdemServico.setBorder(BorderFactory.createTitledBorder(
+        // Estilização do JComboBox
+        comboBoxOrdemServico.setPreferredSize(new Dimension(220, 50));
+        comboBoxOrdemServico.setFont(new Font("SansSerif", Font.BOLD, 14));
+        comboBoxOrdemServico.setBackground(new Color(230, 240, 255));
+        comboBoxOrdemServico.setForeground(new Color(50, 50, 50));
+        comboBoxOrdemServico.setBorder(BorderFactory.createTitledBorder(
         BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
         "Ordem de Serviço",
         TitledBorder.CENTER, // Centraliza o título
@@ -286,9 +296,6 @@ comboBoxOrdemServico.addActionListener(e -> {
             break;
     }
 });
-
-
-
         // Adicionar comboboxes ao painel
         panelOpcoes.add(comboBoxCadastroGeral);
         panelOpcoes.add(comboBoxCadastroPessoas);
@@ -307,6 +314,20 @@ comboBoxOrdemServico.addActionListener(e -> {
         // Configurar o frame com a imagem de fundo
         frame.setContentPane(backgroundLabelPrincipal);
         frame.setVisible(true);
+    }
+
+    private static void abrirTelaGerenciarEntidades() throws Exception {
+
+        ModeloRepository modeloRepository = new ModeloRepository();
+        MarcaRepository marcaRepository = new MarcaRepository();
+        PecaRepository pecaRepository = new PecaRepository();
+        ServicoRepository servicoRepository = new ServicoRepository();
+
+        EstoqueView estoqueView = new EstoqueView(modeloRepository.getModelo(),marcaRepository.getMarcas(),
+                pecaRepository.getPecas(), servicoRepository.getServicos());
+
+
+
     }
 
     private static void abrirTelaCadastroCliente() {

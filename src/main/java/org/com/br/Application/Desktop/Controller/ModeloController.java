@@ -24,6 +24,14 @@ public class ModeloController {
         }
     }
 
+    public void deleteModelo(long id){
+        try {
+            modeloService.deleteModelo(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     
     
 }

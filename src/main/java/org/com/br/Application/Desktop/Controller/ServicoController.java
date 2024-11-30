@@ -37,5 +37,15 @@ public class ServicoController {
         }
     }
 
+    public void deletarServico(long id){
+
+        try {
+            servicoService.deleteServico(id);
+        }catch (Exception e){
+
+        }
+
+    }
+
 
 }

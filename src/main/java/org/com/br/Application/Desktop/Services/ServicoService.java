@@ -32,6 +32,11 @@ public class ServicoService {
             JOptionPane.showMessageDialog(null, "Peça salva com sucesso!");
 
     }
+
+    public void deleteServico(long id) throws Exception {
+        servicoRepository.deleteServico(id);
+    }
+
 }
 
 
