@@ -1,7 +1,7 @@
 package org.com.br.Infra.Interfaces;
-import org.com.br.Core.Domain.Models.Servico;
-
 import java.util.List;
+
+import org.com.br.Core.Domain.Models.Servico;
 
 
 public interface IServico {

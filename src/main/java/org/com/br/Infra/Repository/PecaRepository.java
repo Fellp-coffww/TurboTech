@@ -65,12 +65,13 @@ public class PecaRepository implements IPeca {
     @Override
     public void updatePeca(Peca peca) throws Exception {
      try{
-        String sql = "update Pecas  Set descricao = ?,quantidade = ?,valorUnitario = ?,codigo = ? where idPeca = ?";
+        String sql = "update Pecas  Set descricao = ?,quantidade = ?,valorUnitario = ?,codigo = ? where idPecas = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, peca.getDescricao());
         preparedStatement.setInt(2, peca.getQuantidade());
         preparedStatement.setDouble(3, peca.getValorUnitario());
         preparedStatement.setString(4, peca.getCodigo());
+        preparedStatement.setLong(5, peca.getIdPeca());
         preparedStatement.executeUpdate();
 
         } catch (SQLException erro) {

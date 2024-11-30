@@ -44,4 +44,9 @@ public class PecaService {
 
     }
 
+    public void editarPeca(String descricao, int quantidade, double valorUnitario, String codigo, long idPeca) throws Exception{
+        Peca peca = new Peca(descricao, quantidade, valorUnitario, codigo, idPeca);
+        pecaRepository.updatePeca(peca);
+    }
+
 }

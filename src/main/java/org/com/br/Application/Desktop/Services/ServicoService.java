@@ -37,6 +37,11 @@ public class ServicoService {
         servicoRepository.deleteServico(id);
     }
 
+    public void editarServiço(String descricao, double  valorUnitario, long id) throws Exception {
+        Servico servico = new Servico(descricao, valorUnitario, id);
+        servicoRepository.updateServico(servico);
+    }
+
 }
 
 

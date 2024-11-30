@@ -46,6 +46,14 @@ public class ServicoController {
         }
 
     }
+    
+
+    public void editarServiço(String descricao, double valor, long id){
+        try {
+            servicoService.editarServiço(descricao, valor, id);
+        } catch (Exception e) {
+        }
+    }
 
 
 }

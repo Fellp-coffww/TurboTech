@@ -27,6 +27,14 @@ public class Peca {
         this.valorUnitario = valorUnitario;
     }
 
+    public Peca(String descricao, int quantidade, double valorUnitario, String codigo, Long idPeca) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+        this.idPeca = idPeca;
+        this.quantidade = quantidade;
+        this.valorUnitario = valorUnitario;
+    }
+
     public Long getIdPeca() {
         return idPeca;
     }

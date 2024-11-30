@@ -15,7 +15,7 @@ public class Veiculo {
     private int nPatrimonio;
 
 
-    public Veiculo(String placa, String chassi, String kilometragem, Long idModelo, int ano, int nPatrimonio) {
+    public Veiculo(String placa, String chassi, String kilometragem, int ano, Long idModelo, int nPatrimonio) {
         this.placa = placa;
         this.chassi = chassi;
         this.Kilometragem = kilometragem;
@@ -24,8 +24,9 @@ public class Veiculo {
         this.nPatrimonio = nPatrimonio;
     }
 
-    public Veiculo(String placa, String kilometragem, int ano, long idModelo) {
+    public Veiculo(String placa, String chassi, String kilometragem, int ano, long idModelo) {
         this.placa = placa;
+        this.chassi = chassi;
         Kilometragem = kilometragem;
         this.ano = ano;
         this.idModelo = idModelo;
