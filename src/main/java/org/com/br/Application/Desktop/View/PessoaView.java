@@ -178,9 +178,8 @@ public class PessoaView {
                 clienteController.criarPessoa(cbCpfCnpj.getSelectedItem().toString(), txtNome.getText().trim(), txtEmail1.getText(), txtTelefone.getText(),
                         txtEndereco.getText(), txtComplemento.getText(), "", txtCpfCnpj.getText(), txtInscricaoEstadual.getText(),
                         txtContato.getText(), txtRazaoSocial.getText());
-                JOptionPane.showMessageDialog(frame, "Dados salvos com sucesso!");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(frame, "Erro ao salvar os dados: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                ex.getMessage();
             }
         });
 

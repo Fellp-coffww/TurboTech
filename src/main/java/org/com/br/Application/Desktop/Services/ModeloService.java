@@ -44,4 +44,11 @@ public class ModeloService {
         modeloRepository.updateModelo(modelo);
     }
 
+
+    public Modelo getModeloByName(String descricao) throws Exception {
+
+        return  iModelo.getModeliByDescricao(descricao);
+
+    }
+
 }

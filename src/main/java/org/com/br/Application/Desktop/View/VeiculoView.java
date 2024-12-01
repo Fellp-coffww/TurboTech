@@ -20,13 +20,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.com.br.Application.Desktop.Controller.VeiculoController;
 import org.com.br.Application.Desktop.Services.MarcaService;
+import org.com.br.Application.Desktop.Services.ModeloService;
 import org.com.br.Core.Domain.Models.Marca;
+import org.com.br.Core.Domain.Models.Modelo;
+import org.com.br.Core.Domain.Models.Veiculo;
 import org.com.br.Infra.Repository.MarcaRepository;
+import org.com.br.Infra.Repository.ModeloRepository;
 
 public class VeiculoView {
 
     public static void show() throws Exception{
+
+
         JFrame novaTela = new JFrame("Cadastro de Veículo");
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
@@ -69,30 +76,7 @@ public class VeiculoView {
         campoMarcaPanel.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente
         campoMarcaPanel.setLayout(new BorderLayout());
 
-        JLabel lblMarca = new JLabel("Marca do Veículo:");
-        lblMarca.setForeground(Color.white);
-        lblMarca.setOpaque(true);
-        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 28));
-        lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo
 
-        
-        MarcaService marcaService = new MarcaService(new MarcaRepository());
-
-        List<Marca> listMarcas = marcaService.getMarcas();
-
-        List<String> listaMarcas = new ArrayList<>();
-
-        for (Marca marca : listMarcas) {
-            
-        }
-
-
-        JComboBox<String> cmbMarca = new JComboBox<>(listaMarcas.toArray(new String[0]));
-        cmbMarca.setForeground(Color.BLACK);
-        cmbMarca.setToolTipText("Selecione a marca do veículo");
-
-        // Adicionar o JComboBox ao painel
-        campoMarcaPanel.add(cmbMarca, BorderLayout.CENTER);
 
         // Campo de Modelo do Veículo
         JLabel lblModelo = new JLabel("Modelo do Veículo:");
@@ -101,7 +85,9 @@ public class VeiculoView {
         lblModelo.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblModelo.setBackground(new Color(0, 0, 0, 150));
 
-        JComboBox<String> cmbModelo = new JComboBox<>(new String[]{"Corolla", "Civic", "F-150", "Onix", "Altima"});
+        ModeloService modeloService = new ModeloService(new ModeloRepository());
+
+        JComboBox<Modelo> cmbModelo = new JComboBox<>(modeloService.getModelos().toArray(new Modelo[0]));
         cmbModelo.setForeground(Color.BLACK);
         cmbModelo.setToolTipText("Selecione o modelo do veículo");
 
@@ -156,6 +142,8 @@ public class VeiculoView {
         lblAnoVeiculo.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblAnoVeiculo.setBackground(new Color(0, 0, 0, 150));
 
+        VeiculoController veiculoController = new VeiculoController(novaTela);
+
         // Criar uma lista de anos para selecionar
         List<Integer> listaAnos = new ArrayList<>();
         for (int i = 1980; i <= 2024; i++) {
@@ -172,12 +160,21 @@ public class VeiculoView {
         btnSalvar.setForeground(Color.white);
         btnSalvar.setFocusPainted(false);
         btnSalvar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(novaTela, "Veículo salvo com sucesso!");
-            cmbMarca.setSelectedIndex(0);  // Resetar a seleção da combo box
-            txtPlaca.setText("");
-            txtChassi.setText("");
-            txtQuilometragem.setText("");
-            txtPatrimonio.setText("");
+
+            try {
+                Modelo modelo = modeloService.getModeloByName(cmbModelo.getSelectedItem().toString());
+                veiculoController.createVeiculo(txtPlaca.getText(), txtChassi.getText(), txtQuilometragem.getText(),
+                        (int )cmbAnoVeiculo.getSelectedItem(), modelo.getIdModelo()) ;
+                // Resetar a seleção da combo box
+                txtPlaca.setText("");
+                txtChassi.setText("");
+                txtQuilometragem.setText("");
+                txtPatrimonio.setText("");
+
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
         });
 
         JButton btnCancelar = new JButton("Cancelar");
@@ -186,12 +183,6 @@ public class VeiculoView {
         btnCancelar.setFocusPainted(false);
         btnCancelar.addActionListener(e -> novaTela.dispose()); // Fechar a tela
 
-        // Adicionar os componentes ao painel
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panelEntrada.add(lblMarca, gbc);
-        gbc.gridx = 1;
-        panelEntrada.add(campoMarcaPanel, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;

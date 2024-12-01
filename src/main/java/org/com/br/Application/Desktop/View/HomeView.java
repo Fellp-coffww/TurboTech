@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -27,12 +28,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import org.com.br.Application.Desktop.Controller.FuncionarioController;
 import org.com.br.Application.Desktop.Controller.OrdemServicoController;
-import org.com.br.Core.Domain.Models.OrdemServico;
-import org.com.br.Infra.Repository.MarcaRepository;
-import org.com.br.Infra.Repository.ModeloRepository;
-import org.com.br.Infra.Repository.PecaRepository;
-import org.com.br.Infra.Repository.ServicoRepository;
+import org.com.br.Application.Desktop.Controller.VeiculoController;
+import org.com.br.Core.Domain.Models.*;
+import org.com.br.Core.Domain.Rules.ListToHashtableAdapter;
+import org.com.br.Infra.Repository.*;
 
 public class HomeView {
 
@@ -184,7 +185,7 @@ comboBoxCadastroPessoas.addActionListener(e -> {
             abrirTelaCadastroCliente();
             break;
         case "Cadastrar Funcionário":
-            abrirTela("Cadastrar Funcionário");
+            FuncionarioView.show();
             break;
     }
 });
@@ -238,9 +239,28 @@ comboBoxCadastroVeiculoOficina.addActionListener(e -> {
         case "Cadastrar Oficina":
             abrirTela("Cadastrar Oficina");
             break;
+        case "Gerenciar entidades":
+            try {
+                ListToHashtableAdapter<String, Funcionario>  adapterFuncionario = new ListToHashtableAdapter<String, Funcionario>();
+                ListToHashtableAdapter<String, Veiculo>  adapterVeiculo = new ListToHashtableAdapter<String, Veiculo>();
+                ListToHashtableAdapter<String, PessoaJuridica>  adapterPJ = new ListToHashtableAdapter<String, PessoaJuridica>();
+                ListToHashtableAdapter<String, PessoaFisica>  adapterPF = new ListToHashtableAdapter<String, PessoaFisica>();
+                VeiculoController veiculoController = new VeiculoController(frame);
+                FuncionarioController funcionarioController = new FuncionarioController(frame);
+                PessoaFisicaRepository pessoaFisicaRepository = new PessoaFisicaRepository();
+                PessoaJuridicaRepository pessoaJuridicaRepository = new PessoaJuridicaRepository();
+                Hashtable<String, PessoaFisica> hashtablePessoaFisica = adapterPF.listToHashtable(pessoaFisicaRepository.getPessoaFisica(), Object::toString);
+                Hashtable<String, PessoaJuridica> hashtablePessoaJuridica = adapterPJ.listToHashtable(pessoaJuridicaRepository.getPessoaJuridica(), Object::toString);
+                Hashtable<String, Funcionario> hashtableFuncionario = adapterFuncionario.listToHashtable(funcionarioController.getFuncionario(), Object::toString);
+                Hashtable<String, Veiculo> hashtableVeiculo = adapterVeiculo.listToHashtable(veiculoController.getVeiculos(), Object::toString);
+                GerenciamentoView gerenciamentoView = new GerenciamentoView(hashtableVeiculo, hashtableFuncionario, hashtablePessoaFisica, hashtablePessoaJuridica);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
+
     }
 });
-
         // Combobox Ordem de Serviço
         String[] opcoesOrdemServico = {"Visualização de O.S"};
         JComboBox<String> comboBoxOrdemServico = new JComboBox<>(opcoesOrdemServico);

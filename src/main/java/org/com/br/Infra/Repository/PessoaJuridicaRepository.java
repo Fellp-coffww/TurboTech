@@ -27,7 +27,7 @@ public class PessoaJuridicaRepository implements IPessoaJuridica {
             String sql = "INSERT INTO PessoaJuridica (cnpj, nome, email, ddi1, ddd1, numero1, ddi2, ddd2, numero2, logradouro, complemento, numeroEnd, inscricaoEstadual, contato, razaoSocial) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, pessoaJuridica.getCnpj());
+            preparedStatement.setString(1, pessoaJuridica.getCnpj().replaceAll("\\D", ""));
             preparedStatement.setString(2, pessoaJuridica.getNome());
             preparedStatement.setString(3, pessoaJuridica.getEmail());
             preparedStatement.setString(4, pessoaJuridica.getDdi1());

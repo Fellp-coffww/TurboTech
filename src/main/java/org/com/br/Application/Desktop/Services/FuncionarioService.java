@@ -5,6 +5,8 @@ import org.com.br.Core.Domain.Models.Funcionario;
 import org.com.br.Core.Domain.Rules.ValidaCPF;
 import org.com.br.Infra.Interfaces.IFuncionario;
 
+import java.util.List;
+
 public class FuncionarioService {
     
     private IFuncionario funcionarioRepository;
@@ -28,5 +30,16 @@ public class FuncionarioService {
             funcionarioRepository.createFuncionario(funcionario); // Salvar no repositório
         }
     }
-    
+
+    public void deleteFuncionario(String cpf) throws Exception{
+        funcionarioRepository.deleteFuncionario(cpf);
+    }
+
+    public List<Funcionario> getFuncionario() {
+        try {
+            return funcionarioRepository.getFuncionarios();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
