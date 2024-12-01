@@ -7,6 +7,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +19,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.com.br.Application.Desktop.Controller.VeiculoController;
 import org.com.br.Application.Desktop.Services.MarcaService;
 import org.com.br.Core.Domain.Models.Marca;
 import org.com.br.Infra.Repository.MarcaRepository;
@@ -28,13 +31,14 @@ public class VeiculoView {
 
     public static void show() throws Exception{
         JFrame novaTela = new JFrame("Cadastro de Veículo");
+        novaTela.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIcon = new ImageIcon(VeiculoView.class.getResource("/JELF DYNAMICS.jpg"));
+        ImageIcon imageIcon = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
@@ -72,7 +76,7 @@ public class VeiculoView {
         JLabel lblMarca = new JLabel("Marca do Veículo:");
         lblMarca.setForeground(Color.white);
         lblMarca.setOpaque(true);
-        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo
 
         
@@ -98,7 +102,7 @@ public class VeiculoView {
         JLabel lblModelo = new JLabel("Modelo do Veículo:");
         lblModelo.setForeground(Color.white);
         lblModelo.setOpaque(true);
-        lblModelo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblModelo.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblModelo.setBackground(new Color(0, 0, 0, 150));
 
         JComboBox<String> cmbModelo = new JComboBox<>(new String[]{"Corolla", "Civic", "F-150", "Onix", "Altima"});
@@ -109,7 +113,7 @@ public class VeiculoView {
         JLabel lblPlaca = new JLabel("Placa do Veículo:");
         lblPlaca.setForeground(Color.white);
         lblPlaca.setOpaque(true);
-        lblPlaca.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblPlaca.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblPlaca.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtPlaca = new JTextField(10);
@@ -120,7 +124,7 @@ public class VeiculoView {
         JLabel lblChassi = new JLabel("Número do Chassi:");
         lblChassi.setForeground(Color.white);
         lblChassi.setOpaque(true);
-        lblChassi.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblChassi.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblChassi.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtChassi = new JTextField(17);
@@ -131,7 +135,7 @@ public class VeiculoView {
         JLabel lblQuilometragem = new JLabel("Quilometragem:");
         lblQuilometragem.setForeground(Color.white);
         lblQuilometragem.setOpaque(true);
-        lblQuilometragem.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblQuilometragem.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblQuilometragem.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtQuilometragem = new JTextField(10);
@@ -142,7 +146,7 @@ public class VeiculoView {
         JLabel lblPatrimonio = new JLabel("Número do Patrimônio:");
         lblPatrimonio.setForeground(Color.white);
         lblPatrimonio.setOpaque(true);
-        lblPatrimonio.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblPatrimonio.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblPatrimonio.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtPatrimonio = new JTextField(10);
@@ -153,31 +157,43 @@ public class VeiculoView {
         JLabel lblAnoVeiculo = new JLabel("Ano do Veículo:");
         lblAnoVeiculo.setForeground(Color.white);
         lblAnoVeiculo.setOpaque(true);
-        lblAnoVeiculo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblAnoVeiculo.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblAnoVeiculo.setBackground(new Color(0, 0, 0, 150));
 
         // Criar uma lista de anos para selecionar
-        List<Integer> listaAnos = new ArrayList<>();
-        for (int i = 1980; i <= 2024; i++) {
-            listaAnos.add(i);
-        }
-
-        JComboBox<Integer> cmbAnoVeiculo = new JComboBox<>(listaAnos.toArray(new Integer[0]));
-        cmbAnoVeiculo.setForeground(Color.BLACK);
-        cmbAnoVeiculo.setToolTipText("Selecione o ano do veículo");
+        JTextField txtAno = new JTextField(10);
+        txtAno.setForeground(Color.white);
+        txtAno.setToolTipText("Digite o ano do carro");
 
         // Botões
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
         btnSalvar.setForeground(Color.white);
         btnSalvar.setFocusPainted(false);
-        btnSalvar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(novaTela, "Veículo salvo com sucesso!");
-            cmbMarca.setSelectedIndex(0);  // Resetar a seleção da combo box
-            txtPlaca.setText("");
-            txtChassi.setText("");
-            txtQuilometragem.setText("");
-            txtPatrimonio.setText("");
+        btnSalvar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String placa = txtPlaca.getText();
+                    String chassi = txtChassi.getText();
+                    String kilometragem = txtQuilometragem.getText();
+                    String ano = txtAno.getText();
+                    Integer anoInt = Integer.valueOf(ano);
+                    String numPatrimonio = txtPatrimonio.getText();
+                    Integer numPatrimonioInteger = Integer.valueOf(numPatrimonio);
+                    
+
+                    VeiculoController veiculoController = new VeiculoController(novaTela);
+                    veiculoController.criarVeiculo(placa, chassi, kilometragem, anoInt, numPatrimonioInteger);
+                } catch (Exception ex) {
+
+                } finally {
+                    txtPlaca.setText("");
+                    txtChassi.setText("");
+                    txtQuilometragem.setText("");
+                    txtAno.setText("");
+                    txtPatrimonio.setText("");
+                }
+            }
         });
 
         JButton btnCancelar = new JButton("Cancelar");
@@ -227,7 +243,7 @@ public class VeiculoView {
         gbc.gridy = 6;
         panelEntrada.add(lblAnoVeiculo, gbc);
         gbc.gridx = 1;
-        panelEntrada.add(cmbAnoVeiculo, gbc);
+        panelEntrada.add(txtAno, gbc);
 
         // Botões "Salvar" e "Cancelar"
         JPanel panelButtons = new JPanel();

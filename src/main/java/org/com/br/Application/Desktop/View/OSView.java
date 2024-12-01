@@ -1,13 +1,27 @@
 package org.com.br.Application.Desktop.View;
 
-import org.com.br.Application.Desktop.Controller.OrdemServicoDetalheController;
-import org.com.br.Core.Domain.Models.OrdemServico;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import org.com.br.Application.Desktop.Controller.OrdemServicoDetalheController;
+import org.com.br.Core.Domain.Models.OrdemServico;
 
 public class OSView extends JFrame {
 
@@ -28,7 +42,7 @@ public class OSView extends JFrame {
         setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/JELF DYNAMICS.jpg"));
+        ImageIcon imageIcon = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
         JLabel backgroundLabel = new JLabel(new ImageIcon(resizedImage));

@@ -1,6 +1,7 @@
 package org.com.br.Application.Desktop.View;
 
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -29,6 +30,7 @@ public class EstoqueView extends JFrame {
 
     public EstoqueView(List<Modelo> modelos, List<Marca> marcas, List<Peca> pecas, List<Servico> servicos) {
         setTitle("Gerenciamento de Estoque");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeView.class.getResource("/icon.jpg")));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);

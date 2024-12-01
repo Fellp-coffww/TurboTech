@@ -184,7 +184,7 @@ comboBoxCadastroPessoas.addActionListener(e -> {
             abrirTelaCadastroCliente();
             break;
         case "Cadastrar Funcionário":
-            abrirTela("Cadastrar Funcionário");
+            abrirTelaCadastroFuncionario();
             break;
     }
 });
@@ -333,6 +333,7 @@ comboBoxOrdemServico.addActionListener(e -> {
     private static void abrirTelaCadastroCliente() {
         PessoaView.show();
     }
+
 
 
     private static JComboBox<String> criarComboBox(String[] opcoes, java.awt.event.ActionListener listener) {
