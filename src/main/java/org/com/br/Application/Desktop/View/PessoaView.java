@@ -1,23 +1,11 @@
 package org.com.br.Application.Desktop.View;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Toolkit;
+import java.awt.*;
+
 import java.text.ParseException;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+
 import javax.swing.text.MaskFormatter;
 
 import org.com.br.Application.Desktop.Controller.ClienteController;
@@ -60,14 +48,15 @@ public class PessoaView {
         lblNome.setForeground(Color.white);
         lblNome.setOpaque(true);
         lblNome.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblNome.setBackground(new Color(0, 0, 0, 150));
+        lblNome.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtNome = new JTextField(20);
 
         JLabel lblCpfCnpj = new JLabel("Escolha CPF ou CNPJ:");
         lblCpfCnpj.setForeground(Color.white);
         lblCpfCnpj.setOpaque(true);
         lblCpfCnpj.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblCpfCnpj.setBackground(new Color(0, 0, 0, 150));
+        lblCpfCnpj.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
+
 
         String[] opcoesCpfCnpj = {"CNPJ", "CPF"};
         JComboBox<String> cbCpfCnpj = new JComboBox<>(opcoesCpfCnpj);
@@ -80,7 +69,7 @@ public class PessoaView {
         lblCpfCnpjInput.setForeground(Color.white);
         lblCpfCnpjInput.setOpaque(true);
         lblCpfCnpjInput.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblCpfCnpjInput.setBackground(new Color(0, 0, 0, 150));
+        lblCpfCnpjInput.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JFormattedTextField txtCpfCnpj = new JFormattedTextField(cpfCnpjFormatter);
         txtCpfCnpj.setColumns(14);
 
@@ -89,21 +78,21 @@ public class PessoaView {
         lblEndereco.setForeground(Color.white);
         lblEndereco.setOpaque(true);
         lblEndereco.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblEndereco.setBackground(new Color(0, 0, 0, 150));
+        lblEndereco.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         JLabel lblComplemento = new JLabel("Complemento:");
         JTextField txtComplemento = new JTextField(20);
         lblComplemento.setForeground(Color.white);
         lblComplemento.setOpaque(true);
         lblComplemento.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblComplemento.setBackground(new Color(0, 0, 0, 150));
+        lblComplemento.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         MaskFormatter telefoneFormatter = criarMaskFormatter("+## (##) #####-####");
         JLabel lblTelefone = new JLabel("Telefone:");
         lblTelefone.setForeground(Color.white);
         lblTelefone.setOpaque(true);
         lblTelefone.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblTelefone.setBackground(new Color(0, 0, 0, 150));
+        lblTelefone.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         JFormattedTextField txtTelefone = new JFormattedTextField(telefoneFormatter);
         txtTelefone.setColumns(15);
@@ -112,40 +101,32 @@ public class PessoaView {
         lblEmail1.setForeground(Color.white);
         lblEmail1.setOpaque(true);
         lblEmail1.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblEmail1.setBackground(new Color(0, 0, 0, 150));
+        lblEmail1.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtEmail1 = new JTextField(20);
 
         JLabel lblRazaoSocial = new JLabel("Razão Social:");
         lblRazaoSocial.setForeground(Color.white);
         lblRazaoSocial.setOpaque(true);
         lblRazaoSocial.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblRazaoSocial.setBackground(new Color(0, 0, 0, 150));
+        lblRazaoSocial.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtRazaoSocial = new JTextField(20);
 
         JLabel lblInscricaoEstadual = new JLabel("Inscrição Estadual:");
         lblInscricaoEstadual.setForeground(Color.white);
         lblInscricaoEstadual.setOpaque(true);
         lblInscricaoEstadual.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblInscricaoEstadual.setBackground(new Color(0, 0, 0, 150));
+        lblInscricaoEstadual.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtInscricaoEstadual = new JTextField(20);
 
         JLabel lblContato = new JLabel("Contato:");
         lblContato.setForeground(Color.white);
         lblContato.setOpaque(true);
         lblContato.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        lblContato.setBackground(new Color(0, 0, 0, 150));
+        lblContato.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
         JTextField txtContato = new JTextField(20);
 
         JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.setBackground(new Color(34, 139, 34));
-        btnSalvar.setForeground(Color.WHITE);
-        btnSalvar.setFocusPainted(false);
         JButton btnLimpar = new JButton("Limpar");
-        JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBackground(new Color(220, 20, 60));
-        btnCancelar.setForeground(Color.WHITE);
-        btnCancelar.setFocusPainted(false);
-        btnCancelar.addActionListener(e -> frame.dispose());
 
         // Adicionando os campos ao painel com GridBagLayout
         int row = 0;
@@ -182,23 +163,74 @@ public class PessoaView {
 
         // Painel para os botões
         JPanel panelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        panelBotoes.setOpaque(false);
+        panelBotoes.setOpaque(false); // Torna o painel transparente
         panelBotoes.add(btnSalvar);
         panelBotoes.add(btnLimpar);
-        panelBotoes.add(btnCancelar); // Botão Cancelar adicionado
 
         // Adicionar os painéis ao fundo
         backgroundLabel.add(panelForm, BorderLayout.CENTER);
         backgroundLabel.add(panelBotoes, BorderLayout.SOUTH);
 
+        // Ação do botão Salvar
+        btnSalvar.addActionListener(e -> {
+            try {
+                clienteController = new ClienteController(frame);
+                clienteController.criarPessoa(cbCpfCnpj.getSelectedItem().toString(), txtNome.getText().trim(), txtEmail1.getText(), txtTelefone.getText(),
+                        txtEndereco.getText(), txtComplemento.getText(), "", txtCpfCnpj.getText(), txtInscricaoEstadual.getText(),
+                        txtContato.getText(), txtRazaoSocial.getText());
+            } catch (Exception ex) {
+                ex.getMessage();
+            }
+        });
+
+        cbCpfCnpj.addActionListener(e -> {
+            boolean isCnpj = cbCpfCnpj.getSelectedItem().toString().equals("CNPJ");
+            lblCpfCnpjInput.setText(isCnpj ? "Digite o CNPJ:" : "Digite o CPF:");
+            try {
+                cpfCnpjFormatter.setMask(isCnpj ? CNPJ_MASK : CPF_MASK);
+                cpfCnpjFormatter.install(txtCpfCnpj);
+            } catch (ParseException ex) {
+                throw new RuntimeException("Erro ao atualizar a máscara.", ex);
+            }
+            lblRazaoSocial.setVisible(isCnpj);
+            txtRazaoSocial.setVisible(isCnpj);
+            lblInscricaoEstadual.setVisible(isCnpj);
+            txtInscricaoEstadual.setVisible(isCnpj);
+            lblContato.setVisible(isCnpj);
+            txtContato.setVisible(isCnpj);
+        });
+
+        // Ação do botão Limpar
+        btnLimpar.addActionListener(e -> {
+            int confirmacao = JOptionPane.showConfirmDialog(
+                    frame,
+                    "Você tem certeza que deseja limpar todos os dados?",
+                    "Confirmação",
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                txtNome.setText("");
+                txtCpfCnpj.setText("");
+                txtEndereco.setText("");
+                txtComplemento.setText("");
+                txtTelefone.setText("");
+                txtEmail1.setText("");
+                txtRazaoSocial.setText("");
+                txtInscricaoEstadual.setText("");
+                txtContato.setText("");
+            }
+        });
+
         frame.setVisible(true);
     }
 
-    private static MaskFormatter criarMaskFormatter(String mascara) {
+    private static MaskFormatter criarMaskFormatter(String mask) {
         try {
-            return new MaskFormatter(mascara);
+            MaskFormatter formatter = new MaskFormatter(mask);
+            formatter.setPlaceholderCharacter('_');
+            return formatter;
         } catch (ParseException e) {
-            throw new RuntimeException("Erro ao criar máscara de formato: " + e.getMessage());
+            throw new RuntimeException("Erro ao criar máscara: " + e.getMessage());
         }
     }
 

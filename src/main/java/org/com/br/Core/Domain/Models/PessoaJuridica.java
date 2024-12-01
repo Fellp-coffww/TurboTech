@@ -173,4 +173,9 @@ public class PessoaJuridica {
     public void setNumeroEnd(String numeroEnd) {
         this.numeroEnd = numeroEnd;
     }
+
+    @Override
+    public String toString() {
+        return cnpj;
+    }
 }

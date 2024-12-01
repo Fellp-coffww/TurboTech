@@ -141,4 +141,9 @@ public class PessoaFisica {
     public void setNumeroEnd(String numeroEnd) {
         this.numeroEnd = numeroEnd;
     }
+
+    @Override
+    public String toString() {
+        return  cpf;
+    }
 }

@@ -108,4 +108,16 @@ public class ModeloRepository implements IModelo {
 
         return modelos;
     }
+
+    @Override
+    public Modelo getModeliByDescricao(String descricao) throws Exception {
+        String sql = "select * from Modelo where descricao = ?" ;
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, descricao);
+        ResultSet rs = preparedStatement.executeQuery();
+        rs.next();
+        Modelo modelo = new Modelo(rs.getLong("idModelo"),rs.getString("descricao"), rs.getLong("idMarca"));
+
+        return modelo;
+    }
 }

@@ -1,3 +1,4 @@
+
 package org.com.br.Application.Desktop.View;
 
 import java.awt.BorderLayout;
@@ -8,22 +9,21 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
 
 import org.com.br.Application.Desktop.Controller.ModeloController;
 import org.com.br.Application.Desktop.Services.MarcaService;
@@ -34,14 +34,13 @@ public class ModeloView {
 
     public static void show() throws Exception {
         JFrame novaTela = new JFrame("Cadastro de Modelo");
-        novaTela.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
+        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
         Image imageCombobox = imageIconCombobox.getImage();
         Image resizedImageCombobox = imageCombobox.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
@@ -56,7 +55,7 @@ public class ModeloView {
         tituloPanel.setBackground(new Color(0, 0, 0, 150)); // Cor preta com transparência (alpha 150)
 
         JLabel titulo = new JLabel("Cadastro de Modelo", JLabel.CENTER);
-        titulo.setFont(new Font("SansSerif", Font.BOLD, 20)); // Fonte do título
+        titulo.setFont(new Font("SansSerif", Font.BOLD, 28)); // Fonte do título
         titulo.setForeground(Color.WHITE); // Cor do título
 
         tituloPanel.add(titulo, BorderLayout.CENTER);
@@ -80,7 +79,7 @@ public class ModeloView {
         JLabel lblMarca = new JLabel("Marca do Carro:");
         lblMarca.setForeground(Color.white);
         lblMarca.setOpaque(true);
-        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         MarcaService marcaService = new MarcaService(new MarcaRepository());
@@ -122,97 +121,98 @@ public class ModeloView {
                 } else {
                     label.setBackground(Color.WHITE);
                     label.setForeground(Color.BLACK);
-                }
-                return label;
-            }
-        });
 
-        cmbMarca.setToolTipText("Selecione a marca do carro");
+                                        }
+                                        return label;
+                                    }
+                                });
 
-        // Criar o fundo preto transparente para o campo de "Observação"
-        JPanel campoObservacaoPanel = new JPanel();
-        campoObservacaoPanel.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente
-        campoObservacaoPanel.setLayout(new BorderLayout());
+                                cmbMarca.setToolTipText("Selecione a marca do carro");
 
-        JLabel lblModelo = new JLabel("Modelo do Carro:");
-        lblModelo.setForeground(Color.white);
-        lblModelo.setOpaque(true);
-        lblModelo.setFont(new Font("SansSerif", Font.BOLD, 20));
-        lblModelo.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
+                                // Criar o fundo preto transparente para o campo de "Observação"
+                                JPanel campoObservacaoPanel = new JPanel();
+                                campoObservacaoPanel.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente
+                                campoObservacaoPanel.setLayout(new BorderLayout());
 
-        JTextField txtObservacao = new JTextField(20);
-        txtObservacao.setForeground(Color.BLACK);
-        txtObservacao.setToolTipText("Digite uma observação (se necessário)");
+                                JLabel lblModelo = new JLabel("Modelo do Carro:");
+                                lblModelo.setForeground(Color.white);
+                                lblModelo.setOpaque(true);
+                                lblModelo.setFont(new Font("SansSerif", Font.BOLD, 28));
+                                lblModelo.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
-        // Adicionar os componentes aos seus respectivos painéis com fundo preto transparente
-        campoMarcaPanel.add(cmbMarca, BorderLayout.CENTER);
-        campoObservacaoPanel.add(txtObservacao, BorderLayout.CENTER);
+                                JTextField txtObservacao = new JTextField(20);
+                                txtObservacao.setForeground(Color.BLACK);
+                                txtObservacao.setToolTipText("Digite uma observação (se necessário)");
 
-        // Botões
-        JButton btnSalvar = new JButton("Salvar");
-        btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
-        btnSalvar.setForeground(Color.white);
-        btnSalvar.setFocusPainted(false);
-        btnSalvar.addActionListener(e -> {
-            ModeloController modeloController;
+                                // Adicionar os componentes aos seus respectivos painéis com fundo preto transparente
+                                campoMarcaPanel.add(cmbMarca, BorderLayout.CENTER);
+                                campoObservacaoPanel.add(txtObservacao, BorderLayout.CENTER);
 
-            try {
-                modeloController = new ModeloController(novaTela);
-                long idMarca = 0;
-                for (Marca marca : listaMarcas) {
-                    if (marca.getDescricao().equals(cmbMarca.getSelectedItem().toString())) {
-                        idMarca = marca.getIdMarca();
-                    }
-                }
-                modeloController.createModelo(txtObservacao.getText(), idMarca);
+                                // Botões
+                                JButton btnSalvar = new JButton("Salvar");
+                                btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
+                                btnSalvar.setForeground(Color.white);
+                                btnSalvar.setFocusPainted(false);
+                                btnSalvar.addActionListener(e -> {
+                                    ModeloController modeloController;
 
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
+                                    try {
+                                        modeloController = new ModeloController(novaTela);
+                                        long idMarca = 0;
+                                        for (Marca marca : listaMarcas) {
+                                            if (marca.getDescricao().equals(cmbMarca.getSelectedItem().toString())) {
+                                                idMarca = marca.getIdMarca();
+                                            }
+                                        }
+                                        modeloController.createModelo(txtObservacao.getText(), idMarca);
 
-            cmbMarca.setSelectedIndex(0);  // Resetar a seleção da combo box
-            txtObservacao.setText("");
-        });
+                                    } catch (Exception e1) {
+                                        e1.printStackTrace();
+                                    }
 
-        JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
-        btnCancelar.setForeground(Color.white);
-        btnCancelar.setFocusPainted(false);
-        btnCancelar.addActionListener(e -> novaTela.dispose());
+                                    cmbMarca.setSelectedIndex(0);  // Resetar a seleção da combo box
+                                    txtObservacao.setText("");
+                                });
 
-        // Adicionar os componentes ao painel
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panelEntrada.add(lblMarca, gbc);
+                                JButton btnCancelar = new JButton("Cancelar");
+                                btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
+                                btnCancelar.setForeground(Color.white);
+                                btnCancelar.setFocusPainted(false);
+                                btnCancelar.addActionListener(e -> novaTela.dispose());
 
-        gbc.gridx = 1;
-        panelEntrada.add(campoMarcaPanel, gbc); // Adicionar painel com fundo preto transparente para o campo "Marca"
+                                // Adicionar os componentes ao painel
+                                gbc.gridx = 0;
+                                gbc.gridy = 0;
+                                panelEntrada.add(lblMarca, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panelEntrada.add(lblModelo, gbc);
+                                gbc.gridx = 1;
+                                panelEntrada.add(campoMarcaPanel, gbc); // Adicionar painel com fundo preto transparente para o campo "Marca"
 
-        gbc.gridx = 1;
-        panelEntrada.add(campoObservacaoPanel, gbc); // Adicionar painel com fundo preto transparente para o campo "Observação"
+                                gbc.gridx = 0;
+                                gbc.gridy = 1;
+                                panelEntrada.add(lblModelo, gbc);
 
-        // Botões "Salvar" e "Cancelar"
-        JPanel panelButtons = new JPanel();
-        panelButtons.setOpaque(false); // Tornar o painel de botões transparente
-        panelButtons.add(btnSalvar);
-        panelButtons.add(btnCancelar);
+                                gbc.gridx = 1;
+                                panelEntrada.add(campoObservacaoPanel, gbc); // Adicionar painel com fundo preto transparente para o campo "Observação"
 
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        panelEntrada.add(panelButtons, gbc);
+                                // Botões "Salvar" e "Cancelar"
+                                JPanel panelButtons = new JPanel();
+                                panelButtons.setOpaque(false); // Tornar o painel de botões transparente
+                                panelButtons.add(btnSalvar);
+                                panelButtons.add(btnCancelar);
 
-        // Adicionar o painel de entrada ao fundo
-        backgroundLabelCombobox.add(panelEntrada, BorderLayout.CENTER);
+                                gbc.gridx = 1;
+                                gbc.gridy = 2;
+                                panelEntrada.add(panelButtons, gbc);
 
-        // Adicionar o painel do título no topo
-        backgroundLabelCombobox.add(tituloPanel, BorderLayout.NORTH);
+                                // Adicionar o painel de entrada ao fundo
+                                backgroundLabelCombobox.add(panelEntrada, BorderLayout.CENTER);
 
-        // Definir o conteúdo da janela
-        novaTela.setContentPane(backgroundLabelCombobox);
-        novaTela.setVisible(true);
-    }
-}
+                                // Adicionar o painel do título no topo
+                                backgroundLabelCombobox.add(tituloPanel, BorderLayout.NORTH);
+
+                                // Definir o conteúdo da janela
+                                novaTela.setContentPane(backgroundLabelCombobox);
+                                novaTela.setVisible(true);
+                            }
+                        }

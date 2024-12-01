@@ -19,7 +19,7 @@ public class PecaService {
     public void criarPeca(String descricao, int quantidade, double valorUnitario, String codigo) throws Exception {
         // Criar uma nova peça
         Peca peca = new Peca(descricao, quantidade, valorUnitario, codigo);
-    
+
         // Validar os campos antes de salvar
         if (descricao == null || descricao.trim().isEmpty()) {
             throw new Exception("O campo descrição é obrigatório!");
@@ -29,7 +29,9 @@ public class PecaService {
             throw new Exception("O valor unitário deve ser maior que zero!");
         } else if (codigo == null || codigo.trim().isEmpty()) {
             throw new Exception("O campo código é obrigatório!");
-        } else {
+        } else if (codigo.length() > 10) {
+            throw new Exception("O campo código está muito longo!");
+        }else {
             // Se todas as validações forem aprovadas, salvar a peça
             pecaRepository.createPeca(peca); // Salvar no repositório
         }

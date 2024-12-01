@@ -17,4 +17,8 @@ public interface IModelo {
     public void deleteModelo(Long id) throws Exception;
 
     public List<Modelo> getModelosByMarcaId(Long id) throws Exception;
+
+    public Modelo getModeliByDescricao(String descricao) throws Exception;
+
 }
+

@@ -65,12 +65,12 @@ public class VeiculoRepository implements IVeiculo {
         try{
             String sql = "update Veiculo  Set chassi = ?,kilometragem = ?, numpatrimonio = ?,ano = ?,idmodelo= ? where placa = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, veiculo.getPlaca());
-            preparedStatement.setString(2, veiculo.getChassi());
-            preparedStatement.setString(3, veiculo.getKilometragem());
-            preparedStatement.setLong(4, veiculo.getnPropriedade());
-            preparedStatement.setLong(5, veiculo.getAno());
-            preparedStatement.setLong(6, veiculo.getIdModelo());
+            preparedStatement.setString(1, veiculo.getChassi());
+            preparedStatement.setString(2, veiculo.getKilometragem());
+            preparedStatement.setLong(3, veiculo.getnPropriedade());
+            preparedStatement.setLong(4, veiculo.getAno());
+            preparedStatement.setLong(5, veiculo.getIdModelo());
+            preparedStatement.setString(6, veiculo.getPlaca());
             preparedStatement.executeUpdate();
 
         } catch (SQLException erro) {
