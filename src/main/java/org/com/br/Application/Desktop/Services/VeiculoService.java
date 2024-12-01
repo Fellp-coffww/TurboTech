@@ -14,8 +14,10 @@ public class VeiculoService {
     public VeiculoService (){
     }
 
-    public void criarVeiculo(String placa, String chassi, String kilometragem, int ano, long idModelo, int numPropriedade){
-        Veiculo veiculo = new Veiculo(placa, chassi, kilometragem, ano, idModelo,numPropriedade);
+    public void criarVeiculo(String placa, String chassi, String kilometragem, int ano, int numPropriedade) throws Exception{
+        Veiculo veiculo = new Veiculo(placa, chassi, kilometragem, ano,numPropriedade);
+
+        veiculoRepository.createVeiculo(veiculo);
     }
 
 }
