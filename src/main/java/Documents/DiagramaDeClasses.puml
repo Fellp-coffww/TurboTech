@@ -1,0 +1,85 @@
+@startuml
+
+class Marca {
+  - idMarca : int
+  - descricao : String
+}
+
+class Modelo {
+  - idModelo : int
+  - descricao : String
+}
+
+class Veiculo {
+  - placa : String
+  - chassi : String
+  - kilometragem : int
+  - nrArm : String
+  - ano : int
+}
+
+class Pecas {
+  - idPeca : int
+  - nome : String
+  - descricao : String
+  - quantidade : int
+  - valorUnitario : float
+  - codigo : String
+}
+
+class OrdemServico {
+  - idOS : int
+  - data : Date
+  - precoTotal : float
+  - statusOS : String
+}
+
+class Cliente {
+  - idCliente : int
+  - nome : String
+  - email : String
+  - telefone : String
+}
+
+class PessoaFisica {
+  - cpf : String
+}
+
+class PessoaJuridica {
+  - cnpj : String
+  - inscricaoEstadual : String
+  - razaoSocial : String
+}
+
+class Servico {
+  - idServico : int
+  - descricao : String
+  - valorUnitario : float
+}
+
+class Oficina {
+  - idOficina : int
+  - nome : String
+  - email : String
+  - telefone : String
+}
+
+class Funcionario {
+  - idFuncionario : int
+  - nome : String
+  - cpf : String
+}
+
+' Relacionamentos (associações)
+Marca "1" -- "0..N" Modelo : MarcaModelo
+Modelo "1" -- "0..N" Veiculo : ModelVeiculo
+Pecas "1" -- "0..N" OrdemServico : PecasItem
+OrdemServico "0..N" -- "1" Veiculo : VeiculoOS
+Veiculo "0..N" -- "1..N" Cliente : VeiculoProp
+Cliente "1" -- "0..1" PessoaFisica
+Cliente "1" -- "0..1" PessoaJuridica
+OrdemServico "1" -- "1..N" Servico : ItemServico
+Servico "1" -- "1" Funcionario : ItemFuncionario
+Oficina "1" -- "0..N" OrdemServico : OSTem
+
+@enduml
