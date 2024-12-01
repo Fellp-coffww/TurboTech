@@ -8,21 +8,22 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.ImageIcon;
-import javax.swing.JList;
 
 import org.com.br.Application.Desktop.Controller.ModeloController;
 import org.com.br.Application.Desktop.Services.MarcaService;
@@ -33,13 +34,14 @@ public class ModeloView {
 
     public static void show() throws Exception {
         JFrame novaTela = new JFrame("Cadastro de Modelo");
+        novaTela.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
+        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
         Image imageCombobox = imageIconCombobox.getImage();
         Image resizedImageCombobox = imageCombobox.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
@@ -54,7 +56,7 @@ public class ModeloView {
         tituloPanel.setBackground(new Color(0, 0, 0, 150)); // Cor preta com transparência (alpha 150)
 
         JLabel titulo = new JLabel("Cadastro de Modelo", JLabel.CENTER);
-        titulo.setFont(new Font("SansSerif", Font.BOLD, 28)); // Fonte do título
+        titulo.setFont(new Font("SansSerif", Font.BOLD, 20)); // Fonte do título
         titulo.setForeground(Color.WHITE); // Cor do título
 
         tituloPanel.add(titulo, BorderLayout.CENTER);
@@ -78,7 +80,7 @@ public class ModeloView {
         JLabel lblMarca = new JLabel("Marca do Carro:");
         lblMarca.setForeground(Color.white);
         lblMarca.setOpaque(true);
-        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblMarca.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         MarcaService marcaService = new MarcaService(new MarcaRepository());
@@ -135,7 +137,7 @@ public class ModeloView {
         JLabel lblModelo = new JLabel("Modelo do Carro:");
         lblModelo.setForeground(Color.white);
         lblModelo.setOpaque(true);
-        lblModelo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblModelo.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblModelo.setBackground(new Color(0, 0, 0, 150)); // Fundo preto transparente para o rótulo "Marca"
 
         JTextField txtObservacao = new JTextField(20);

@@ -9,7 +9,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,13 +23,14 @@ import org.com.br.Application.Desktop.Controller.PecaController;
 public class PecaView {
     public static void show() {
         JFrame novaTela = new JFrame("Cadastro de Peças");
+        novaTela.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
+        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
         Image imageCombobox = imageIconCombobox.getImage();
         Image resizedImageCombobox = imageCombobox.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
@@ -63,7 +64,7 @@ public class PecaView {
         JLabel lblCodigo = new JLabel("Código da Peça:");
         lblCodigo.setForeground(Color.WHITE);
         lblCodigo.setOpaque(true);
-        lblCodigo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblCodigo.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblCodigo.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtCodigo = new JTextField(20);
@@ -74,7 +75,7 @@ public class PecaView {
         JLabel lblNome = new JLabel("Nome da Peça:");
         lblNome.setForeground(Color.WHITE);
         lblNome.setOpaque(true);
-        lblNome.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblNome.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblNome.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtNome = new JTextField(20);
@@ -85,7 +86,7 @@ public class PecaView {
         JLabel lblQuantidade = new JLabel("Quantidade:");
         lblQuantidade.setForeground(Color.WHITE);
         lblQuantidade.setOpaque(true);
-        lblQuantidade.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblQuantidade.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblQuantidade.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtQuantidade = new JTextField(20);
@@ -96,7 +97,7 @@ public class PecaView {
         JLabel lblValor = new JLabel("Valor por Unidade:");
         lblValor.setForeground(Color.WHITE);
         lblValor.setOpaque(true);
-        lblValor.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblValor.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblValor.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtValor = new JTextField(20);

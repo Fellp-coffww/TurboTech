@@ -9,7 +9,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,13 +25,14 @@ public class MarcaView {
     public static void show() throws Exception {
 
         JFrame novaTela = new JFrame("Cadastro de Marca");
+        novaTela.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
+        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
         Image imageCombobox = imageIconCombobox.getImage();
         Image resizedImageCombobox = imageCombobox.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
@@ -56,7 +57,9 @@ public class MarcaView {
 
         JLabel lblMarca = new JLabel("Marca do Carro:");
         lblMarca.setForeground(Color.WHITE);
-        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblMarca.setOpaque(true);
+        lblMarca.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblMarca.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtMarca = new JTextField(20);
         txtMarca.setToolTipText("Digite a marca do carro");

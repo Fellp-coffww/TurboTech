@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -30,13 +31,14 @@ public class VeiculoView {
 
     public static void show() throws Exception{
         JFrame novaTela = new JFrame("Cadastro de Veículo");
+        novaTela.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIcon = new ImageIcon(VeiculoView.class.getResource("/JELF DYNAMICS.jpg"));
+        ImageIcon imageIcon = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
