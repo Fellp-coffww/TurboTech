@@ -1,5 +1,6 @@
 package org.com.br.Application.Desktop.Controller;
 
+
 import org.com.br.Application.Desktop.Services.VeiculoService;
 import org.com.br.Core.Domain.Models.Veiculo;
 import org.com.br.Infra.Interfaces.IVeiculo;
@@ -41,5 +42,6 @@ public class VeiculoController {
     public List<Veiculo> getVeiculos(){
         return veiculoService.getVeiculo();
     }
+
 
 }

@@ -83,184 +83,184 @@ public class HomeView {
         comboBoxCadastroGeral.setForeground(new Color(50, 50, 50));
         comboBoxCadastroGeral.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
-        "Cadastro Geral",
-        TitledBorder.CENTER,
-        TitledBorder.TOP,
-        new Font("SansSerif", Font.BOLD, 12),
-        new Color(50, 50, 50)));
+                "Cadastro Geral",
+                TitledBorder.CENTER,
+                TitledBorder.TOP,
+                new Font("SansSerif", Font.BOLD, 12),
+                new Color(50, 50, 50)));
 
 // Renderizador personalizado para itens
         comboBoxCadastroGeral.setRenderer(new DefaultListCellRenderer() {
-    @Override
-    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        label.setFont(new Font("SansSerif", Font.BOLD, 14));
-        label.setBorder(new EmptyBorder(5, 10, 5, 10));
-        if (isSelected) {
-            label.setBackground(new Color(100, 150, 255));
-            label.setForeground(Color.WHITE);
-        } else {
-            label.setBackground(Color.WHITE);
-            label.setForeground(Color.BLACK);
-        }
-        return label;
-    }
-});
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setFont(new Font("SansSerif", Font.BOLD, 14));
+                label.setBorder(new EmptyBorder(5, 10, 5, 10));
+                if (isSelected) {
+                    label.setBackground(new Color(100, 150, 255));
+                    label.setForeground(Color.WHITE);
+                } else {
+                    label.setBackground(Color.WHITE);
+                    label.setForeground(Color.BLACK);
+                }
+                return label;
+            }
+        });
 
 // Mantendo o ActionListener original
-comboBoxCadastroGeral.addActionListener(e -> {
-    String opcaoSelecionada = (String) comboBoxCadastroGeral.getSelectedItem();
-    switch (opcaoSelecionada) {
-        case "Cadastro de Marca":
-            try {
-                abrirTelaCadastroMarca();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
+        comboBoxCadastroGeral.addActionListener(e -> {
+            String opcaoSelecionada = (String) comboBoxCadastroGeral.getSelectedItem();
+            switch (opcaoSelecionada) {
+                case "Cadastro de Marca":
+                    try {
+                        abrirTelaCadastroMarca();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                case "Cadastro de Modelo":
+                    try {
+                        abrirTelaCadastroModelo();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case "Cadastro de Peça":
+                    abrirTelaCadastroPeca();
+                    break;
+                case "Cadastro de Serviço":
+                    abrirTelaCadastroServico();
+                    break;
+                case "Gerenciar entidades":
+                    try {
+                        abrirTelaGerenciarEntidades();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
             }
-            break;
-        case "Cadastro de Modelo":
-            try {
-                abrirTelaCadastroModelo();
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-            break;
-        case "Cadastro de Peça":
-            abrirTelaCadastroPeca();
-            break;
-        case "Cadastro de Serviço":
-            abrirTelaCadastroServico();
-            break;
-        case "Gerenciar entidades":
-            try {
-                abrirTelaGerenciarEntidades();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-            break;
-    }
-});
+        });
 
         // Combobox Cadastro de Pessoas
- 
+
         String[] opcoesCadastroPessoas = {"Cadastrar Cliente", "Cadastrar Funcionário"};
         JComboBox<String> comboBoxCadastroPessoas = new JComboBox<>(opcoesCadastroPessoas);
 
 // Estilização do JComboBox
-comboBoxCadastroPessoas.setPreferredSize(new Dimension(220, 50));
-comboBoxCadastroPessoas.setFont(new Font("SansSerif", Font.BOLD, 14));
-comboBoxCadastroPessoas.setBackground(new Color(230, 240, 255));
-comboBoxCadastroPessoas.setForeground(new Color(50, 50, 50));
-comboBoxCadastroPessoas.setBorder(BorderFactory.createTitledBorder(
-        BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
-        "Cadastro de Pessoas",
-        TitledBorder.CENTER, // Centraliza o título
-        TitledBorder.TOP, // Posição do título
-        new Font("SansSerif", Font.BOLD, 12),
-        new Color(50, 50, 50)));
+        comboBoxCadastroPessoas.setPreferredSize(new Dimension(220, 50));
+        comboBoxCadastroPessoas.setFont(new Font("SansSerif", Font.BOLD, 14));
+        comboBoxCadastroPessoas.setBackground(new Color(230, 240, 255));
+        comboBoxCadastroPessoas.setForeground(new Color(50, 50, 50));
+        comboBoxCadastroPessoas.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
+                "Cadastro de Pessoas",
+                TitledBorder.CENTER, // Centraliza o título
+                TitledBorder.TOP, // Posição do título
+                new Font("SansSerif", Font.BOLD, 12),
+                new Color(50, 50, 50)));
 
 // Renderizador personalizado para itens
-comboBoxCadastroPessoas.setRenderer(new DefaultListCellRenderer() {
-    @Override
-    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        label.setFont(new Font("SansSerif", Font.BOLD, 14));
-        label.setBorder(new EmptyBorder(5, 10, 5, 10));
-        if (isSelected) {
-            label.setBackground(new Color(100, 150, 255));
-            label.setForeground(Color.WHITE);
-        } else {
-            label.setBackground(Color.WHITE);
-            label.setForeground(Color.BLACK);
-        }
-        return label;
-    }
-});
+        comboBoxCadastroPessoas.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setFont(new Font("SansSerif", Font.BOLD, 14));
+                label.setBorder(new EmptyBorder(5, 10, 5, 10));
+                if (isSelected) {
+                    label.setBackground(new Color(100, 150, 255));
+                    label.setForeground(Color.WHITE);
+                } else {
+                    label.setBackground(Color.WHITE);
+                    label.setForeground(Color.BLACK);
+                }
+                return label;
+            }
+        });
 
 // Ação ao selecionar item
-comboBoxCadastroPessoas.addActionListener(e -> {
-    String opcaoSelecionada = (String) comboBoxCadastroPessoas.getSelectedItem();
-    switch (opcaoSelecionada) {
-        case "Cadastrar Cliente":
-            abrirTelaCadastroCliente();
-            break;
-        case "Cadastrar Funcionário":
-            FuncionarioView.show();
-            break;
-    }
-});
+        comboBoxCadastroPessoas.addActionListener(e -> {
+            String opcaoSelecionada = (String) comboBoxCadastroPessoas.getSelectedItem();
+            switch (opcaoSelecionada) {
+                case "Cadastrar Cliente":
+                    abrirTelaCadastroCliente();
+                    break;
+                case "Cadastrar Funcionário":
+                    FuncionarioView.show();
+                    break;
+            }
+        });
 
         // Combobox Cadastro de Veículo e Oficina
         String[] opcoesCadastroVeiculoOficina = {"Cadastrar Veículo", "Cadastrar Oficina", "Gerenciar entidades"};
         JComboBox<String> comboBoxCadastroVeiculoOficina = new JComboBox<>(opcoesCadastroVeiculoOficina);
 
 // Estilização do JComboBox
-comboBoxCadastroVeiculoOficina.setPreferredSize(new Dimension(220, 50));
-comboBoxCadastroVeiculoOficina.setFont(new Font("SansSerif", Font.BOLD, 14));
-comboBoxCadastroVeiculoOficina.setBackground(new Color(230, 240, 255));
-comboBoxCadastroVeiculoOficina.setForeground(new Color(50, 50, 50));
-comboBoxCadastroVeiculoOficina.setBorder(BorderFactory.createTitledBorder(
-        BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
-        "Cadastro de Veículo e Oficina",
-        TitledBorder.CENTER, // Centraliza o título
-        TitledBorder.TOP, // Posição do título
-        new Font("SansSerif", Font.BOLD, 12),
-        new Color(50, 50, 50)));
+        comboBoxCadastroVeiculoOficina.setPreferredSize(new Dimension(220, 50));
+        comboBoxCadastroVeiculoOficina.setFont(new Font("SansSerif", Font.BOLD, 14));
+        comboBoxCadastroVeiculoOficina.setBackground(new Color(230, 240, 255));
+        comboBoxCadastroVeiculoOficina.setForeground(new Color(50, 50, 50));
+        comboBoxCadastroVeiculoOficina.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
+                "Cadastro de Veículo e Oficina",
+                TitledBorder.CENTER, // Centraliza o título
+                TitledBorder.TOP, // Posição do título
+                new Font("SansSerif", Font.BOLD, 12),
+                new Color(50, 50, 50)));
 
 // Renderizador personalizado para itens
-comboBoxCadastroVeiculoOficina.setRenderer(new DefaultListCellRenderer() {
-    @Override
-    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        label.setFont(new Font("SansSerif", Font.BOLD, 14));
-        label.setBorder(new EmptyBorder(5, 10, 5, 10));
-        if (isSelected) {
-            label.setBackground(new Color(100, 150, 255));
-            label.setForeground(Color.WHITE);
-        } else {
-            label.setBackground(Color.WHITE);
-            label.setForeground(Color.BLACK);
-        }
-        return label;
-    }
-});
+        comboBoxCadastroVeiculoOficina.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setFont(new Font("SansSerif", Font.BOLD, 14));
+                label.setBorder(new EmptyBorder(5, 10, 5, 10));
+                if (isSelected) {
+                    label.setBackground(new Color(100, 150, 255));
+                    label.setForeground(Color.WHITE);
+                } else {
+                    label.setBackground(Color.WHITE);
+                    label.setForeground(Color.BLACK);
+                }
+                return label;
+            }
+        });
 
 // Ação ao selecionar item
-comboBoxCadastroVeiculoOficina.addActionListener(e -> {
-    String opcaoSelecionada = (String) comboBoxCadastroVeiculoOficina.getSelectedItem();
-    switch (opcaoSelecionada) {
-        case "Cadastrar Veículo":
-        try {
-            abrirTelaCadastroVeiculo();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-            break;
-        case "Cadastrar Oficina":
-            abrirTela("Cadastrar Oficina");
-            break;
-        case "Gerenciar entidades":
-            try {
-                ListToHashtableAdapter<String, Funcionario>  adapterFuncionario = new ListToHashtableAdapter<String, Funcionario>();
-                ListToHashtableAdapter<String, Veiculo>  adapterVeiculo = new ListToHashtableAdapter<String, Veiculo>();
-                ListToHashtableAdapter<String, PessoaJuridica>  adapterPJ = new ListToHashtableAdapter<String, PessoaJuridica>();
-                ListToHashtableAdapter<String, PessoaFisica>  adapterPF = new ListToHashtableAdapter<String, PessoaFisica>();
-                VeiculoController veiculoController = new VeiculoController(frame);
-                FuncionarioController funcionarioController = new FuncionarioController(frame);
-                PessoaFisicaRepository pessoaFisicaRepository = new PessoaFisicaRepository();
-                PessoaJuridicaRepository pessoaJuridicaRepository = new PessoaJuridicaRepository();
-                Hashtable<String, PessoaFisica> hashtablePessoaFisica = adapterPF.listToHashtable(pessoaFisicaRepository.getPessoaFisica(), Object::toString);
-                Hashtable<String, PessoaJuridica> hashtablePessoaJuridica = adapterPJ.listToHashtable(pessoaJuridicaRepository.getPessoaJuridica(), Object::toString);
-                Hashtable<String, Funcionario> hashtableFuncionario = adapterFuncionario.listToHashtable(funcionarioController.getFuncionario(), Object::toString);
-                Hashtable<String, Veiculo> hashtableVeiculo = adapterVeiculo.listToHashtable(veiculoController.getVeiculos(), Object::toString);
-                GerenciamentoView gerenciamentoView = new GerenciamentoView(hashtableVeiculo, hashtableFuncionario, hashtablePessoaFisica, hashtablePessoaJuridica);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
+        comboBoxCadastroVeiculoOficina.addActionListener(e -> {
+            String opcaoSelecionada = (String) comboBoxCadastroVeiculoOficina.getSelectedItem();
+            switch (opcaoSelecionada) {
+                case "Cadastrar Veículo":
+                    try {
+                        abrirTelaCadastroVeiculo();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    break;
+                case "Cadastrar Oficina":
+                    abrirTela("Cadastrar Oficina");
+                    break;
+                case "Gerenciar entidades":
+                    try {
+                        ListToHashtableAdapter<String, Funcionario>  adapterFuncionario = new ListToHashtableAdapter<String, Funcionario>();
+                        ListToHashtableAdapter<String, Veiculo>  adapterVeiculo = new ListToHashtableAdapter<String, Veiculo>();
+                        ListToHashtableAdapter<String, PessoaJuridica>  adapterPJ = new ListToHashtableAdapter<String, PessoaJuridica>();
+                        ListToHashtableAdapter<String, PessoaFisica>  adapterPF = new ListToHashtableAdapter<String, PessoaFisica>();
+                        VeiculoController veiculoController = new VeiculoController(frame);
+                        FuncionarioController funcionarioController = new FuncionarioController(frame);
+                        PessoaFisicaRepository pessoaFisicaRepository = new PessoaFisicaRepository();
+                        PessoaJuridicaRepository pessoaJuridicaRepository = new PessoaJuridicaRepository();
+                        Hashtable<String, PessoaFisica> hashtablePessoaFisica = adapterPF.listToHashtable(pessoaFisicaRepository.getPessoaFisica(), Object::toString);
+                        Hashtable<String, PessoaJuridica> hashtablePessoaJuridica = adapterPJ.listToHashtable(pessoaJuridicaRepository.getPessoaJuridica(), Object::toString);
+                        Hashtable<String, Funcionario> hashtableFuncionario = adapterFuncionario.listToHashtable(funcionarioController.getFuncionario(), Object::toString);
+                        Hashtable<String, Veiculo> hashtableVeiculo = adapterVeiculo.listToHashtable(veiculoController.getVeiculos(), Object::toString);
+                        GerenciamentoView gerenciamentoView = new GerenciamentoView(hashtableVeiculo, hashtableFuncionario, hashtablePessoaFisica, hashtablePessoaJuridica);
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+
             }
-
-
-    }
-});
+        });
         // Combobox Ordem de Serviço
         String[] opcoesOrdemServico = {"Visualização de O.S"};
         JComboBox<String> comboBoxOrdemServico = new JComboBox<>(opcoesOrdemServico);
@@ -271,51 +271,51 @@ comboBoxCadastroVeiculoOficina.addActionListener(e -> {
         comboBoxOrdemServico.setBackground(new Color(230, 240, 255));
         comboBoxOrdemServico.setForeground(new Color(50, 50, 50));
         comboBoxOrdemServico.setBorder(BorderFactory.createTitledBorder(
-        BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
-        "Ordem de Serviço",
-        TitledBorder.CENTER, // Centraliza o título
-        TitledBorder.TOP, // Posição do título
-        new Font("SansSerif", Font.BOLD, 12),
-        new Color(50, 50, 50)));
+                BorderFactory.createLineBorder(new Color(0, 0, 0), 2),
+                "Ordem de Serviço",
+                TitledBorder.CENTER, // Centraliza o título
+                TitledBorder.TOP, // Posição do título
+                new Font("SansSerif", Font.BOLD, 12),
+                new Color(50, 50, 50)));
 
 // Renderizador personalizado para itens
-comboBoxOrdemServico.setRenderer(new DefaultListCellRenderer() {
-    @Override
-    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        label.setFont(new Font("SansSerif", Font.BOLD, 14));
-        label.setBorder(new EmptyBorder(5, 10, 5, 10));
-        if (isSelected) {
-            label.setBackground(new Color(100, 150, 255));
-            label.setForeground(Color.WHITE);
-        } else {
-            label.setBackground(Color.WHITE);
-            label.setForeground(Color.BLACK);
-        }
-        return label;
-    }
-});
+        comboBoxOrdemServico.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setFont(new Font("SansSerif", Font.BOLD, 14));
+                label.setBorder(new EmptyBorder(5, 10, 5, 10));
+                if (isSelected) {
+                    label.setBackground(new Color(100, 150, 255));
+                    label.setForeground(Color.WHITE);
+                } else {
+                    label.setBackground(Color.WHITE);
+                    label.setForeground(Color.BLACK);
+                }
+                return label;
+            }
+        });
 
 // Ação ao selecionar item
-comboBoxOrdemServico.addActionListener(e -> {
-    String opcaoSelecionada = (String) comboBoxOrdemServico.getSelectedItem();
-    switch (opcaoSelecionada) {
-        case "Cadastro de O.S":
-            abrirTela("Cadastro de Ordem de Serviço");
-            break;
-        case "Visualização de O.S":
-            try {
-                // Supondo que você tenha um método em OrdemServicoController que retorna a lista de OS
-                List<OrdemServico> listaOrdensServico = ordemServicoController.getListOrdemServico();
-                OSView osView = new OSView(listaOrdensServico); // Passa a lista de OS para a tela
-                osView.showScreen(); // Exibe a tela da OS
-            } catch (Exception ex) {
-                ex.printStackTrace(); // Para depuração
-                JOptionPane.showMessageDialog(null, "Erro ao carregar a visualização de Ordens de Serviço: " + ex.getMessage());
+        comboBoxOrdemServico.addActionListener(e -> {
+            String opcaoSelecionada = (String) comboBoxOrdemServico.getSelectedItem();
+            switch (opcaoSelecionada) {
+                case "Cadastro de O.S":
+                    abrirTela("Cadastro de Ordem de Serviço");
+                    break;
+                case "Visualização de O.S":
+                    try {
+                        // Supondo que você tenha um método em OrdemServicoController que retorna a lista de OS
+                        List<OrdemServico> listaOrdensServico = ordemServicoController.getListOrdemServico();
+                        OSView osView = new OSView(listaOrdensServico); // Passa a lista de OS para a tela
+                        osView.showScreen(); // Exibe a tela da OS
+                    } catch (Exception ex) {
+                        ex.printStackTrace(); // Para depuração
+                        JOptionPane.showMessageDialog(null, "Erro ao carregar a visualização de Ordens de Serviço: " + ex.getMessage());
+                    }
+                    break;
             }
-            break;
-    }
-});
+        });
         // Adicionar comboboxes ao painel
         panelOpcoes.add(comboBoxCadastroGeral);
         panelOpcoes.add(comboBoxCadastroPessoas);
@@ -353,6 +353,7 @@ comboBoxOrdemServico.addActionListener(e -> {
     private static void abrirTelaCadastroCliente() {
         PessoaView.show();
     }
+
 
 
     private static JComboBox<String> criarComboBox(String[] opcoes, java.awt.event.ActionListener listener) {
@@ -418,7 +419,7 @@ comboBoxOrdemServico.addActionListener(e -> {
     }
 
     // Classe para criar painéis com bordas arredondadas
-        static class RoundedPanel extends JPanel {
+    static class RoundedPanel extends JPanel {
         private final int cornerRadius;
         private final Color backgroundColor;
 

@@ -7,6 +7,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -35,13 +37,14 @@ public class VeiculoView {
 
 
         JFrame novaTela = new JFrame("Cadastro de Veículo");
+        novaTela.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIcon = new ImageIcon(VeiculoView.class.getResource("/JELF DYNAMICS.jpg"));
+        ImageIcon imageIcon = new ImageIcon(HomeView.class.getResource(""));
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
@@ -77,12 +80,11 @@ public class VeiculoView {
         campoMarcaPanel.setLayout(new BorderLayout());
 
 
-
         // Campo de Modelo do Veículo
         JLabel lblModelo = new JLabel("Modelo do Veículo:");
         lblModelo.setForeground(Color.white);
         lblModelo.setOpaque(true);
-        lblModelo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblModelo.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblModelo.setBackground(new Color(0, 0, 0, 150));
 
         ModeloService modeloService = new ModeloService(new ModeloRepository());
@@ -95,7 +97,7 @@ public class VeiculoView {
         JLabel lblPlaca = new JLabel("Placa do Veículo:");
         lblPlaca.setForeground(Color.white);
         lblPlaca.setOpaque(true);
-        lblPlaca.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblPlaca.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblPlaca.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtPlaca = new JTextField(10);
@@ -106,7 +108,7 @@ public class VeiculoView {
         JLabel lblChassi = new JLabel("Número do Chassi:");
         lblChassi.setForeground(Color.white);
         lblChassi.setOpaque(true);
-        lblChassi.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblChassi.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblChassi.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtChassi = new JTextField(17);
@@ -117,7 +119,7 @@ public class VeiculoView {
         JLabel lblQuilometragem = new JLabel("Quilometragem:");
         lblQuilometragem.setForeground(Color.white);
         lblQuilometragem.setOpaque(true);
-        lblQuilometragem.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblQuilometragem.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblQuilometragem.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtQuilometragem = new JTextField(10);
@@ -128,7 +130,7 @@ public class VeiculoView {
         JLabel lblPatrimonio = new JLabel("Número do Patrimônio:");
         lblPatrimonio.setForeground(Color.white);
         lblPatrimonio.setOpaque(true);
-        lblPatrimonio.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblPatrimonio.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblPatrimonio.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtPatrimonio = new JTextField(10);
@@ -139,105 +141,109 @@ public class VeiculoView {
         JLabel lblAnoVeiculo = new JLabel("Ano do Veículo:");
         lblAnoVeiculo.setForeground(Color.white);
         lblAnoVeiculo.setOpaque(true);
-        lblAnoVeiculo.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblAnoVeiculo.setFont(new Font("SansSerif", Font.BOLD, 20));
         lblAnoVeiculo.setBackground(new Color(0, 0, 0, 150));
 
         VeiculoController veiculoController = new VeiculoController(novaTela);
 
         // Criar uma lista de anos para selecionar
-        List<Integer> listaAnos = new ArrayList<>();
-        for (int i = 1980; i <= 2024; i++) {
-            listaAnos.add(i);
-        }
-
-        JComboBox<Integer> cmbAnoVeiculo = new JComboBox<>(listaAnos.toArray(new Integer[0]));
-        cmbAnoVeiculo.setForeground(Color.BLACK);
-        cmbAnoVeiculo.setToolTipText("Selecione o ano do veículo");
+        JTextField txtAno = new JTextField(10);
+        txtAno.setForeground(Color.white);
+        txtAno.setToolTipText("Digite o ano do carro");
 
         // Botões
         JButton btnSalvar = new JButton("Salvar");
         btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
         btnSalvar.setForeground(Color.white);
         btnSalvar.setFocusPainted(false);
-        btnSalvar.addActionListener(e -> {
 
-            try {
-                Modelo modelo = modeloService.getModeloByName(cmbModelo.getSelectedItem().toString());
-                veiculoController.createVeiculo(txtPlaca.getText(), txtChassi.getText(), txtQuilometragem.getText(),
-                        (int )cmbAnoVeiculo.getSelectedItem(), modelo.getIdModelo()) ;
-                // Resetar a seleção da combo box
-                txtPlaca.setText("");
-                txtChassi.setText("");
-                txtQuilometragem.setText("");
-                txtPatrimonio.setText("");
-
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-
-        });
-
-        JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
-        btnCancelar.setForeground(Color.white);
-        btnCancelar.setFocusPainted(false);
-        btnCancelar.addActionListener(e -> novaTela.dispose()); // Fechar a tela
+            btnSalvar.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        String placa = txtPlaca.getText();
+                        String chassi = txtChassi.getText();
+                        String kilometragem = txtQuilometragem.getText();
+                        String ano = txtAno.getText();
+                        Integer anoInt = Integer.valueOf(ano);
+                        String numPatrimonio = txtPatrimonio.getText();
+                        Integer numPatrimonioInteger = Integer.valueOf(numPatrimonio);
 
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panelEntrada.add(lblModelo, gbc);
-        gbc.gridx = 1;
-        panelEntrada.add(cmbModelo, gbc);
+                        VeiculoController veiculoController = new VeiculoController(novaTela);
+                        veiculoController.createVeiculo(placa, chassi, kilometragem, anoInt, numPatrimonioInteger);
+                    } catch (Exception ex) {
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        panelEntrada.add(lblPlaca, gbc);
-        gbc.gridx = 1;
-        panelEntrada.add(txtPlaca, gbc);
+                    } finally {
+                        txtPlaca.setText("");
+                        txtChassi.setText("");
+                        txtQuilometragem.setText("");
+                        txtAno.setText("");
+                        txtPatrimonio.setText("");
+                    }
+                }
+            });
 
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        panelEntrada.add(lblChassi, gbc);
-        gbc.gridx = 1;
-        panelEntrada.add(txtChassi, gbc);
+            JButton btnCancelar = new JButton("Cancelar");
+            btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
+            btnCancelar.setForeground(Color.white);
+            btnCancelar.setFocusPainted(false);
+            btnCancelar.addActionListener(e -> novaTela.dispose()); // Fechar a tela
 
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        panelEntrada.add(lblQuilometragem, gbc);
-        gbc.gridx = 1;
-        panelEntrada.add(txtQuilometragem, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        panelEntrada.add(lblPatrimonio, gbc);
-        gbc.gridx = 1;
-        panelEntrada.add(txtPatrimonio, gbc);
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            panelEntrada.add(lblModelo, gbc);
+            gbc.gridx = 1;
+            panelEntrada.add(cmbModelo, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        panelEntrada.add(lblAnoVeiculo, gbc);
-        gbc.gridx = 1;
-        panelEntrada.add(cmbAnoVeiculo, gbc);
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            panelEntrada.add(lblPlaca, gbc);
+            gbc.gridx = 1;
+            panelEntrada.add(txtPlaca, gbc);
 
-        // Botões "Salvar" e "Cancelar"
-        JPanel panelButtons = new JPanel();
-        panelButtons.setOpaque(false);
-        panelButtons.add(btnSalvar);
-        panelButtons.add(btnCancelar);
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            panelEntrada.add(lblChassi, gbc);
+            gbc.gridx = 1;
+            panelEntrada.add(txtChassi, gbc);
 
-        gbc.gridx = 1;
-        gbc.gridy = 7;
-        panelEntrada.add(panelButtons, gbc);
+            gbc.gridx = 0;
+            gbc.gridy = 4;
+            panelEntrada.add(lblQuilometragem, gbc);
+            gbc.gridx = 1;
+            panelEntrada.add(txtQuilometragem, gbc);
 
-        // Adicionar o painel de entrada ao fundo
-        backgroundLabel.add(panelEntrada, BorderLayout.CENTER);
+            gbc.gridx = 0;
+            gbc.gridy = 5;
+            panelEntrada.add(lblPatrimonio, gbc);
+            gbc.gridx = 1;
+            panelEntrada.add(txtPatrimonio, gbc);
 
-        // Adicionar o painel do título no topo
-        backgroundLabel.add(tituloPanel, BorderLayout.NORTH);
+            gbc.gridx = 0;
+            gbc.gridy = 6;
+            panelEntrada.add(lblAnoVeiculo, gbc);
+            gbc.gridx = 1;
+            panelEntrada.add(txtAno, gbc);
 
-        // Definir o conteúdo da janela
-        novaTela.setContentPane(backgroundLabel);
-        novaTela.setVisible(true);
+            // Botões "Salvar" e "Cancelar"
+            JPanel panelButtons = new JPanel();
+            panelButtons.setOpaque(false);
+            panelButtons.add(btnSalvar);
+            panelButtons.add(btnCancelar);
+
+            gbc.gridx = 1;
+            gbc.gridy = 7;
+            panelEntrada.add(panelButtons, gbc);
+
+            // Adicionar o painel de entrada ao fundo
+            backgroundLabel.add(panelEntrada, BorderLayout.CENTER);
+
+            // Adicionar o painel do título no topo
+            backgroundLabel.add(tituloPanel, BorderLayout.NORTH);
+
+            // Definir o conteúdo da janela
+            novaTela.setContentPane(backgroundLabel);
+            novaTela.setVisible(true);
+        }
     }
-}

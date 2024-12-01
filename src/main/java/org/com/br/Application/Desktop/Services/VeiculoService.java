@@ -6,7 +6,7 @@ import org.com.br.Infra.Interfaces.IVeiculo;
 import java.util.List;
 
 public class VeiculoService {
-    
+
     private IVeiculo veiculoRepository;
 
     public VeiculoService (IVeiculo veiculoRepository){
@@ -29,12 +29,23 @@ public class VeiculoService {
         veiculoRepository.deleteVeiculo(placa);
     }
 
+
     public List<Veiculo> getVeiculo(){
         try {
             return veiculoRepository.getVeiculo();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
 
+       
+
+    }
+    
+    public void criarVeiculo(String placa, String chassi, String kilometragem, int ano, int numPropriedade) throws Exception{
+        Veiculo veiculo = new Veiculo(placa, chassi, kilometragem, ano,numPropriedade);
+
+        veiculoRepository.createVeiculo(veiculo);
+    }
 }
+
+

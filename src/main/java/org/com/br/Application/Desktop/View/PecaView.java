@@ -5,23 +5,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+
+import java.awt.Toolkit;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+
 
 import org.com.br.Application.Desktop.Controller.PecaController;
 
 public class PecaView {
     public static void show() {
         JFrame novaTela = new JFrame("Cadastro de Peças");
+        novaTela.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
+        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
         Image imageCombobox = imageIconCombobox.getImage();
         Image resizedImageCombobox = imageCombobox.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
@@ -66,6 +77,7 @@ public class PecaView {
         JLabel lblValor = criarLabel("Valor por Unidade:");
         JTextField txtValor = criarTextField(20);
         ((AbstractDocument) txtValor.getDocument()).setDocumentFilter(new NumericDocumentFilter(true));
+
 
         // Botões
         JButton btnSalvar = new JButton("Salvar");
