@@ -1,6 +1,6 @@
 package org.com.br.Application.Desktop.View;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.Toolkit;
 import java.util.List;
 import java.util.function.Consumer;
@@ -34,6 +34,7 @@ public class EstoqueView extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeView.class.getResource("/icon.jpg")));
 
         // Painel principal com layout em abas
         JTabbedPane tabbedPane = new JTabbedPane();

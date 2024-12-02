@@ -42,7 +42,7 @@ public class OSView extends JFrame {
         setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIcon = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
+        ImageIcon imageIcon = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
         JLabel backgroundLabel = new JLabel(new ImageIcon(resizedImage));

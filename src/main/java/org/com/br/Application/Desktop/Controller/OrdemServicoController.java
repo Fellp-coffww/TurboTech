@@ -31,7 +31,7 @@ public class OrdemServicoController {
 
     public static List<OrdemServico> getListOrdemServico() throws Exception {
 
-        return  new OrdemServicoRepository().getOrdemServico();
+        return  new OrdemServicoRepository().getOrdemServicoByState();
 
     }
 

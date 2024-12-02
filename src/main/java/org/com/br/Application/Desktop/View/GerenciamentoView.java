@@ -1,6 +1,6 @@
 package org.com.br.Application.Desktop.View;
 
-import java.awt.Component;
+import java.awt.*;
 import java.util.Hashtable;
 import java.util.function.Consumer;
 import javax.swing.*;
@@ -32,6 +32,8 @@ public class GerenciamentoView extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1000, 600);
         setLocationRelativeTo(null);
+
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeView.class.getResource("/icon.jpg")));
 
         // Painel principal com abas
         JTabbedPane tabbedPane = new JTabbedPane();

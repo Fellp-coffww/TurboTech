@@ -249,7 +249,11 @@ public class DetalhesOSView {
                     ordemServicoDetalheController.deleteItemServico(servicos.get(row));
                 servicos.remove(row);
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Serviço removido com sucesso! Atualizar página para renovar tabela. ");
-                atualizarTabelaServicos(servicos);
+                try {
+                    atualizarTabelaServicos(servicos);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }));
 
             return table;
@@ -259,36 +263,49 @@ public class DetalhesOSView {
     }
 
 
-    private void atualizarTabelaServicos(List<ItemServico> servicos) {
-        JScrollPane scrollPane = new JScrollPane(criarTabelaServicos(servicos));
+    private void atualizarTabelaServicos(List<ItemServico> servicos) throws Exception {
+        DefaultTableModel model = (DefaultTableModel) tableServicos.getModel();
+        model.setRowCount(0); // Limpa todas as linhas
 
-        // Obtendo o JTabbedPane diretamente
-        Component parent = tableServicos.getParent().getParent();
-        if (parent instanceof JTabbedPane) {
-            JTabbedPane tabbedPane = (JTabbedPane) parent;
+        IServico servicoRepository = new ServicoRepository();
+        IFuncionario funcionarioRepository = new FuncionarioRepository();
 
-            // Substituindo o conteúdo da aba "Serviços"
-            int index = tabbedPane.indexOfTab("Serviços");
-            if (index >= 0) {
-                tabbedPane.setComponentAt(index, scrollPane);
-            }
+        int i = 1;
+        for (ItemServico servico : servicos) {
+            model.addRow(new Object[]{
+                    i++,
+                    servico.getIdServico(),
+                    servicoRepository.getServicoById(servico.getIdServico()).getDescricao(),
+                    funcionarioRepository.getFuncionarioByCpf(servico.getCpf()).getNome(),
+                    servico.getQuantidade(),
+                    String.format("R$ %.2f", servico.getValorUnitario()),
+                    String.format("R$ %.2f", servico.getValorTotal()),
+                    "Deletar"
+            });
         }
+
+        model.fireTableDataChanged(); // Notifica a tabela sobre a atualização
     }
 
-    private void atualizarTabelaPecas(List<ItemPeca> pecas) {
-        JScrollPane scrollPane = new JScrollPane(criarTabelaPecas(pecas));
+    private void atualizarTabelaPecas(List<ItemPeca> pecas) throws Exception {
+        DefaultTableModel model = (DefaultTableModel) tablePecas.getModel();
+        model.setRowCount(0); // Limpa todas as linhas
 
-        // Obtendo o JTabbedPane diretamente
-        Component parent = tablePecas.getParent().getParent();
-        if (parent instanceof JTabbedPane) {
-            JTabbedPane tabbedPane = (JTabbedPane) parent;
+        IPeca pecaRepository = new PecaRepository();
 
-            // Substituindo o conteúdo da aba "Peças"
-            int index = tabbedPane.indexOfTab("Peças");
-            if (index >= 0) {
-                tabbedPane.setComponentAt(index, scrollPane);
-            }
+        int i = 1;
+        for (ItemPeca peca : pecas) {
+            model.addRow(new Object[]{
+                    i++,
+                    pecaRepository.getPecaById(peca.getIdPeca()).getDescricao(),
+                    peca.getQuantidade(),
+                    String.format("R$ %.2f", peca.getValorUnitario()),
+                    String.format("R$ %.2f", peca.getValorTotal()),
+                    "Deletar"
+            });
         }
+
+        model.fireTableDataChanged(); // Notifica a tabela sobre a atualização
     }
 
 
@@ -369,7 +386,11 @@ public class DetalhesOSView {
 
             table.getColumn("Ações").setCellRenderer(new ButtonRenderer());
             table.getColumn("Ações").setCellEditor(new ButtonEditor(new JCheckBox(), row -> {
-                atualizarTabelaPecas(pecas);
+                try {
+                    atualizarTabelaPecas(pecas);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
                 OrdemServicoDetalheController ordemServicoDetalheController = new OrdemServicoDetalheController();
                 ordemServicoDetalheController.deleteItemPeca(pecas.get(row));
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Peça removida com sucesso! Atualizar página para renovar tabela. ");
@@ -409,6 +430,8 @@ public class DetalhesOSView {
         table.setRowHeight(25);
         table.getTableHeader().setReorderingAllowed(false);
     }
+
+
 
     private void showAddServicoFrame(List<Servico> servicos, List<Funcionario> funcionarios) {
         JFrame frame = new JFrame("Adicionar Serviço");
@@ -453,7 +476,11 @@ public class DetalhesOSView {
                         break;
                     }
                 }
-
+                try {
+                    atualizarTabelaServicos(ordemServicoDetalheController.getItemServicoList());
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 ordemServico.setPrecoTotal(ordemServico.getPrecoTotal() + n);
                 ordemServicoDetalheController.updateOS(ordemServico);
 
@@ -509,6 +536,11 @@ public class DetalhesOSView {
                     }
                 }
 
+                try {
+                    atualizarTabelaPecas(ordemServicoDetalheController.getItemPecaList());
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 ordemServico.setPrecoTotal(ordemServico.getPrecoTotal() + n);
                 ordemServicoDetalheController.updateOS(ordemServico);
 
