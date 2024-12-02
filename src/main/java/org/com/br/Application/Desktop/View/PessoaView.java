@@ -1,11 +1,24 @@
 package org.com.br.Application.Desktop.View;
 
-import java.awt.*;
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Toolkit;
 import java.text.ParseException;
 
-import javax.swing.*;
-
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import org.com.br.Application.Desktop.Controller.ClienteController;
@@ -127,6 +140,8 @@ public class PessoaView {
 
         JButton btnSalvar = new JButton("Salvar");
         JButton btnLimpar = new JButton("Limpar");
+        JButton btnCancelar = new JButton("Cancelar");
+        
 
         // Adicionando os campos ao painel com GridBagLayout
         int row = 0;
@@ -165,7 +180,15 @@ public class PessoaView {
         JPanel panelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         panelBotoes.setOpaque(false); // Torna o painel transparente
         panelBotoes.add(btnSalvar);
+        btnSalvar.setBackground(new Color(34, 139, 34)); // Cor verde
+        btnSalvar.setForeground(Color.white);
+        btnSalvar.setFocusPainted(false);
         panelBotoes.add(btnLimpar);
+        panelBotoes.add(btnCancelar);
+        btnCancelar.setBackground(new Color(220, 20, 60)); // Cor vermelha
+        btnCancelar.setForeground(Color.white);
+        btnCancelar.setFocusPainted(false);
+        btnCancelar.addActionListener(e -> frame.dispose());
 
         // Adicionar os painéis ao fundo
         backgroundLabel.add(panelForm, BorderLayout.CENTER);
