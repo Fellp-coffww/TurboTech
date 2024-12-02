@@ -7,7 +7,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,14 +27,13 @@ public class FuncionarioView {
 
     public static void show() {
         JFrame novaTela = new JFrame("Cadastro de Funcionário");
-        novaTela.setIconImage(Toolkit.getDefaultToolkit().getImage(PessoaView.class.getResource("/icon.jpg")));
         novaTela.setSize(700, 700); // Tamanho da tela
         novaTela.setLocationRelativeTo(null); // Centralizar a tela
         novaTela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/foto fundo home turbo tech.jpg"));
+        ImageIcon imageIconCombobox = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
         Image imageCombobox = imageIconCombobox.getImage();
         Image resizedImageCombobox = imageCombobox.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
@@ -69,7 +67,7 @@ public class FuncionarioView {
         JLabel lblNome = new JLabel("Nome do Funcionário:");
         lblNome.setForeground(Color.white);
         lblNome.setOpaque(true);
-        lblNome.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblNome.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblNome.setBackground(new Color(0, 0, 0, 150));
 
         JTextField txtNome = new JTextField(20);
@@ -79,7 +77,7 @@ public class FuncionarioView {
         JLabel lblCPF = new JLabel("CPF:");
         lblCPF.setForeground(Color.white);
         lblCPF.setOpaque(true);
-        lblCPF.setFont(new Font("SansSerif", Font.BOLD, 20));
+        lblCPF.setFont(new Font("SansSerif", Font.BOLD, 28));
         lblCPF.setBackground(new Color(0, 0, 0, 150));
 
         JFormattedTextField txtCPF = new JFormattedTextField(); // Inicialização padrão

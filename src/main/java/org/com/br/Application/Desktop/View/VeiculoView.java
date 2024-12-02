@@ -44,7 +44,7 @@ public class VeiculoView {
         novaTela.setLayout(new BorderLayout());
 
         // Carregar a imagem de fundo
-        ImageIcon imageIcon = new ImageIcon(HomeView.class.getResource(""));
+        ImageIcon imageIcon = new ImageIcon(HomeView.class.getResource("/JELF DYNAMICS.jpg"));
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(novaTela.getWidth(), novaTela.getHeight(), Image.SCALE_SMOOTH);
 
