@@ -31,9 +31,18 @@ import javax.swing.border.TitledBorder;
 import org.com.br.Application.Desktop.Controller.FuncionarioController;
 import org.com.br.Application.Desktop.Controller.OrdemServicoController;
 import org.com.br.Application.Desktop.Controller.VeiculoController;
-import org.com.br.Core.Domain.Models.*;
+import org.com.br.Core.Domain.Models.Funcionario;
+import org.com.br.Core.Domain.Models.OrdemServico;
+import org.com.br.Core.Domain.Models.PessoaFisica;
+import org.com.br.Core.Domain.Models.PessoaJuridica;
+import org.com.br.Core.Domain.Models.Veiculo;
 import org.com.br.Core.Domain.Rules.ListToHashtableAdapter;
-import org.com.br.Infra.Repository.*;
+import org.com.br.Infra.Repository.MarcaRepository;
+import org.com.br.Infra.Repository.ModeloRepository;
+import org.com.br.Infra.Repository.PecaRepository;
+import org.com.br.Infra.Repository.PessoaFisicaRepository;
+import org.com.br.Infra.Repository.PessoaJuridicaRepository;
+import org.com.br.Infra.Repository.ServicoRepository;
 
 public class HomeView {
 
@@ -143,7 +152,7 @@ public class HomeView {
 
         // Combobox Cadastro de Pessoas
 
-        String[] opcoesCadastroPessoas = {"Cadastrar Cliente", "Cadastrar Funcionário"};
+        String[] opcoesCadastroPessoas = {"Cadastrar Cliente", "Cadastrar Funcionário", "Cadastrar Propriedade"};
         JComboBox<String> comboBoxCadastroPessoas = new JComboBox<>(opcoesCadastroPessoas);
 
 // Estilização do JComboBox
@@ -186,6 +195,9 @@ public class HomeView {
                     break;
                 case "Cadastrar Funcionário":
                     FuncionarioView.show();
+                    break;
+                case "Cadastrar Propriedade":
+                    PropriedadeView.show();
                     break;
             }
         });
@@ -388,6 +400,7 @@ public class HomeView {
     private static void abrirTelaCadastroFuncionario() {
         FuncionarioView.show();
     }
+
 
     private static void abrirTelaCadastroVeiculo()throws Exception {
         VeiculoView.show();
